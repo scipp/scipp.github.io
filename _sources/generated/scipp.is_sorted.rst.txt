@@ -1,6 +1,0 @@
-﻿scipp.is\_sorted
-================
-
-.. currentmodule:: scipp
-
-.. autofunction:: is_sorted

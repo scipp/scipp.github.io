@@ -182,6 +182,7 @@
               style="height: 30px; color: #27a54b; background-color: #403d3d;
                     border: 0px; box-shadow: none;">
         <option value="https://scipp.github.io" selected>latest (unstable)</option>
+        <option value="https://scipp.github.io/release/0.5.0">v0.5</option>
         <option value="https://scipp.github.io/release/0.4.0">v0.4</option>
         <option value="https://scipp.github.io/release/0.3.0">v0.3</option>
       </select>
@@ -276,9 +277,6 @@
 </style>
 <div class="section" id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p><em>Note: Currently all pre-built packages of scipp come with the “neutron” set of units and dimension labels.
-Once multiple options are available (or required) we will look into either shipping multiple binaries, or allow for configuration at run time.
-If you want to use scipp and require different units/dimensions, please see</em> <a class="reference internal" href="../developer/customizing.html#customizing"><span class="std std-ref">Customizing Scipp</span></a>, <em>or better, get in touch with us.</em></p>
 <p>Scipp requires Python 3.7 or above.</p>
 <div class="section" id="conda">
 <h2>Conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h2>
@@ -311,7 +309,6 @@ This is due to some dependencies being too old to work in the same environment a
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ conda create <span class="se">\</span>
     -n env_with_scipp_and_mantid <span class="se">\</span>
     -c conda-forge <span class="se">\</span>
-    -c scipp/label/dev <span class="se">\</span>
     -c scipp <span class="se">\</span>
     <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 <span class="se">\</span>
     scipp <span class="se">\</span>

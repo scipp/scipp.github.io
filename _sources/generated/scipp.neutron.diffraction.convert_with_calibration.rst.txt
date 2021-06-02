@@ -1,6 +1,0 @@
-﻿scipp.neutron.diffraction.convert\_with\_calibration
-====================================================
-
-.. currentmodule:: scipp.neutron.diffraction
-
-.. autofunction:: convert_with_calibration
