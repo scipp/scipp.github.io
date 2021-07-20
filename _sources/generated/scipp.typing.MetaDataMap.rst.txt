@@ -1,0 +1,6 @@
+﻿scipp.typing.MetaDataMap
+========================
+
+.. currentmodule:: scipp.typing
+
+.. autodata:: MetaDataMap

@@ -1,6 +1,0 @@
-﻿scipp.GroupByDataset.min
-========================
-
-.. currentmodule:: scipp
-
-.. automethod:: GroupByDataset.min

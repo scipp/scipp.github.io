@@ -140,6 +140,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html#creation-functions">Creation functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html#free-functions">Free functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/linear-algebra.html">Linear Algebra</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/dtype.html">Data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/units.html">Physical units</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/error-propagation.html">Propagation of uncertainties</a></li>
@@ -169,6 +170,7 @@
                     border: 0px; box-shadow: none;">
         <option value="" selected>Pick version</option>
         <option value="https://scipp.github.io">latest (unstable)</option>
+        <option value="https://scipp.github.io/release/0.7.0">v0.7</option>
         <option value="https://scipp.github.io/release/0.6.1">v0.6</option>
         <option value="https://scipp.github.io/release/0.5.0">v0.5</option>
         <option value="https://scipp.github.io/release/0.4.0">v0.4</option>
@@ -605,9 +607,9 @@ var element = document.currentScript.previousSibling.previousSibling;
 <path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
 </symbol>
 </defs>
-</svg><div class='sc-wrap'><div class='sc-header'><div class='sc-obj-type'>scipp.Variable (128 Bytes)</div></div><ul class='sc-sections'><li class='sc-section-item'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-standalone-var-name'><span>(x: 2, y: 4)</span></div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m/s</div><div class='sc-value-preview sc-preview'><span><div>3.32, 0.47, ..., 1.32, 1.05</div></span><span><div>σ² = 213.48, 0.35, ..., 24.03, 2.08</div></span></div><input id='attrs-77f578f6-5a60-47ea-84ff-3233c4054ff3' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-77f578f6-5a60-47ea-84ff-3233c4054ff3' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-cbb8279f-93d5-40c7-ac06-6d33d4fe598a' class='sc-var-data-in' type='checkbox'><label for='data-cbb8279f-93d5-40c7-ac06-6d33d4fe598a' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([[3.32260216, 0.47121733, 0.96118973, 0.96746801],
-       [0.40628009, 0.17200744, 1.32329455, 1.04747914]])<br><br>Variances:<br>                       <div>array([[3.32260216, 0.47121733, 0.96118973, 0.96746801],
-       [0.40628009, 0.17200744, 1.32329455, 1.04747914]])</div></pre></li></ul></li></ul></div></div></div>
+</svg><div class='sc-wrap'><div class='sc-header'><div class='sc-obj-type'>scipp.Variable (128 Bytes)</div></div><ul class='sc-sections'><li class='sc-section-item'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-standalone-var-name'><span>(x: 2, y: 4)</span></div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m/s</div><div class='sc-value-preview sc-preview'><span><div>0.02, 1.45, ..., 0.13, 1.46</div></span><span><div>σ² = 1.26, 3.29, ..., 0.54, 5.39</div></span></div><input id='attrs-c6d8051c-a7d4-4420-a01c-65675babce80' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-c6d8051c-a7d4-4420-a01c-65675babce80' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-69ae85b9-eaeb-4ad2-8cf1-d4d8a9baa3d7' class='sc-var-data-in' type='checkbox'><label for='data-69ae85b9-eaeb-4ad2-8cf1-d4d8a9baa3d7' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([[0.01596758, 1.44933604, 0.74358072, 0.14772733],
+       [1.06593558, 0.45872158, 0.13033858, 1.45783018]])<br><br>Variances:<br>                       <div>array([[0.01596758, 1.44933604, 0.74358072, 0.14772733],
+       [1.06593558, 0.45872158, 0.13033858, 1.45783018]])</div></pre></li></ul></li></ul></div></div></div>
 </div>
 </div>
 <div class="section" id="Propagation-of-uncertainties">
@@ -629,8 +631,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[3.32260216, 0.47121733, 0.96118973, 0.96746801],
-       [0.40628009, 0.17200744, 1.32329455, 1.04747914]])
+array([[0.01596758, 1.44933604, 0.74358072, 0.14772733],
+       [1.06593558, 0.45872158, 0.13033858, 1.45783018]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -648,8 +650,8 @@ array([[3.32260216, 0.47121733, 0.96118973, 0.96746801],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[3.32260216, 0.47121733, 0.96118973, 0.96746801],
-       [0.40628009, 0.17200744, 1.32329455, 1.04747914]])
+array([[0.01596758, 1.44933604, 0.74358072, 0.14772733],
+       [1.06593558, 0.45872158, 0.13033858, 1.45783018]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -667,8 +669,8 @@ array([[3.32260216, 0.47121733, 0.96118973, 0.96746801],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[213.48022941,   0.35499185,   2.37966527,   1.54033988],
-       [  2.04619949,   1.42131141,  24.02589972,   2.07924735]])
+array([[1.25552204, 3.29499821, 0.84096636, 0.24268624],
+       [3.40245069, 0.30644993, 0.54124237, 5.39131391]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -686,8 +688,8 @@ array([[213.48022941,   0.35499185,   2.37966527,   1.54033988],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.27750772, 0.16329251, 0.47861389, 2.31778095],
-       [3.09206252, 1.0146227 , 0.16773176, 1.58113973]])
+array([[0.70256591, 4.35282405, 0.83381104, 0.08801308],
+       [1.46663848, 0.05155221, 0.05187061, 0.0180509 ]])
 </pre></div></div>
 </div>
 <p>The implementation assumes uncorrelated data and is otherwise based on, e.g., <a class="reference external" href="https://en.wikipedia.org/wiki/Propagation_of_uncertainty#Example_formulae%3E">Wikipedia: Propagation of uncertainty</a>. See also <a class="reference internal" href="../reference/error-propagation.html"><span class="doc">Propagation of uncertainties</span></a> for the concrete equations used for error propagation.</p>
@@ -768,8 +770,8 @@ array([[0.27750772, 0.16329251, 0.47861389, 2.31778095],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[0.72085964, 0.41539466, 0.71163336, 0.76981844],
-       [0.27099238, 0.11644018, 0.2747715 , 0.91682494]])
+array([[0.01157016, 0.91311495, 0.69079217, 0.09795068],
+       [0.72422933, 0.26349737, 0.04060423, 0.89321515]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -788,7 +790,7 @@ array([[0.72085964, 0.41539466, 0.71163336, 0.76981844],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 0.44986726,  0.29895448,  0.43686186, -0.1470065 ],
+array([[-0.71265917,  0.64961758,  0.65018794, -0.79526447],
        [ 0.        ,  0.        ,  0.        ,  0.        ]])
 </pre></div></div>
 </div>
@@ -910,8 +912,8 @@ Coordinates:
   x                         float64              [m]  (x)  [0.000000, 1.000000]
   y                         float64              [m]  (y)  [0.000000, 1.000000, 2.000000]
 Data:
-  a                         float64  [dimensionless]  (x, y)  [0.466720, 0.396731, ..., 0.884140, 0.362213]
-  b                         float64  [dimensionless]  (y, x)  [0.782102, 0.118472, ..., 0.231182, 0.460911]
+  a                         float64  [dimensionless]  (x, y)  [0.510496, 0.817988, ..., 0.964950, 0.559772]
+  b                         float64  [dimensionless]  (y, x)  [0.328586, 0.797766, ..., 0.832630, 0.639692]
 
  to contain d.
 </pre></div></div>

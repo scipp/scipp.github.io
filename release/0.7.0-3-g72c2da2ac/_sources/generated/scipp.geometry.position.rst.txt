@@ -1,6 +1,0 @@
-﻿scipp.geometry.position
-=======================
-
-.. currentmodule:: scipp
-
-.. autofunction:: geometry.position

@@ -96,14 +96,14 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="data-structures.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="slicing.html">Slicing</a></li>
@@ -119,17 +119,18 @@
 <li class="toctree-l1"><a class="reference internal" href="how_to.html">How to…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips-tricks-and-anti-patterns.html">Tips, tricks, and anti-patterns</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Visualization</span></p>
+<p class="caption" role="heading"><span class="caption-text">Visualization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../visualization/representations-and-tables.html">Representations and Tables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../visualization/plotting-overview.html">Plotting Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../visualization/plotting-in-depth.html">Plotting in depth</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html#creation-functions">Creation functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html#free-functions">Free functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html#typing">Typing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/linear-algebra.html">Linear Algebra</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/dtype.html">Data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/units.html">Physical units</a></li>
@@ -137,12 +138,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/runtime-configuration.html">Runtime Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/developer-documentation.html">Developer Documentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Tutorials</span></p>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/introduction.html">1-D datasets and tables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/multi-d-datasets.html">Multi-dimensional datasets</a></li>
 </ul>
-<p class="caption"><span class="caption-text">About</span></p>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../about/about.html">About scipp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/whats-new.html">What’s new in scipp</a></li>
@@ -160,6 +161,7 @@
                     border: 0px; box-shadow: none;">
         <option value="" selected>Pick version</option>
         <option value="https://scipp.github.io">latest (unstable)</option>
+        <option value="https://scipp.github.io/release/0.7.0">v0.7</option>
         <option value="https://scipp.github.io/release/0.6.1">v0.6</option>
         <option value="https://scipp.github.io/release/0.5.0">v0.5</option>
         <option value="https://scipp.github.io/release/0.4.0">v0.4</option>
@@ -583,15 +585,15 @@ var element = document.currentScript.previousSibling.previousSibling;
 <path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
 </symbol>
 </defs>
-</svg><div class='sc-wrap'><div class='sc-header'><div class='sc-obj-type'>scipp.DataArray (296 Bytes)</div></div><ul class='sc-sections'><li class='sc-section-item'><input id='section-7922ca4d-9d5f-48b5-afff-459db3461e0c' class='sc-section-summary-in' type='checkbox' disabled ><label for='section-7922ca4d-9d5f-48b5-afff-459db3461e0c' class='sc-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='sc-section-inline-details'><ul class='sc-dim-list'><li><span class='sc-has-index'>x</span>: 9</li><li><span>y</span>: 3</li></ul></div><div class='sc-section-details'></div></li><li class='sc-section-item'><input id='section-63f66cd0-eae8-440b-91c6-dcd1d34b750b' class='sc-section-summary-in' type='checkbox'  checked><label for='section-63f66cd0-eae8-440b-91c6-dcd1d34b750b' class='sc-section-summary' >Coordinates: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span class='sc-has-index'>x</span></div><div class='sc-var-dims'>(x [bin-edge])</div><div class='sc-var-dtype'>int64</div><div class='sc-var-unit'></div><div class='sc-value-preview sc-preview'><span><div>0, 1, ..., 8, 9</div></span></div><input id='attrs-119977b7-e84a-4176-b8bd-1e2d41e8bed3' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-119977b7-e84a-4176-b8bd-1e2d41e8bed3' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-77f43bae-9284-4d7b-9c61-4693ad9b07e3' class='sc-var-data-in' type='checkbox'><label for='data-77f43bae-9284-4d7b-9c61-4693ad9b07e3' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</pre></span></li></ul></div></li><li class='sc-section-item'><input id='section-ff642e5e-66e8-4711-97a0-0d5941fd2fe6' class='sc-section-summary-in' type='checkbox'  checked><label for='section-ff642e5e-66e8-4711-97a0-0d5941fd2fe6' class='sc-section-summary' >Data: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span></span></div><div class='sc-var-dims'>(x, y)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'></div><div class='sc-value-preview sc-preview'><span><div>0.15, 0.66, ..., 0.67, 0.55</div></span></div><input id='attrs-7ae6ae38-c160-4d5e-87f6-dd791aadc56f' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-7ae6ae38-c160-4d5e-87f6-dd791aadc56f' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-bd9576a5-d20c-4ec7-9f84-73f98d6c1f4c' class='sc-var-data-in' type='checkbox'><label for='data-bd9576a5-d20c-4ec7-9f84-73f98d6c1f4c' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([[0.14508112, 0.66106226, 0.77268488],
-       [0.1151583 , 0.44995276, 0.13801439],
-       [0.60397328, 0.32658647, 0.66957831],
-       [0.85293086, 0.65775448, 0.74780206],
-       [0.56227811, 0.74875496, 0.36624392],
-       [0.74733525, 0.82805913, 0.80286845],
-       [0.52599735, 0.25829807, 0.06498642],
-       [0.00956172, 0.66209637, 0.63547662],
-       [0.47621763, 0.67386288, 0.54688425]])</pre></li></ul></div></li></ul></div></div></div>
+</svg><div class='sc-wrap'><div class='sc-header'><div class='sc-obj-type'>scipp.DataArray (296 Bytes)</div></div><ul class='sc-sections'><li class='sc-section-item'><input id='section-cbb2d75f-6f66-4952-91d8-c39191c02f66' class='sc-section-summary-in' type='checkbox' disabled ><label for='section-cbb2d75f-6f66-4952-91d8-c39191c02f66' class='sc-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='sc-section-inline-details'><ul class='sc-dim-list'><li><span class='sc-has-index'>x</span>: 9</li><li><span>y</span>: 3</li></ul></div><div class='sc-section-details'></div></li><li class='sc-section-item'><input id='section-fe14627b-9518-4eaa-9dbd-89a5520c3cc0' class='sc-section-summary-in' type='checkbox'  checked><label for='section-fe14627b-9518-4eaa-9dbd-89a5520c3cc0' class='sc-section-summary' >Coordinates: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span class='sc-has-index'>x</span></div><div class='sc-var-dims'>(x [bin-edge])</div><div class='sc-var-dtype'>int64</div><div class='sc-var-unit'></div><div class='sc-value-preview sc-preview'><span><div>0, 1, ..., 8, 9</div></span></div><input id='attrs-d3fcda73-cdaa-435e-9daa-e008d6640bef' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-d3fcda73-cdaa-435e-9daa-e008d6640bef' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-561b5606-aff2-442e-bf52-01676b5615aa' class='sc-var-data-in' type='checkbox'><label for='data-561b5606-aff2-442e-bf52-01676b5615aa' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</pre></span></li></ul></div></li><li class='sc-section-item'><input id='section-3f6bc088-bbad-431a-a2e1-06cb82b70312' class='sc-section-summary-in' type='checkbox'  checked><label for='section-3f6bc088-bbad-431a-a2e1-06cb82b70312' class='sc-section-summary' >Data: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span></span></div><div class='sc-var-dims'>(x, y)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'></div><div class='sc-value-preview sc-preview'><span><div>0.56, 0.17, ..., 0.4, 0.88</div></span></div><input id='attrs-db86aa89-1114-4637-a787-70a9f3e31217' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-db86aa89-1114-4637-a787-70a9f3e31217' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-76416c15-cc08-4618-b50e-b05061086116' class='sc-var-data-in' type='checkbox'><label for='data-76416c15-cc08-4618-b50e-b05061086116' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([[0.56069842, 0.16890493, 0.00969685],
+       [0.51721197, 0.42465416, 0.35778217],
+       [0.95067196, 0.35180759, 0.51014141],
+       [0.88994022, 0.38775153, 0.51182551],
+       [0.09652697, 0.52721112, 0.69989112],
+       [0.57539626, 0.98025506, 0.43128362],
+       [0.4155893 , 0.58691122, 0.63005289],
+       [0.42284577, 0.41889102, 0.77785936],
+       [0.77599453, 0.40240593, 0.88435082]])</pre></li></ul></div></li></ul></div></div></div>
 </div>
 </div>
 <div class="section" id="NeXus">

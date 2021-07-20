@@ -1,0 +1,6 @@
+﻿scipp.typing.VariableLike
+=========================
+
+.. currentmodule:: scipp.typing
+
+.. autodata:: VariableLike

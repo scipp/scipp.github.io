@@ -93,14 +93,14 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/data-structures.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/slicing.html">Slicing</a></li>
@@ -112,17 +112,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/how_to.html">How to…</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/tips-tricks-and-anti-patterns.html">Tips, tricks, and anti-patterns</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Visualization</span></p>
+<p class="caption" role="heading"><span class="caption-text">Visualization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../visualization/representations-and-tables.html">Representations and Tables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../visualization/plotting-overview.html">Plotting Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../visualization/plotting-in-depth.html">Plotting in depth</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html#creation-functions">Creation functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html#free-functions">Free functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html#typing">Typing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/linear-algebra.html">Linear Algebra</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/dtype.html">Data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/units.html">Physical units</a></li>
@@ -130,12 +131,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/runtime-configuration.html">Runtime Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/developer-documentation.html">Developer Documentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Tutorials</span></p>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/introduction.html">1-D datasets and tables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/multi-d-datasets.html">Multi-dimensional datasets</a></li>
 </ul>
-<p class="caption"><span class="caption-text">About</span></p>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About scipp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whats-new.html">What’s new in scipp</a></li>
@@ -143,44 +144,46 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to scipp</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#since-v0-7">Since v0.7</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#contributors">Contributors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#breaking-changes">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bugfixes">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributors">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-7-0-june-2021">v0.7.0 (June 2021)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bugfixes">Bugfixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-6-1-april-2021">v0.6.1 (April 2021)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id21">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-6-0-march-2021">v0.6.0 (March 2021)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id24">Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id40">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id43">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id56">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id59">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-5-0-january-2021">v0.5.0 (January 2021)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id44">Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id45">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id46">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id60">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id61">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id62">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-4-july-2020">v0.4 (July 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id47">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id63">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#noteable-bug-fixes">Noteable bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id48">Breaking changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id49">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id64">Breaking changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id65">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-3-march-2020">v0.3 (March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-2-december-2019">v0.2 (December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-1-september-2019">v0.1 (September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-organizations">Contributing Organizations</a></li>
 </ul>
 </li>
 </ul>
@@ -194,6 +197,7 @@
                     border: 0px; box-shadow: none;">
         <option value="" selected>Pick version</option>
         <option value="https://scipp.github.io">latest (unstable)</option>
+        <option value="https://scipp.github.io/release/0.7.0">v0.7</option>
         <option value="https://scipp.github.io/release/0.6.1">v0.6</option>
         <option value="https://scipp.github.io/release/0.5.0">v0.5</option>
         <option value="https://scipp.github.io/release/0.4.0">v0.4</option>
@@ -292,24 +296,48 @@
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="since-v0-7">
 <h2>Since v0.7<a class="headerlink" href="#since-v0-7" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="contributors">
-<h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h3>
-<p>Owen Arnold,
-Simon Heybrock,
-Neil Vaytet,
-and Jan-Lukas Wynen</p>
-</div>
 <div class="section" id="features">
 <h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">sizes</span></code> argument to <code class="docutils literal notranslate"><span class="pre">zeros</span></code>, <code class="docutils literal notranslate"><span class="pre">ones</span></code>, and <code class="docutils literal notranslate"><span class="pre">empty</span></code> variable creation functions <a class="reference external" href="https://github.com/scipp/scipp/pull/1951">#1951</a>.</p></li>
+<li><p>Slicing syntax now supports ellipsis, e.g., <code class="docutils literal notranslate"><span class="pre">da.data[...]</span> <span class="pre">=</span> <span class="pre">var</span></code> <a class="reference external" href="https://github.com/scipp/scipp/pull/1960">#1960</a>.</p></li>
+<li><p>Added bound method equivalents to many free functions which take a single Variable or DataArray <a class="reference external" href="https://github.com/scipp/scipp/pull/1969">#1969</a>.</p></li>
+<li><p>Variables can now be constructed directly from multi dimensional lists and tuples <a class="reference external" href="https://github.com/scipp/scipp/pull/1977">#1977</a>.</p></li>
+<li><p>Plotting 1-D event data is now supported <a class="reference external" href="https://github.com/scipp/scipp/pull/2018">#2018</a>.</p></li>
+</ul>
 </div>
 <div class="section" id="breaking-changes">
 <h3>Breaking changes<a class="headerlink" href="#breaking-changes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Changed names of arithmetic functions to match numpy’s names: <code class="docutils literal notranslate"><span class="pre">plus</span></code> → <a class="reference internal" href="../generated/functions/scipp.add.html#scipp.add" title="scipp.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipp.add()</span></code></a>, <code class="docutils literal notranslate"><span class="pre">minus</span></code> → <a class="reference internal" href="../generated/functions/scipp.subtract.html#scipp.subtract" title="scipp.subtract"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipp.subtract()</span></code></a>, <code class="docutils literal notranslate"><span class="pre">times</span></code> → <a class="reference internal" href="../generated/functions/scipp.multiply.html#scipp.multiply" title="scipp.multiply"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipp.multiply()</span></code></a> <a class="reference external" href="https://github.com/scipp/scipp/pull/1999">#1999</a>.</p></li>
+<li><p>Changed Variable init method, all arguments are keyword-only, special overloads which default-initialize data were removed <a class="reference external" href="https://github.com/scipp/scipp/pull/1994">#1994</a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">axes</span></code> keyword arg of <code class="docutils literal notranslate"><span class="pre">plot</span></code> has been removed.
+Use <code class="docutils literal notranslate"><span class="pre">labels</span></code> to define labels and <code class="docutils literal notranslate"><span class="pre">transpose</span></code> to transpose instead <a class="reference external" href="https://github.com/scipp/scipp/pull/2018">#2018</a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">redraw</span></code> method of plots does not support replacing data variables of data arrays any more, but only updates of data values <a class="reference external" href="https://github.com/scipp/scipp/pull/2018">#2018</a>.</p></li>
+<li><p>Made most arguments of <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> constructors keyword-only <a class="reference external" href="https://github.com/scipp/scipp/pull/2008">#2008</a>.</p></li>
+<li><p>Made arguments of many functions keyword-only, e.g. constructors of <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">bin</span></code>, and <code class="docutils literal notranslate"><span class="pre">atan2</span></code> <a class="reference external" href="https://github.com/scipp/scipp/pull/1983">#1983</a>, <a class="reference external" href="https://github.com/scipp/scipp/pull/2008">#2008</a>, <a class="reference external" href="https://github.com/scipp/scipp/pull/2012">#2012</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">astype</span></code> and <code class="docutils literal notranslate"><span class="pre">to_unit</span></code> now copy the input by default even when no transformation is required, use the new <code class="docutils literal notranslate"><span class="pre">copy</span></code> argument to avoid <a class="reference external" href="https://github.com/scipp/scipp/pull/2016">#2016</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="bugfixes">
+<h3>Bugfixes<a class="headerlink" href="#bugfixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Various fixes in <code class="docutils literal notranslate"><span class="pre">plot</span></code>, see  <a class="reference external" href="https://github.com/scipp/scipp/pull/2018">#2018</a> for details.</p></li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h3>
+<p>Owen Arnold <sup>b, c</sup>,
+Simon Heybrock <sup>a</sup>,
+Greg Tucker <sup>a</sup>,
+Neil Vaytet <sup>a</sup>,
+and Jan-Lukas <sup>a</sup></p>
 </div>
 </div>
 <div class="section" id="v0-7-0-june-2021">
 <h2>v0.7.0 (June 2021)<a class="headerlink" href="#v0-7-0-june-2021" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Features<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>Features<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Licence changed from GPLv3 to BSD-3-Clause.</p></li>
 <li><p>Can now control the position and visibility of the legend in 1d plots with <code class="docutils literal notranslate"><span class="pre">plot(da,</span> <span class="pre">legend={&quot;show&quot;:</span> <span class="pre">True,</span> <span class="pre">&quot;loc&quot;:</span> <span class="pre">4})</span></code> <a class="reference external" href="https://github.com/scipp/scipp/pull/1790">#1790</a>.</p></li>
@@ -335,14 +363,14 @@ The <code class="docutils literal notranslate"><span class="pre">fields</span></
 <li><p>Reduction operations such as <code class="docutils literal notranslate"><span class="pre">sum</span></code> and <code class="docutils literal notranslate"><span class="pre">mean</span></code> are now also multi-threaded and thus considerably faster <a class="reference external" href="https://github.com/scipp/scipp/pull/1923">#1923</a>.</p></li>
 </ul>
 </div>
-<div class="section" id="bugfixes">
-<h3>Bugfixes<a class="headerlink" href="#bugfixes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id30">
+<h3>Bugfixes<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Profile plots are no longer disabled for binned data with only a single bin in the 3rd dimension <a class="reference external" href="https://github.com/scipp/scipp/pull/1936">#1936</a>.</p></li>
 </ul>
 </div>
-<div class="section" id="id16">
-<h3>Breaking changes<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id32">
+<h3>Breaking changes<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Scipp’s data structures now behave mostly like normal nested Python objects, i.e., copies are shallow by default <a class="reference external" href="https://github.com/scipp/scipp/pull/1823">#1823</a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">filter</span></code> and <code class="docutils literal notranslate"><span class="pre">split</span></code> removed. Identical functionality can be achieved using <code class="docutils literal notranslate"><span class="pre">groupby</span></code> and/or slicing.</p></li>
@@ -350,19 +378,19 @@ The <code class="docutils literal notranslate"><span class="pre">fields</span></
 <li><p><code class="docutils literal notranslate"><span class="pre">geometry.x</span></code>, <code class="docutils literal notranslate"><span class="pre">geometry.y</span></code>, and <code class="docutils literal notranslate"><span class="pre">geometry.z</span></code> have been removed. Use the <code class="docutils literal notranslate"><span class="pre">Variable.fields</span></code> property instead <a class="reference external" href="https://github.com/scipp/scipp/pull/1925">#1925</a>.</p></li>
 </ul>
 </div>
-<div class="section" id="id20">
-<h3>Contributors<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
-<p>Owen Arnold,
-Simon Heybrock,
-Matthew D. Jones,
-Neil Vaytet,
-and Jan-Lukas Wynen</p>
+<div class="section" id="id36">
+<h3>Contributors<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<p>Owen Arnold <sup>b, c</sup>,
+Simon Heybrock <sup>a</sup>,
+Matthew D. Jones <sup>b, c</sup>,
+Neil Vaytet <sup>a</sup>,
+and Jan-Lukas Wynen <sup>a</sup></p>
 </div>
 </div>
 <div class="section" id="v0-6-1-april-2021">
 <h2>v0.6.1 (April 2021)<a class="headerlink" href="#v0-6-1-april-2021" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id21">
-<h3>Bugfixes<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id37">
+<h3>Bugfixes<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">map</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span></code> operations as well as <code class="docutils literal notranslate"><span class="pre">histogram</span></code> for binned data now also work with <code class="docutils literal notranslate"><span class="pre">datetime64</span></code> <a class="reference external" href="https://github.com/scipp/scipp/pull/1834">#1834</a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">bin</span></code> now works on previously binned data with 2-D edges, even if the outer dimensions(s) are not rebinned <a class="reference external" href="https://github.com/scipp/scipp/pull/1836">#1836</a>.</p></li>
@@ -372,8 +400,8 @@ and Jan-Lukas Wynen</p>
 </div>
 <div class="section" id="v0-6-0-march-2021">
 <h2>v0.6.0 (March 2021)<a class="headerlink" href="#v0-6-0-march-2021" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id24">
-<h3>Features<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id40">
+<h3>Features<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">sizes</span></code> properties, an ordered <code class="docutils literal notranslate"><span class="pre">dict</span></code> to lookup the size of a specific dimension <a class="reference external" href="https://github.com/scipp/scipp/pull/1636">#1636</a>.</p></li>
 <li><p>Add access to data, coords, attrs, and masks of bins via the <code class="docutils literal notranslate"><span class="pre">bins</span></code> property, e.g., <code class="docutils literal notranslate"><span class="pre">obj.bins.coords['x']</span></code> <a class="reference external" href="https://github.com/scipp/scipp/pull/1752">#1752</a>.</p></li>
@@ -404,8 +432,8 @@ and Jan-Lukas Wynen</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id40">
-<h3>Breaking changes<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id56">
+<h3>Breaking changes<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">plot</span></code> module has been renamed to <code class="docutils literal notranslate"><span class="pre">plotting</span></code>, and plotting is now achieved via <code class="docutils literal notranslate"><span class="pre">sc.plot(data)</span></code>. Wrapper functions <code class="docutils literal notranslate"><span class="pre">superplot</span></code>, <code class="docutils literal notranslate"><span class="pre">image</span></code>, and <code class="docutils literal notranslate"><span class="pre">scatter3d</span></code> have been dropped <a class="reference external" href="https://github.com/scipp/scipp/pull/1696">#1696</a>.</p></li>
 <li><p>Properties <code class="docutils literal notranslate"><span class="pre">dim</span></code>, <code class="docutils literal notranslate"><span class="pre">begin</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code>, and <code class="docutils literal notranslate"><span class="pre">data</span></code> of the <code class="docutils literal notranslate"><span class="pre">bins</span></code> property of and object are now accessible as a dict via <code class="docutils literal notranslate"><span class="pre">obj.bins.constituents</span></code>.</p></li>
@@ -418,8 +446,8 @@ and Jan-Lukas Wynen</p>
 <li><p>Removed support for facility-specific <code class="docutils literal notranslate"><span class="pre">convert_with_calibration</span></code> and <code class="docutils literal notranslate"><span class="pre">load_calibration</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id43">
-<h3>Contributors<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id59">
+<h3>Contributors<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
 <p>Matthew Andrew,
 Owen Arnold,
 Simon Heybrock,
@@ -431,8 +459,8 @@ and Jan-Lukas Wynen</p>
 </div>
 <div class="section" id="v0-5-0-january-2021">
 <h2>v0.5.0 (January 2021)<a class="headerlink" href="#v0-5-0-january-2021" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id44">
-<h3>Features<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id60">
+<h3>Features<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>New <code class="docutils literal notranslate"><span class="pre">profile</span></code> plotting functionality where one of the slider dimensions can be displayed as a profile in a subplot (1-D and 2-D projections only).</p></li>
 <li><p>Sliders have a thickness slider associated with them and can be used to show slices of arbitrary thickness.</p></li>
@@ -454,8 +482,8 @@ and Jan-Lukas Wynen</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id45">
-<h3>Breaking changes<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id61">
+<h3>Breaking changes<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Dataset</span></code> does not have a <code class="docutils literal notranslate"><span class="pre">masks</span></code> property any more.
 Use <code class="docutils literal notranslate"><span class="pre">ds['item'].masks</span></code> instead.</p></li>
@@ -472,8 +500,8 @@ It is also the only interactive backend that works in JupyterLab.</p></li>
 <li><p>Removed support for “realigned” data. This is replaced by the more flexible and generic support for “binned” data.</p></li>
 </ul>
 </div>
-<div class="section" id="id46">
-<h3>Contributors<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id62">
+<h3>Contributors<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h3>
 <p>Matthew Andrew,
 Owen Arnold,
 Thibault Chatel,
@@ -487,8 +515,8 @@ and Jan-Lukas Wynen</p>
 </div>
 <div class="section" id="v0-4-july-2020">
 <h2>v0.4 (July 2020)<a class="headerlink" href="#v0-4-july-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id47">
-<h3>Features<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id63">
+<h3>Features<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>New realign functionality.</p></li>
 <li><p>Support for event-filtering.</p></li>
@@ -511,8 +539,8 @@ and Jan-Lukas Wynen</p>
 <li><p>Several fixes in the plotting (non-regular bins, colorbar limits, axes tick labels from unaligned coordinates, etc…)</p></li>
 </ul>
 </div>
-<div class="section" id="id48">
-<h3>Breaking changes<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id64">
+<h3>Breaking changes<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Coord and attributes names for neutron data have been standardized, now using hyphens instead of underscore, except for subscripts. Affected examples: <code class="docutils literal notranslate"><span class="pre">pulse-time</span></code> (previously <code class="docutils literal notranslate"><span class="pre">pulse_times</span></code>), <code class="docutils literal notranslate"><span class="pre">source-position</span></code> (previously <code class="docutils literal notranslate"><span class="pre">source_position</span></code>), <code class="docutils literal notranslate"><span class="pre">sample-position</span></code> (previously <code class="docutils literal notranslate"><span class="pre">sample_position</span></code>), <code class="docutils literal notranslate"><span class="pre">detector-info</span></code> (previously <code class="docutils literal notranslate"><span class="pre">detector_info</span></code>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">scipp.neutron.load</span></code> must use <code class="docutils literal notranslate"><span class="pre">advanced_geometry=True</span></code> option for loading <code class="docutils literal notranslate"><span class="pre">detector-info</span></code> and pixel shapes.</p></li>
@@ -531,8 +559,8 @@ and Jan-Lukas Wynen</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id49">
-<h3>Contributors<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id65">
+<h3>Contributors<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h3>
 <p>Owen Arnold,
 David Fairbrother,
 Simon Heybrock,
@@ -608,6 +636,14 @@ The API may change without notice in future releases.</p>
 <li><p>Limited performance and no parallelization.</p></li>
 <li><p>Numerous “edge cases” not supported yet.</p></li>
 <li><p>While tested, probably far from bug-free.</p></li>
+</ul>
+</div>
+<div class="section" id="contributing-organizations">
+<h2>Contributing Organizations<a class="headerlink" href="#contributing-organizations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><sup>a</sup> <a class="reference external" href="https://europeanspallationsource.se/">European Spallation Source ERIC</a>, Sweden</p></li>
+<li><p><sup>b</sup> <a class="reference external" href="https://www.ukri.org/councils/stfc/">Science and Technology Facilities Council</a>, UK</p></li>
+<li><p><sup>c</sup> <a class="reference external" href="https://www.tessella.com/">Tessella</a>, UK</p></li>
 </ul>
 </div>
 </div>

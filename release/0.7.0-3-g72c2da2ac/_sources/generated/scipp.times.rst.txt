@@ -1,6 +1,0 @@
-﻿scipp.times
-===========
-
-.. currentmodule:: scipp
-
-.. autofunction:: times
