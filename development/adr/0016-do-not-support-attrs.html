@@ -1,0 +1,783 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ADR 0016: Do not support “attrs” &#8212; Scipp</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=6867b9c9"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'development/adr/0016-do-not-support-attrs';</script>
+    <script src="../../_static/anaconda-icon.js?v=461bdc62"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ADR 0017: Restrict Dataset to items with matching dimensionality" href="0017-restrict-dataset-to-items-with-matching-dimensionality.html" />
+    <link rel="prev" title="ADR 0015: Disable support for broadcasting variances" href="0015-disable-support-for-broadcasting-variances.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="25.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo-2022.svg" class="logo__image only-light" alt="Scipp - Home"/>
+    <img src="../../_static/logo-dark.svg" class="logo__image only-dark pst-js-only" alt="Scipp - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coding-conventions.html">Coding conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook-style-guide.html">Jupyter Notebook Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tooling.html">Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing-scipp.html">Releasing Scipp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">Dependencies</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../architecture-decision-records.html">Architecture Decision Records</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="0001-remove-dataset-masking-support.html">ADR 0001: Remove dataset masking support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0002-remove-instrument-view-projection-options.html">ADR 0002: Remove instrument view 2D projection options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0003-refactor-plotting-code-with-mvc-pattern.html">ADR 0003: Refactor plotting code to use Model-View-Controller design pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0004-use-ipympl-backend-for-matplotlib.html">ADR 0004: Use the ipympl backend for Matplotlib figures in Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0005-remove-need-for-bins-property-when-calling-bin-or-histogram.html">ADR 0005: Remove need for <code class="docutils literal notranslate"><span class="pre">bins</span></code> property when calling <code class="docutils literal notranslate"><span class="pre">bin</span></code> or <code class="docutils literal notranslate"><span class="pre">histogram</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="0006-add-readonly-flags.html">ADR 0006: Add read-only flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0007-do-not-support-args-referencing-x-or-y.html">ADR 0007: Do not support arguments referring to <code class="docutils literal notranslate"><span class="pre">x</span></code> or <code class="docutils literal notranslate"><span class="pre">y</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="0008-consistent-multi-dimensional-coords.html">ADR 0008: Consistent multi-dimensional coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0009-handle-dimensionless-as-non-counts.html">ADR 0009: Handle dimensionless as non-counts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0010-acknowledge-stability-and-maintainability-tasks.html">ADR 0010: Acknowledge stability and maintainability tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0011-renaming-of-dimensions-in-transform_coords.html">ADR 0011: Renaming of Dimensions in <code class="docutils literal notranslate"><span class="pre">transform_coords</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="0012-rebin-should-apply-irreducible-masks.html">ADR 0012: Rebin should apply irreducible masks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0013-plot-should-not-resample-automatically.html">ADR 0013: Plot should not resample automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0014-switch-calendar-versioning.html">ADR 0014: Switch to Calendar Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0015-disable-support-for-broadcasting-variances.html">ADR 0015: Disable support for broadcasting variances</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ADR 0016: Do not support “attrs”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0017-restrict-dataset-to-items-with-matching-dimensionality.html">ADR 0017: Restrict Dataset to items with matching dimensionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0018-bin-hist-reduction-dims.html">ADR 0018: More explicit control of replaced dims in <code class="docutils literal notranslate"><span class="pre">bin</span></code> and <code class="docutils literal notranslate"><span class="pre">hist</span></code> functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0019-binned-data-unit-dtype-python-properties.html">ADR 0019: Binned data <code class="docutils literal notranslate"><span class="pre">unit</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> properties should return element unit and dtype.</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../internals/index.html">Internals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../internals/concepts.html">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/constructing_variables.html">C++ API for constructing variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/customizing.html">Customizing Scipp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/multi_dimensional_indexing.html">Multi-Dimensional Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/transform.html">Transforming data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/variable_implementation.html">Implementation of class Variable</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proposed-solution">Proposed solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-solutions">Alternative solutions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision">Decision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consequences">Consequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positive">Positive:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative">Negative:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/development/adr/0016-do-not-support-attrs.rst"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Development</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../architecture-decision-records.html" class="nav-link">Architecture Decision Records</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ADR 0016: Do not support “attrs”</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="adr-0016-do-not-support-attrs">
+<h1>ADR 0016: Do not support “attrs”<a class="headerlink" href="#adr-0016-do-not-support-attrs" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Status: accepted</p></li>
+<li><p>Deciders: Jan-Lukas, Neil, Simon, Sunyoung</p></li>
+<li><p>Date: 2023-06-06</p></li>
+</ul>
+<section id="context">
+<h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
+<section id="background">
+<h3>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h3>
+<p>Arbitrary user-defined attributes appear in many applications.
+Examples include:</p>
+<ul class="simple">
+<li><p>HDF5 attrs for datasets and groups</p></li>
+<li><p>Attributes in NetCDF</p></li>
+<li><p>Attributes in Zarr</p></li>
+<li><p>Attributes in NeXus (typically using HDF5 attrs)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xarray.Variable.attrs</span></code> and <code class="docutils literal notranslate"><span class="pre">xarray.DataArray.attrs</span></code></p></li>
+</ul>
+<p>Scipp’s <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> supports <code class="docutils literal notranslate"><span class="pre">attrs</span></code>.
+Note that currently <code class="docutils literal notranslate"><span class="pre">attrs</span></code> doubles as a place to store “unaligned” coords, which is not directly related to the topic discussed here.
+However, <code class="docutils literal notranslate"><span class="pre">scipp.Variable</span></code> does not support <code class="docutils literal notranslate"><span class="pre">attrs</span></code>.
+In part this is due to a reduced need for <code class="docutils literal notranslate"><span class="pre">attrs</span></code>, since Scipp has native support for physical units, which is one of the recurring applications of <code class="docutils literal notranslate"><span class="pre">attrs</span></code> in other libraries.
+The other reason is legacy:
+<code class="docutils literal notranslate"><span class="pre">scipp.Variable</span></code> was written in C++ and was intended to be lightweight and simple.</p>
+<p>When interacting with files such as HDF5 or NeXus we encounter a recurring need to load arbitrary attributes.
+Currently this is not possible in Scipp, at least not if we want to represent an HDF5 dataset as a <code class="docutils literal notranslate"><span class="pre">scipp.Variable</span></code>.
+Support for <code class="docutils literal notranslate"><span class="pre">scipp.Variable.attrs</span></code> would allow for representing arbitrary attributes in a <code class="docutils literal notranslate"><span class="pre">scipp.Variable</span></code>.
+The question is whether this is a good idea.</p>
+</section>
+<section id="analysis">
+<h3>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h3>
+<p>Addition of <code class="docutils literal notranslate"><span class="pre">scipp.Variable.attrs</span></code> would add a significant amount complexity to the code base.
+It would likely also impact performance in some applications, as we would need to handle references to Python objects (requiring GIL acquisition in C++ code) or shared pointers.
+It could furthermore increase the chance of running into problems with Python garbage collection similar to the existing (low-probability) issues described in <a class="github reference external" href="https://github.com/scipp/scipp/issues/2813">scipp/scipp#2813</a>.</p>
+<p>Aside from these technical hurdles (which could in principle be overcome or partially ignored) we need to consider the conceptual aspects.
+Is a dictionary of arbitrary attributes a good solution for a real problem?
+Obviously, attributes of datasets in files are widespread and have valid and important applications.
+However, Scipp’s main purpose is <em>processing</em> data, not <em>storing</em> data.
+The attributes encountered in files strictly describe the array or dataset as it was stored, and are not necessarily valid after modifying it.</p>
+<p>If we consider binary operations (such as addition or division) then it is not clear how attributes should be handled if they mismatch between operands or are missing in one operand.
+This is an example where Scipp made a different choice than Xarray.
+Consider for example three (Scipp or Xarray) data arrays, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code>, each with an attribute named <code class="docutils literal notranslate"><span class="pre">attr1</span></code>, each with a different value.
+In Xarray, <code class="docutils literal notranslate"><span class="pre">((a</span> <span class="pre">+</span> <span class="pre">b)</span> <span class="pre">+</span> <span class="pre">c).attrs</span> <span class="pre">!=</span> <span class="pre">(a</span> <span class="pre">+</span> <span class="pre">(b</span> <span class="pre">+</span> <span class="pre">c)).attrs</span></code> (on the left, <code class="docutils literal notranslate"><span class="pre">attr1</span></code> is preserved with the value it had in <code class="docutils literal notranslate"><span class="pre">c</span></code> whereas on the right the value in <code class="docutils literal notranslate"><span class="pre">a</span></code> is preserved) whereas in Scipp <code class="docutils literal notranslate"><span class="pre">((a</span> <span class="pre">+</span> <span class="pre">b)</span> <span class="pre">+</span> <span class="pre">c).attrs</span> <span class="pre">==</span> <span class="pre">(a</span> <span class="pre">+</span> <span class="pre">(b</span> <span class="pre">+</span> <span class="pre">c)).attrs</span></code> (<code class="docutils literal notranslate"><span class="pre">attr1</span></code> is dropped).
+Scipp ensures this by treating a missing attribute in one operand as mismatches and thus drops the attribute.
+This ensures consistency, but comes at a significant cost:
+In practice attributes are very frequently dropped in binary operations.
+This raises some questions about the usability of the mechanism.
+Xarray’s approach is more “useful”, at the cost of consistency.
+Xarray’s mechanism furthermore necessitates complications, such as global settings that influence the behavior as well as certain interfaces with keyword arguments to define attribute handling.</p>
+<p>Ignoring binary operations, one could argue that keeping attributes is still useful for unary operations where those problems do not arise.
+However, attributes can nevertheless become invalid:
+For example, a “long_name” attribute may no longer be valid after a unit conversion, or after applying a unary function such as <code class="docutils literal notranslate"><span class="pre">np.power</span></code> or <code class="docutils literal notranslate"><span class="pre">np.sin</span></code>.
+The same holds for a “units” attribute &amp;mdash; an issue Scipp avoids by having native handling of units.
+Here is a brief code example illustrating how this goes badly wrong in Xarray:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">coords</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)),))</span>
+<span class="n">da</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span>
+<span class="n">da</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Distance&#39;</span>
+<span class="n">da</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;K&#39;</span>
+<span class="n">da</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Temperature&#39;</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The resulting plot is labelled with “Temperature [K]” on the y-axis, which is clearly wrong and dangerously misleading.</p>
+<p>We see this as an indicator that any attempt to handle “unknown” attributes is bound to fail.
+While we acknowledge that there are valid and important use cases for attributes, we believe that the risk of introducing invalid attributes in operations applied to variables or data arrays is too high and outweighs the benefits of supporting attributes.</p>
+</section>
+<section id="proposed-solution">
+<h3>Proposed solution<a class="headerlink" href="#proposed-solution" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Do not add support for <code class="docutils literal notranslate"><span class="pre">scipp.Variable.attrs</span></code>.</p></li>
+<li><p>Remove support for <code class="docutils literal notranslate"><span class="pre">scipp.DataArray.attrs</span></code>.
+The current double-use for unaligned-coords will be supported via an alignment flag accessed via <code class="docutils literal notranslate"><span class="pre">scipp.DataArray.coords</span></code>.</p></li>
+</ul>
+</section>
+<section id="alternative-solutions">
+<h3>Alternative solutions<a class="headerlink" href="#alternative-solutions" title="Link to this heading">#</a></h3>
+<p>We could consider support for <em>storing</em> attributes, but <em>dropping</em> them on any modification of the data.
+An HDF5 dataset can then be loaded including its attributes, while at the same time avoiding the risk of invalidating attributes in operations.
+However, unless we lock down mutable access to <code class="docutils literal notranslate"><span class="pre">scipp.Variable.values</span></code> such a mechanism would always have loopholes.
+Is there a viable and safe mechanism for such attributes?
+Is there a sufficient number of applications where such a restricted attribute support would be worthwhile?</p>
+</section>
+</section>
+<section id="decision">
+<h2>Decision<a class="headerlink" href="#decision" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Clearly document the scope of Scipp, in particular that data structures must remain conceptually simple.</p></li>
+<li><p>Go with proposed solution, i.e., remove <code class="docutils literal notranslate"><span class="pre">attrs</span></code> from <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p></li>
+</ul>
+</section>
+<section id="consequences">
+<h2>Consequences<a class="headerlink" href="#consequences" title="Link to this heading">#</a></h2>
+<section id="positive">
+<h3>Positive:<a class="headerlink" href="#positive" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Simpler code.</p></li>
+<li><p>Cleaner semantics.
+Scipp data structures will be a simple and basic building block for labelled data.</p></li>
+<li><p>Avoids problems with potentially invalid attributes in results of operations.</p></li>
+</ul>
+</section>
+<section id="negative">
+<h3>Negative:<a class="headerlink" href="#negative" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Removing <code class="docutils literal notranslate"><span class="pre">scipp.DataArray.attrs</span></code> represents a breaking change that will affects users.
+We need to find and implement alternative solutions, e.g., by handling attributes on a higher level.</p></li>
+<li><p>Fully representing information from HDF5 or similar files will not be possible directly.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0015-disable-support-for-broadcasting-variances.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ADR 0015: Disable support for broadcasting variances</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="0017-restrict-dataset-to-items-with-matching-dimensionality.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ADR 0017: Restrict Dataset to items with matching dimensionality</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 Scipp contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><!-- This will display the version of the docs -->
+Current Scipp version: 25.12.0 (<a href="https://github.com/scipp/Scipp/releases">older versions</a>).</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

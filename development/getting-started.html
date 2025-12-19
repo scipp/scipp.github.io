@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Getting Started &#8212; Scipp</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=6867b9c9"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'development/getting-started';</script>
+    <script src="../_static/anaconda-icon.js?v=461bdc62"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Coding conventions" href="coding-conventions.html" />
+    <link rel="prev" title="Development" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="25.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-2022.svg" class="logo__image only-light" alt="Scipp - Home"/>
+    <img src="../_static/logo-dark.svg" class="logo__image only-dark pst-js-only" alt="Scipp - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coding-conventions.html">Coding conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook-style-guide.html">Jupyter Notebook Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tooling.html">Tooling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing-scipp.html">Releasing Scipp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="architecture-decision-records.html">Architecture Decision Records</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="adr/0001-remove-dataset-masking-support.html">ADR 0001: Remove dataset masking support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0002-remove-instrument-view-projection-options.html">ADR 0002: Remove instrument view 2D projection options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0003-refactor-plotting-code-with-mvc-pattern.html">ADR 0003: Refactor plotting code to use Model-View-Controller design pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0004-use-ipympl-backend-for-matplotlib.html">ADR 0004: Use the ipympl backend for Matplotlib figures in Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0005-remove-need-for-bins-property-when-calling-bin-or-histogram.html">ADR 0005: Remove need for <code class="docutils literal notranslate"><span class="pre">bins</span></code> property when calling <code class="docutils literal notranslate"><span class="pre">bin</span></code> or <code class="docutils literal notranslate"><span class="pre">histogram</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0006-add-readonly-flags.html">ADR 0006: Add read-only flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0007-do-not-support-args-referencing-x-or-y.html">ADR 0007: Do not support arguments referring to <code class="docutils literal notranslate"><span class="pre">x</span></code> or <code class="docutils literal notranslate"><span class="pre">y</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0008-consistent-multi-dimensional-coords.html">ADR 0008: Consistent multi-dimensional coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0009-handle-dimensionless-as-non-counts.html">ADR 0009: Handle dimensionless as non-counts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0010-acknowledge-stability-and-maintainability-tasks.html">ADR 0010: Acknowledge stability and maintainability tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0011-renaming-of-dimensions-in-transform_coords.html">ADR 0011: Renaming of Dimensions in <code class="docutils literal notranslate"><span class="pre">transform_coords</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0012-rebin-should-apply-irreducible-masks.html">ADR 0012: Rebin should apply irreducible masks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0013-plot-should-not-resample-automatically.html">ADR 0013: Plot should not resample automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0014-switch-calendar-versioning.html">ADR 0014: Switch to Calendar Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0015-disable-support-for-broadcasting-variances.html">ADR 0015: Disable support for broadcasting variances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0016-do-not-support-attrs.html">ADR 0016: Do not support “attrs”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0017-restrict-dataset-to-items-with-matching-dimensionality.html">ADR 0017: Restrict Dataset to items with matching dimensionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0018-bin-hist-reduction-dims.html">ADR 0018: More explicit control of replaced dims in <code class="docutils literal notranslate"><span class="pre">bin</span></code> and <code class="docutils literal notranslate"><span class="pre">hist</span></code> functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adr/0019-binned-data-unit-dtype-python-properties.html">ADR 0019: Binned data <code class="docutils literal notranslate"><span class="pre">unit</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> properties should return element unit and dtype.</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="internals/index.html">Internals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="internals/concepts.html">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/constructing_variables.html">C++ API for constructing variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/customizing.html">Customizing Scipp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/multi_dimensional_indexing.html">Multi-Dimensional Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/transform.html">Transforming data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/variable_implementation.html">Implementation of class Variable</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tl-dr">TL;DR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-setup">Standard setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-tasks">Common tasks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-code">Getting the code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-commit-hooks">Pre-commit Hooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-scipp">Building Scipp</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-build-options">Additional build options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-unit-tests">Running the unit tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-documentation">Building Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-scipp-as-a-c-library">Using Scipp as a C++ library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-coverage-reports">Generating coverage reports</a></li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/development/getting-started.rst"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Development</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Getting Started</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
+<section id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">#</a></h2>
+<section id="standard-setup">
+<h3>Standard setup<a class="headerlink" href="#standard-setup" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the code</span>
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:scipp/scipp.git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>scipp
+git<span class="w"> </span>submodule<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>update
+
+<span class="c1"># Setup dev env</span>
+mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>docs/environments/developer.yml
+conda<span class="w"> </span>activate<span class="w"> </span>scipp-dev
+pre-commit<span class="w"> </span>install
+pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+
+<span class="c1"># Build, install, and run C++ tests</span>
+cmake<span class="w"> </span>--preset<span class="w"> </span>base
+cmake<span class="w"> </span>--build<span class="w"> </span>--preset<span class="w"> </span>build
+ctest<span class="w"> </span>--preset<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Setup editable install and run Python tests</span>
+tox<span class="w"> </span>-e<span class="w"> </span>editable
+conda<span class="w"> </span>develop<span class="w"> </span>src
+python<span class="w"> </span>-m<span class="w"> </span>pytest
+</pre></div>
+</div>
+<p>You should now also be able to run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">'import</span> <span class="pre">scipp</span> <span class="pre">as</span> <span class="pre">sc'</span></code>.</p>
+</section>
+<section id="common-tasks">
+<h3>Common tasks<a class="headerlink" href="#common-tasks" title="Link to this heading">#</a></h3>
+<p>All of the below assume that the standard setup outlined above was performed.</p>
+<p>Build the docs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>docs
+
+<span class="c1"># To clean and build all docs</span>
+
+tox<span class="w"> </span>-e<span class="w"> </span>docs-clean
+</pre></div>
+</div>
+<p>Update the pip requirements via <code class="docutils literal notranslate"><span class="pre">pip-compile-multi</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>deps
+</pre></div>
+</div>
+<p>Prepare a release (make sure to give the desired release instead):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>prepare-release<span class="w"> </span>--<span class="w"> </span><span class="m">23</span>.01.0
+</pre></div>
+</div>
+</section>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>We provide a Conda environment file with developer dependencies in our Git repository.
+Other build dependencies are installed automatically through Conan when running CMake.
+See <a class="reference internal" href="tooling.html"><span class="doc">Tooling</span></a> for compilers and other required tools.</p>
+</section>
+<section id="getting-the-code">
+<h2>Getting the code<a class="headerlink" href="#getting-the-code" title="Link to this heading">#</a></h2>
+<p>Clone the git repository (either via SSH or HTTPS) from <a class="reference external" href="https://github.com/scipp/scipp">GitHub</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:scipp/scipp.git
+<span class="nb">cd</span><span class="w"> </span>scipp
+
+<span class="c1"># Update Git submodules</span>
+git<span class="w"> </span>submodule<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>update
+
+<span class="c1"># Create Conda environment with dependencies and development tools</span>
+mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>docs/environments/developer.yml
+conda<span class="w"> </span>activate<span class="w"> </span>scipp-dev
+</pre></div>
+</div>
+</section>
+<section id="pre-commit-hooks">
+<h2>Pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Link to this heading">#</a></h2>
+<p>We use <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> for static analysis and code formatting.
+Install the pre-commit hooks to avoid committing non-compliant code.
+In the source directory run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>install
+pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+</pre></div>
+</div>
+</section>
+<section id="building-scipp">
+<h2>Building Scipp<a class="headerlink" href="#building-scipp" title="Link to this heading">#</a></h2>
+<p>As big parts of Scipp are written in C++, we use CMake for building.
+This assumes you will end up with a directory structure similar to the following.
+If you want something different be sure to modify paths as appropriate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|--</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">scipp</span> <span class="p">(</span><span class="n">source</span> <span class="n">code</span><span class="p">)</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">build</span> <span class="p">(</span><span class="n">build</span> <span class="n">directory</span><span class="p">)</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">install</span> <span class="p">(</span><span class="n">Python</span> <span class="n">library</span> <span class="n">installation</span><span class="p">)</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="o">...</span>
+<span class="o">|--</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>To build and install the library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create build and library install directories</span>
+mkdir<span class="w"> </span>build
+mkdir<span class="w"> </span>install
+<span class="nb">cd</span><span class="w"> </span>build
+</pre></div>
+</div>
+<p>If you are running on Windows, you need to use a visual studio developer command prompt for the following steps. This can be opened manually from the start menu, or programmatically by calling the appropriate vcvars script, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvars64.bat&quot;</span>
+</pre></div>
+</div>
+<p>If you wish to build using the Visual Studio CMake generators instead, there is a <code class="docutils literal notranslate"><span class="pre">windows-msbuild</span></code> CMake preset for this purpose.</p>
+<p>To build a debug version of the library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-GNinja<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DPython_EXECUTABLE<span class="o">=</span><span class="k">$(</span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>python3<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>../install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_INTERPROCEDURAL_OPTIMIZATION<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DDYNAMIC_LIB<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>..
+
+<span class="c1"># C++ unit tests</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>all-tests
+
+<span class="c1"># Benchmarks</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>all-benchmarks
+
+<span class="c1"># Install Python library</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Alternatively, to build a release version with all optimizations enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-GNinja<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DPython_EXECUTABLE<span class="o">=</span><span class="k">$(</span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>python3<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>../install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>..
+
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>all-tests
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>all-benchmarks
+cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--target<span class="w"> </span>install
+</pre></div>
+</div>
+<p>To use the <code class="docutils literal notranslate"><span class="pre">scipp</span></code> Python module:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>develop<span class="w"> </span>/home/user/scipp/install
+</pre></div>
+</div>
+<p>In Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+</pre></div>
+</div>
+<p>Some developers may prefer an “editable” install, i.e., with changes to Python files in the <code class="docutils literal notranslate"><span class="pre">src</span></code> directly becoming visible without reinstalling.
+This is commonly done via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>.
+However, Scipp uses <code class="docutils literal notranslate"><span class="pre">scikit-build</span></code>, which currently does not fully support this directly.
+Therefore, we need to call <code class="docutils literal notranslate"><span class="pre">cmake</span></code> manually in this case and install into the Python source directory, or create symlinks.
+We have configured <code class="docutils literal notranslate"><span class="pre">tox</span></code> for this purpose:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--preset<span class="w"> </span>base<span class="w"> </span>-DCONAN_TBB<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>--preset<span class="w"> </span>build
+tox<span class="w"> </span>-e<span class="w"> </span>editable
+conda<span class="w"> </span>develop<span class="w"> </span>src
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">develop</span> <span class="pre">src</span></code> can also be replaced by <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>.
+Above we used some of the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> presets, but you may also call <code class="docutils literal notranslate"><span class="pre">cmake</span></code> without those for more control of the options.
+We can also use tox instead of the first two lines:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>lib
+tox<span class="w"> </span>-e<span class="w"> </span>editable
+conda<span class="w"> </span>develop<span class="w"> </span>src
+</pre></div>
+</div>
+<p>You can now use the editable install as usual, i.e., changes to Python files of Scipp are directly visible when importing Scipp, without the need for a new install.
+When making changes to the C++ side of Scipp, you will need to re-run the <code class="docutils literal notranslate"><span class="pre">install</span></code> target using <code class="docutils literal notranslate"><span class="pre">cmake</span></code>, e.g.,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>--preset<span class="w"> </span>build
+</pre></div>
+</div>
+<section id="additional-build-options">
+<h3>Additional build options<a class="headerlink" href="#additional-build-options" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-DDYNAMIC_LIB</span></code> forces the shared libraries building, that also decreases link time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DTHREADING</span></code> enable or disable multi-threading. <code class="docutils literal notranslate"><span class="pre">ON</span></code> by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DPRECOMPILED_HEADERS</span></code> toggle usage of precompiled headers. <code class="docutils literal notranslate"><span class="pre">OFF</span></code> by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DCPPCHECK</span></code> toggle run of cppcheck during compilation. <code class="docutils literal notranslate"><span class="pre">OFF</span></code> by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DCTEST_DISCOVER_TESTS</span></code> toggle discovery of individual tests for better (but much slower) integration with <code class="docutils literal notranslate"><span class="pre">ctest</span></code>. <code class="docutils literal notranslate"><span class="pre">OFF</span></code> by default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DSKIP_REMOTE_SOURCES</span></code> skip usage of conan to fetch and build c++ dependencies. <code class="docutils literal notranslate"><span class="pre">OFF</span></code> by default. All the dependencies should be installed on the system already.</p></li>
+</ol>
+</section>
+</section>
+<section id="running-the-unit-tests">
+<h2>Running the unit tests<a class="headerlink" href="#running-the-unit-tests" title="Link to this heading">#</a></h2>
+<p>After editing C++ code or tests, make sure to update the build/install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>--preset<span class="w"> </span>build
+</pre></div>
+</div>
+<p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">all-tests</span></code> CMake target can be used to build all tests.</p>
+<p>There are two ways of running C++ tests.
+Executables for the unit tests can be found in the build directory as <code class="docutils literal notranslate"><span class="pre">build/bin/scipp-XYZ-test</span></code>, where <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> is the Scipp component under test (e.g. <code class="docutils literal notranslate"><span class="pre">core</span></code>).
+These use <code class="docutils literal notranslate"><span class="pre">google-test</span></code> and provide full control over options, e.g., to filter tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build/bin/scipp-common-test
+./build/bin/scipp-core-test
+./build/bin/scipp-units-test
+./build/bin/scipp-variable-test
+./build/bin/scipp-dataset-test
+</pre></div>
+</div>
+<p>Alternatively, use <code class="docutils literal notranslate"><span class="pre">ctest</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ctest<span class="w"> </span>--preset<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+<p>If only Python code or tests have been updated, there is no need to rebuild or reinstall, provided that you use an editable install (using <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">develop</span> <span class="pre">src</span></code> as described earlier).</p>
+<p>To run the Python tests, run (in the top-level directory):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests
+</pre></div>
+</div>
+</section>
+<section id="building-documentation">
+<h2>Building Documentation<a class="headerlink" href="#building-documentation" title="Link to this heading">#</a></h2>
+<p>Run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tox<span class="w"> </span>-e<span class="w"> </span>lib<span class="w">  </span><span class="c1"># omit if using cmake, or install is up-to-date</span>
+tox<span class="w"> </span>-e<span class="w"> </span>docs
+</pre></div>
+</div>
+<p>This will build the HTML documentation and put it in a folder named <code class="docutils literal notranslate"><span class="pre">html</span></code>.
+If you want to build all docs after cleaning <code class="docutils literal notranslate"><span class="pre">html</span></code> and <code class="docutils literal notranslate"><span class="pre">doctrees</span></code> folders, please use <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-e</span> <span class="pre">docs-clean</span></code>.</p>
+</section>
+<section id="using-scipp-as-a-c-library">
+<h2>Using Scipp as a C++ library<a class="headerlink" href="#using-scipp-as-a-c-library" title="Link to this heading">#</a></h2>
+<p>Using Scipp as a C++ library is not recommended at this point as the API (and ABI) is not stable and documentation is sparse.
+Nonetheless, it can be used as a <code class="docutils literal notranslate"><span class="pre">cmake</span></code> package as follows.
+In your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># replace 23.01 with required version</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">scipp</span><span class="w"> </span><span class="s">23.01</span><span class="w"> </span><span class="s">REQUIRED</span><span class="w"> </span><span class="s">COMPONENTS</span><span class="w"> </span><span class="s">conan-config</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">scipp</span><span class="w"> </span><span class="s">23.01</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">mytarget</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">scipp::dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If Scipp was install using <code class="docutils literal notranslate"><span class="pre">conda</span></code>, <code class="docutils literal notranslate"><span class="pre">cmake</span></code> should find it automatically.
+If you build and installed Scipp from source use, e.g.,:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>&lt;your_scipp_install_dir&gt;
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;your_scipp_install_dir&gt;</span></code> should point to the <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code> that was used when building Scipp.
+Alternative set the <code class="docutils literal notranslate"><span class="pre">Scipp_DIR</span></code> or <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> (environment) variables to this path.</p>
+</section>
+<section id="generating-coverage-reports">
+<h2>Generating coverage reports<a class="headerlink" href="#generating-coverage-reports" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">cmake</span></code> with options <code class="docutils literal notranslate"><span class="pre">-DCOVERAGE=On</span> <span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">.</span> <span class="pre">--target</span> <span class="pre">coverage</span></code> from your build directory.</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">coverage/index.html</span></code> in a browser.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Development</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="coding-conventions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Coding conventions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 Scipp contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><!-- This will display the version of the docs -->
+Current Scipp version: 25.12.0 (<a href="https://github.com/scipp/Scipp/releases">older versions</a>).</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

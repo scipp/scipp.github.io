@@ -1,0 +1,704 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User Guide &#8212; Scipp</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=6867b9c9"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/index';</script>
+    <script src="../_static/anaconda-icon.js?v=461bdc62"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Structures" href="data-structures.html" />
+    <link rel="prev" title="RHESSI Solar Flares" href="../getting-started/tutorials/solar_flares.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="25.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-2022.svg" class="logo__image only-light" alt="Scipp - Home"/>
+    <img src="../_static/logo-dark.svg" class="logo__image only-dark pst-js-only" alt="Scipp - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-structures.html">Data Structures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="data-structures/data-structures.html">Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-structures/creating-arrays-and-datasets.html">Creating Arrays and Datasets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="slicing.html">Indexing and Selecting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computation.html">Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="masking.html">Masking</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="binned-data.html">Binned Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/binned-data.html">Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/computation.html">Computation with Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/filtering.html">Rearranging and Filtering Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/histogramming-grouping-and-binning.html">Histogramming, grouping, and binning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="groupby.html">GroupBy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coordinate-transformations.html">Coordinate transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reading-and-writing-files.html">Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips-tricks-and-anti-patterns.html">Tips, tricks, and anti-patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="representations-and-tables.html">Representations and Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/user-guide/index.rst"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">User Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data-structures.html">Data Structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data-structures/data-structures.html">Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-structures/creating-arrays-and-datasets.html">Creating Arrays and Datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="slicing.html">Indexing and Selecting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#Positional-indexing">Positional indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#Label-based-indexing">Label-based indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html#Advanced-indexing">Advanced indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="computation.html">Computation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="computation.html#General-concepts-and-mechanisms">General concepts and mechanisms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computation.html#Arithmetic">Arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computation.html#Trigonometrics">Trigonometrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computation.html#Other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="masking.html">Masking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="masking.html#Creating-and-manipulating-masks">Creating and manipulating masks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masking.html#Masks-in-data-arrays-and-items-of-dataset">Masks in data arrays and items of dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masking.html#Operations-with-masked-objects">Operations with masked objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masking.html#Examples-and-common-patterns-using-masks">Examples and common patterns using masks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="binned-data.html">Binned Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/binned-data.html">Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/computation.html">Computation with Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/filtering.html">Rearranging and Filtering Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="binned-data/histogramming-grouping-and-binning.html">Histogramming, grouping, and binning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="groupby.html">GroupBy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="groupby.html#Grouping-based-on-label-values">Grouping based on label values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="groupby.html#Grouping-based-on-binned-label-values">Grouping based on binned label values</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coordinate-transformations.html">Coordinate transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-transformations.html#Motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-transformations.html#transform_coords"><code class="docutils literal notranslate"><span class="pre">transform_coords</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-transformations.html#Example:-Multi-step-transform-splitting-and-combining-input-coords">Example: Multi-step transform splitting and combining input coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-transformations.html#Renaming-of-Dimensions">Renaming of Dimensions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reading-and-writing-files.html">Reading and Writing Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reading-and-writing-files.html#HDF5">HDF5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reading-and-writing-files.html#CSV">CSV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reading-and-writing-files.html#Using-pandas">Using pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reading-and-writing-files.html#NeXus">NeXus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tips-tricks-and-anti-patterns.html">Tips, tricks, and anti-patterns</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tips-tricks-and-anti-patterns.html#Choose-dimensions-wisely">Choose dimensions wisely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips-tricks-and-anti-patterns.html#Choose-dimension-order-wisely">Choose dimension order wisely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips-tricks-and-anti-patterns.html#Avoid-loops">Avoid loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips-tricks-and-anti-patterns.html#Use-in-place-operations">Use in-place operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips-tricks-and-anti-patterns.html#Reshaping-data">Reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips-tricks-and-anti-patterns.html#Improving-performance:-Allocators-and-HugePages">Improving performance: Allocators and HugePages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="representations-and-tables.html">Representations and Tables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="representations-and-tables.html#HTML-representation">HTML representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="representations-and-tables.html#SVG-representation">SVG representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="representations-and-tables.html#Table-representation">Table representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="representations-and-tables.html#String-representation">String-representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="representations-and-tables.html#Format-string-syntax">Format string syntax</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#Getting-started">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#Plotting-slices-or-items-of-a-dataset">Plotting slices or items of a dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#2-D-data">2-D data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#Logarithmic-scale">Logarithmic scale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#Further-documentation">Further documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../getting-started/tutorials/solar_flares.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">RHESSI Solar Flares</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="data-structures.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Structures</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 Scipp contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><!-- This will display the version of the docs -->
+Current Scipp version: 25.12.0 (<a href="https://github.com/scipp/Scipp/releases">older versions</a>).</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

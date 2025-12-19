@@ -1,0 +1,1889 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>scipp.Variable &#8212; Scipp</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=6867b9c9"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/classes/scipp.Variable';</script>
+    <script src="../../_static/anaconda-icon.js?v=461bdc62"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="scipp.Bins" href="scipp.Bins.html" />
+    <link rel="prev" title="scipp.Unit" href="scipp.Unit.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="25.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo-2022.svg" class="logo__image only-light" alt="Scipp - Home"/>
+    <img src="../../_static/logo-dark.svg" class="logo__image only-dark pst-js-only" alt="Scipp - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../reference/classes.html">Classes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scipp.DataArray.html">scipp.DataArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.DataGroup.html">scipp.DataGroup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.Dataset.html">scipp.Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.DType.html">scipp.DType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.Unit.html">scipp.Unit</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">scipp.Variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.Bins.html">scipp.Bins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.Coords.html">scipp.Coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.GroupByDataArray.html">scipp.GroupByDataArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.GroupByDataset.html">scipp.GroupByDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.Lookup.html">scipp.Lookup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.Masks.html">scipp.Masks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.BinEdgeError.html">scipp.BinEdgeError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.BinnedDataError.html">scipp.BinnedDataError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.CoordError.html">scipp.CoordError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.DataArrayError.html">scipp.DataArrayError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.DatasetError.html">scipp.DatasetError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.DimensionError.html">scipp.DimensionError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.DTypeError.html">scipp.DTypeError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.UnitError.html">scipp.UnitError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.VariableError.html">scipp.VariableError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.VariancesError.html">scipp.VariancesError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.typing.DTypeLike.html">scipp.typing.DTypeLike</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.typing.MetaDataMap.html">scipp.typing.MetaDataMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.typing.VariableLike.html">scipp.typing.VariableLike</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/creation-functions.html">Creation functions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.array.html">scipp.array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.arange.html">scipp.arange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.datetime.html">scipp.datetime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.datetimes.html">scipp.datetimes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.empty.html">scipp.empty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.empty_like.html">scipp.empty_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.epoch.html">scipp.epoch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.full.html">scipp.full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.full_like.html">scipp.full_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.geomspace.html">scipp.geomspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.index.html">scipp.index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.linspace.html">scipp.linspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.logspace.html">scipp.logspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.ones.html">scipp.ones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.ones_like.html">scipp.ones_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.scalar.html">scipp.scalar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.vector.html">scipp.vector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.vectors.html">scipp.vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.zeros.html">scipp.zeros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.zeros_like.html">scipp.zeros_like</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/free-functions.html">Free functions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.bin.html">scipp.bin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.bins.html">scipp.bins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.bins_like.html">scipp.bins_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.collapse.html">scipp.collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.curve_fit.html">scipp.curve_fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.elemwise_func.html">scipp.elemwise_func</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.group.html">scipp.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.hist.html">scipp.hist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.logical_not.html">scipp.logical_not</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.logical_and.html">scipp.logical_and</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.logical_or.html">scipp.logical_or</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.logical_xor.html">scipp.logical_xor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.lookup.html">scipp.lookup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nanhist.html">scipp.nanhist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.merge.html">scipp.merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.midpoints.html">scipp.midpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.rebin.html">scipp.rebin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.reduce.html">scipp.reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.slices.html">scipp.slices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.sort.html">scipp.sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.stddevs.html">scipp.stddevs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.to_unit.html">scipp.to_unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.transform_coords.html">scipp.transform_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.values.html">scipp.values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.variances.html">scipp.variances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.where.html">scipp.where</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.abs.html">scipp.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.add.html">scipp.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.ceil.html">scipp.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.cross.html">scipp.cross</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.divide.html">scipp.divide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.dot.html">scipp.dot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.erf.html">scipp.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.erfc.html">scipp.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.exp.html">scipp.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.floor.html">scipp.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.floor_divide.html">scipp.floor_divide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.log.html">scipp.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.log10.html">scipp.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.mod.html">scipp.mod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.multiply.html">scipp.multiply</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.negative.html">scipp.negative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.norm.html">scipp.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.pow.html">scipp.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.reciprocal.html">scipp.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.round.html">scipp.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.sqrt.html">scipp.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.subtract.html">scipp.subtract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.broadcast.html">scipp.broadcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.concat.html">scipp.concat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.flatten.html">scipp.flatten</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.fold.html">scipp.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.squeeze.html">scipp.squeeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.transpose.html">scipp.transpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.allclose.html">scipp.allclose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.allsorted.html">scipp.allsorted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.equal.html">scipp.equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.greater.html">scipp.greater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.greater_equal.html">scipp.greater_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.identical.html">scipp.identical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.isclose.html">scipp.isclose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.islinspace.html">scipp.islinspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.issorted.html">scipp.issorted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.less.html">scipp.less</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.less_equal.html">scipp.less_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.not_equal.html">scipp.not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.isnan.html">scipp.isnan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.isinf.html">scipp.isinf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.isfinite.html">scipp.isfinite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.isposinf.html">scipp.isposinf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.isneginf.html">scipp.isneginf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nan_to_num.html">scipp.nan_to_num</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.all.html">scipp.all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.any.html">scipp.any</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.cumsum.html">scipp.cumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.max.html">scipp.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.mean.html">scipp.mean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.median.html">scipp.median</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.min.html">scipp.min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nanmax.html">scipp.nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nanmean.html">scipp.nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nanmedian.html">scipp.nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nanmin.html">scipp.nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nanstd.html">scipp.nanstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nansum.html">scipp.nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.nanvar.html">scipp.nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.std.html">scipp.std</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.sum.html">scipp.sum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.var.html">scipp.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.sin.html">scipp.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.cos.html">scipp.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.tan.html">scipp.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.asin.html">scipp.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.acos.html">scipp.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.atan.html">scipp.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.atan2.html">scipp.atan2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.sinh.html">scipp.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.cosh.html">scipp.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.tanh.html">scipp.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.asinh.html">scipp.asinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.acosh.html">scipp.acosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.atanh.html">scipp.atanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.groupby.html">scipp.groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.counts_to_density.html">scipp.counts_to_density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.density_to_counts.html">scipp.density_to_counts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.make_html.html">scipp.make_html</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.make_svg.html">scipp.make_svg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.plot.html">scipp.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.show.html">scipp.show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.show_graph.html">scipp.show_graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.table.html">scipp.table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.to_html.html">scipp.to_html</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.get_logger.html">scipp.get_logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/scipp.display_logs.html">scipp.display_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/modules.html">Modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.binning.html">scipp.binning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.binning.make_binned.html">scipp.binning.make_binned</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.binning.make_histogrammed.html">scipp.binning.make_histogrammed</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.compat.html">scipp.compat</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.dict.html">scipp.compat.dict</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.dict.from_dict.html">scipp.compat.dict.from_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.dict.to_dict.html">scipp.compat.dict.to_dict</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.html">scipp.compat.pandas_compat</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.from_pandas.html">scipp.compat.pandas_compat.from_pandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.from_pandas_dataframe.html">scipp.compat.pandas_compat.from_pandas_dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.from_pandas_series.html">scipp.compat.pandas_compat.from_pandas_series</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.parse_bracket_header.html">scipp.compat.pandas_compat.parse_bracket_header</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.wrapping.html">scipp.compat.wrapping</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.wrapping.wrap1d.html">scipp.compat.wrapping.wrap1d</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.xarray_compat.html">scipp.compat.xarray_compat</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.xarray_compat.from_xarray.html">scipp.compat.xarray_compat.from_xarray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.xarray_compat.to_xarray.html">scipp.compat.xarray_compat.to_xarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.constants.html">scipp.constants</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.constants.physical_constants.html">scipp.constants.physical_constants</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.io.html">scipp.io</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.io.csv.html">scipp.io.csv</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.io.csv.load_csv.html">scipp.io.csv.load_csv</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.io.hdf5.html">scipp.io.hdf5</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.io.hdf5.load_hdf5.html">scipp.io.hdf5.load_hdf5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.io.hdf5.save_hdf5.html">scipp.io.hdf5.save_hdf5</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.spatial.html">scipp.spatial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.affine_transform.html">scipp.spatial.affine_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.affine_transforms.html">scipp.spatial.affine_transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.as_vectors.html">scipp.spatial.as_vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.inv.html">scipp.spatial.inv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.linear_transform.html">scipp.spatial.linear_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.linear_transforms.html">scipp.spatial.linear_transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotation.html">scipp.spatial.rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotation_as_rotvec.html">scipp.spatial.rotation_as_rotvec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotations.html">scipp.spatial.rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotations_from_rotvecs.html">scipp.spatial.rotations_from_rotvecs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.scaling_from_vector.html">scipp.spatial.scaling_from_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.scalings_from_vectors.html">scipp.spatial.scalings_from_vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.translation.html">scipp.spatial.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.translations.html">scipp.spatial.translations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.units.html">scipp.units</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.units.aliases.html">scipp.units.aliases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.units.UnitAliases.html">scipp.units.UnitAliases</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.html">scipp.scipy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.integrate.html">scipp.scipy.integrate</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.integrate.simpson.html">scipp.scipy.integrate.simpson</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.integrate.trapezoid.html">scipp.scipy.integrate.trapezoid</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.interpolate.html">scipp.scipy.interpolate</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.interpolate.interp1d.html">scipp.scipy.interpolate.interp1d</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.html">scipp.scipy.ndimage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.gaussian_filter.html">scipp.scipy.ndimage.gaussian_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.generic_filter.html">scipp.scipy.ndimage.generic_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.maximum_filter.html">scipp.scipy.ndimage.maximum_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.median_filter.html">scipp.scipy.ndimage.median_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.minimum_filter.html">scipp.scipy.ndimage.minimum_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.percentile_filter.html">scipp.scipy.ndimage.percentile_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.rank_filter.html">scipp.scipy.ndimage.rank_filter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.optimize.html">scipp.scipy.optimize</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.optimize.curve_fit.html">scipp.scipy.optimize.curve_fit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.html">scipp.scipy.signal</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.butter.html">scipp.scipy.signal.butter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.find_peaks.html">scipp.scipy.signal.find_peaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.sosfiltfilt.html">scipp.scipy.signal.sosfiltfilt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.SOS.html">scipp.scipy.signal.SOS</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.logging.html">scipp.logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.clear_log_widget.html">scipp.logging.clear_log_widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.display_logs.html">scipp.logging.display_logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.get_log_widget.html">scipp.logging.get_log_widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.get_logger.html">scipp.logging.get_logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.get_widget_handler.html">scipp.logging.get_widget_handler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.make_log_widget.html">scipp.logging.make_log_widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.make_widget_handler.html">scipp.logging.make_widget_handler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.WidgetHandler.html">scipp.logging.WidgetHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.WidgetLogRecord.html">scipp.logging.WidgetLogRecord</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.testing.html">scipp.testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.testing.assertions.html">scipp.testing.assertions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.assertions.assert_allclose.html">scipp.testing.assertions.assert_allclose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.assertions.assert_identical.html">scipp.testing.assertions.assert_identical</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.testing.strategies.html">scipp.testing.strategies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.coord_dicts.html">scipp.testing.strategies.coord_dicts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.dataarrays.html">scipp.testing.strategies.dataarrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.dims.html">scipp.testing.strategies.dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.floating_dtypes.html">scipp.testing.strategies.floating_dtypes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.integer_dtypes.html">scipp.testing.strategies.integer_dtypes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.n_variables.html">scipp.testing.strategies.n_variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.scalar_numeric_dtypes.html">scipp.testing.strategies.scalar_numeric_dtypes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.sizes_dicts.html">scipp.testing.strategies.sizes_dicts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.units.html">scipp.testing.strategies.units</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.variables.html">scipp.testing.strategies.variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/scipp.sphinxext.autoplot.html">scipp.sphinxext.autoplot</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/linear-algebra.html">Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/dtype.html">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/units.html">Physical units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/error-propagation.html">Propagation of uncertainties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/ownership-mechanism-and-readonly-flags.html">Ownership mechanism and readonly flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/testing.html">Testing code with Scipp</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.__init__"><code class="docutils literal notranslate"><span class="pre">Variable.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.__getitem__"><code class="docutils literal notranslate"><span class="pre">Variable.__getitem__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.aligned"><code class="docutils literal notranslate"><span class="pre">Variable.aligned</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.all"><code class="docutils literal notranslate"><span class="pre">Variable.all()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.any"><code class="docutils literal notranslate"><span class="pre">Variable.any()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.astype"><code class="docutils literal notranslate"><span class="pre">Variable.astype()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.bin"><code class="docutils literal notranslate"><span class="pre">Variable.bin()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.bins"><code class="docutils literal notranslate"><span class="pre">Variable.bins</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.broadcast"><code class="docutils literal notranslate"><span class="pre">Variable.broadcast()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.ceil"><code class="docutils literal notranslate"><span class="pre">Variable.ceil()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.copy"><code class="docutils literal notranslate"><span class="pre">Variable.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.cumsum"><code class="docutils literal notranslate"><span class="pre">Variable.cumsum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.dim"><code class="docutils literal notranslate"><span class="pre">Variable.dim</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.dims"><code class="docutils literal notranslate"><span class="pre">Variable.dims</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.dtype"><code class="docutils literal notranslate"><span class="pre">Variable.dtype</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.fields"><code class="docutils literal notranslate"><span class="pre">Variable.fields</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.flatten"><code class="docutils literal notranslate"><span class="pre">Variable.flatten()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.floor"><code class="docutils literal notranslate"><span class="pre">Variable.floor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.fold"><code class="docutils literal notranslate"><span class="pre">Variable.fold()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.hist"><code class="docutils literal notranslate"><span class="pre">Variable.hist()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.is_binned"><code class="docutils literal notranslate"><span class="pre">Variable.is_binned</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.max"><code class="docutils literal notranslate"><span class="pre">Variable.max()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.mean"><code class="docutils literal notranslate"><span class="pre">Variable.mean()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.median"><code class="docutils literal notranslate"><span class="pre">Variable.median()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.min"><code class="docutils literal notranslate"><span class="pre">Variable.min()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nanhist"><code class="docutils literal notranslate"><span class="pre">Variable.nanhist()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nanmax"><code class="docutils literal notranslate"><span class="pre">Variable.nanmax()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nanmean"><code class="docutils literal notranslate"><span class="pre">Variable.nanmean()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nanmedian"><code class="docutils literal notranslate"><span class="pre">Variable.nanmedian()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nanmin"><code class="docutils literal notranslate"><span class="pre">Variable.nanmin()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nanstd"><code class="docutils literal notranslate"><span class="pre">Variable.nanstd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nansum"><code class="docutils literal notranslate"><span class="pre">Variable.nansum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.nanvar"><code class="docutils literal notranslate"><span class="pre">Variable.nanvar()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.ndim"><code class="docutils literal notranslate"><span class="pre">Variable.ndim</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.plot"><code class="docutils literal notranslate"><span class="pre">Variable.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.rename"><code class="docutils literal notranslate"><span class="pre">Variable.rename()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.rename_dims"><code class="docutils literal notranslate"><span class="pre">Variable.rename_dims()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.round"><code class="docutils literal notranslate"><span class="pre">Variable.round()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.save_hdf5"><code class="docutils literal notranslate"><span class="pre">Variable.save_hdf5()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.shape"><code class="docutils literal notranslate"><span class="pre">Variable.shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.size"><code class="docutils literal notranslate"><span class="pre">Variable.size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.sizes"><code class="docutils literal notranslate"><span class="pre">Variable.sizes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.squeeze"><code class="docutils literal notranslate"><span class="pre">Variable.squeeze()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.std"><code class="docutils literal notranslate"><span class="pre">Variable.std()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.sum"><code class="docutils literal notranslate"><span class="pre">Variable.sum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.to"><code class="docutils literal notranslate"><span class="pre">Variable.to()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.transpose"><code class="docutils literal notranslate"><span class="pre">Variable.transpose()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.underlying_size"><code class="docutils literal notranslate"><span class="pre">Variable.underlying_size()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.unit"><code class="docutils literal notranslate"><span class="pre">Variable.unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.value"><code class="docutils literal notranslate"><span class="pre">Variable.value</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.values"><code class="docutils literal notranslate"><span class="pre">Variable.values</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.var"><code class="docutils literal notranslate"><span class="pre">Variable.var()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.variance"><code class="docutils literal notranslate"><span class="pre">Variable.variance</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.Variable.variances"><code class="docutils literal notranslate"><span class="pre">Variable.variances</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/classes/scipp.Variable.rst"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../reference/index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../../reference/classes.html" class="nav-link">Classes</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">scipp.Variable</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="scipp-variable">
+<h1>scipp.Variable<a class="headerlink" href="#scipp-variable" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scipp.Variable">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scipp.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><a class="headerlink" href="#scipp.Variable" title="Link to this definition">#</a></dt>
+<dd><p>Array of values with dimension labels and a unit, optionally including an array
+of variances.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">scipp._scipp.core.Variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims:</span> <span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values:</span> <span class="pre">object</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variances:</span> <span class="pre">object</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit:</span> <span class="pre">Union[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scipp._scipp.core.Unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scipp._scipp.core.DefaultUnit]</span> <span class="pre">=</span> <span class="pre">&lt;automatically</span> <span class="pre">deduced</span> <span class="pre">unit&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype:</span> <span class="pre">object</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aligned:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#scipp.Variable.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize a variable with values and/or variances.</p>
+<p>At least one argument of <code class="docutils literal notranslate"><span class="pre">values</span></code> and <code class="docutils literal notranslate"><span class="pre">variances</span></code> must be used.
+if you want to preallocate memory to fill later, use <a class="reference internal" href="../functions/scipp.empty.html#scipp.empty" title="scipp.empty"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipp.empty()</span></code></a>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This constructor is meant primarily for internal use.
+Use one of the Specialized
+<a class="reference external" href="https://scipp.github.io/reference/creation-functions.html">creation functions</a> instead.
+See in particular <a class="reference internal" href="../functions/scipp.array.html#scipp.array" title="scipp.array"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipp.array()</span></code></a> and <a class="reference internal" href="../functions/scipp.scalar.html#scipp.scalar" title="scipp.scalar"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipp.scalar()</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dims</strong> – Dimension labels.</p></li>
+<li><p><strong>values</strong> – Sequence of values for constructing an array variable.</p></li>
+<li><p><strong>variances</strong> – Sequence of variances for constructing an array variable.</p></li>
+<li><p><strong>unit</strong> – Physical unit, defaults to <code class="docutils literal notranslate"><span class="pre">scipp.units.dimensionless</span></code>.</p></li>
+<li><p><strong>dtype</strong> – Type of the variable’s elements. Is deduced from other arguments
+in most cases. Defaults to <code class="docutils literal notranslate"><span class="pre">sc.DType.float64</span></code> if no deduction is
+possible.</p></li>
+<li><p><strong>aligned</strong> – Initial value for the alignment flag.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.__init__" title="scipp.Variable.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, *, dims, values, variances, ...)</p></td>
+<td><p>Initialize a variable with values and/or variances.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.all" title="scipp.Variable.all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">all</span></code></a>([dim])</p></td>
+<td><p>Logical AND over input values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.any" title="scipp.Variable.any"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>([dim])</p></td>
+<td><p>Logical OR over input values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.astype" title="scipp.Variable.astype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">astype</span></code></a>(self, type, *[, copy])</p></td>
+<td><p>Converts a Variable or DataArray to a different dtype.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.bin" title="scipp.Variable.bin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bin</span></code></a>([arg_dict, dim])</p></td>
+<td><p>Create binned data by binning input along all dimensions given by edges.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.broadcast" title="scipp.Variable.broadcast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">broadcast</span></code></a>(*[, dims, shape, sizes])</p></td>
+<td><p>Broadcast a Variable or a DataArray.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.ceil" title="scipp.Variable.ceil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ceil</span></code></a>(*[, out])</p></td>
+<td><p>Round up to the nearest integer of all values passed in x.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.copy" title="scipp.Variable.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>(self[, deep])</p></td>
+<td><p>Return a (by default deep) copy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.cumsum" title="scipp.Variable.cumsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cumsum</span></code></a>([dim, mode])</p></td>
+<td><p>Return the cumulative sum along the specified dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.flatten" title="scipp.Variable.flatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten</span></code></a>([dims, to])</p></td>
+<td><p>Flatten multiple dimensions into a single dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.floor" title="scipp.Variable.floor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">floor</span></code></a>(*[, out])</p></td>
+<td><p>Round down to the nearest integer of all values passed in x.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.fold" title="scipp.Variable.fold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold</span></code></a>(dim, *[, dims, shape, sizes])</p></td>
+<td><p>Fold a single dimension of a variable or data array into multiple dims.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.hist" title="scipp.Variable.hist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hist</span></code></a>([arg_dict, dim])</p></td>
+<td><p>Compute a histogram.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.max" title="scipp.Variable.max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max</span></code></a>([dim])</p></td>
+<td><p>Maximum of elements in the input.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.mean" title="scipp.Variable.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean</span></code></a>([dim])</p></td>
+<td><p>Arithmetic mean of elements in the input.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.median" title="scipp.Variable.median"><code class="xref py py-obj docutils literal notranslate"><span class="pre">median</span></code></a>([dim])</p></td>
+<td><p>Compute the median of the input values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.min" title="scipp.Variable.min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min</span></code></a>([dim])</p></td>
+<td><p>Minimum of elements in the input.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.nanhist" title="scipp.Variable.nanhist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanhist</span></code></a>([arg_dict, dim])</p></td>
+<td><p>Compute a histogram, skipping NaN values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.nanmax" title="scipp.Variable.nanmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmax</span></code></a>([dim])</p></td>
+<td><p>Maximum of elements in the input ignoring NaN's.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.nanmean" title="scipp.Variable.nanmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmean</span></code></a>([dim])</p></td>
+<td><p>Arithmetic mean of elements in the input ignoring NaN's.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.nanmedian" title="scipp.Variable.nanmedian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmedian</span></code></a>([dim])</p></td>
+<td><p>Compute the median of the input values ignoring NaN's.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.nanmin" title="scipp.Variable.nanmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmin</span></code></a>([dim])</p></td>
+<td><p>Minimum of elements in the input ignoring NaN's.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.nanstd" title="scipp.Variable.nanstd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanstd</span></code></a>([dim])</p></td>
+<td><p>Compute the standard deviation of the input values ignoring NaN's.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.nansum" title="scipp.Variable.nansum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nansum</span></code></a>([dim])</p></td>
+<td><p>Sum of elements in the input ignoring NaN's.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.nanvar" title="scipp.Variable.nanvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanvar</span></code></a>([dim])</p></td>
+<td><p>Compute the variance of the input values ignoring NaN's.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.plot" title="scipp.Variable.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(**kwargs)</p></td>
+<td><p>Wrapper function to plot data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.rename" title="scipp.Variable.rename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename</span></code></a>([dims_dict])</p></td>
+<td><p>Rename dimension labels.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.rename_dims" title="scipp.Variable.rename_dims"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_dims</span></code></a>([dims_dict])</p></td>
+<td><p>Rename dimensions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.round" title="scipp.Variable.round"><code class="xref py py-obj docutils literal notranslate"><span class="pre">round</span></code></a>(*[, decimals, out])</p></td>
+<td><p>Round to the given number of decimals.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.save_hdf5" title="scipp.Variable.save_hdf5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_hdf5</span></code></a>(filename)</p></td>
+<td><p>Write an object out to file in HDF5 format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.squeeze" title="scipp.Variable.squeeze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze</span></code></a>([dim])</p></td>
+<td><p>Remove dimensions of length 1.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.std" title="scipp.Variable.std"><code class="xref py py-obj docutils literal notranslate"><span class="pre">std</span></code></a>([dim])</p></td>
+<td><p>Compute the standard deviation of the input values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.sum" title="scipp.Variable.sum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum</span></code></a>([dim])</p></td>
+<td><p>Sum of elements in the input.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.to" title="scipp.Variable.to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to</span></code></a>(*[, unit, dtype, copy])</p></td>
+<td><p>Converts a Variable or DataArray to a different dtype and/or a different unit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.transpose" title="scipp.Variable.transpose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transpose</span></code></a>([dims])</p></td>
+<td><p>Transpose dimensions of the input.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.underlying_size" title="scipp.Variable.underlying_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">underlying_size</span></code></a>(self)</p></td>
+<td><p>Return the size of the object in bytes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.var" title="scipp.Variable.var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var</span></code></a>([dim])</p></td>
+<td><p>Compute the variance of the input values.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Attributes</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.aligned" title="scipp.Variable.aligned"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aligned</span></code></a></p></td>
+<td><p>Alignment flag for coordinates.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.bins" title="scipp.Variable.bins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bins</span></code></a></p></td>
+<td><p>Returns helper <a class="reference internal" href="scipp.Bins.html#scipp.Bins" title="scipp.Bins"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipp.Bins</span></code></a> for bin-wise operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.dim" title="scipp.Variable.dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dim</span></code></a></p></td>
+<td><p>The only dimension label for 1-dimensional data, raising an exception if the data is not 1-dimensional.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.dims" title="scipp.Variable.dims"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dims</span></code></a></p></td>
+<td><p>Dimension labels of the data (read-only).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.dtype" title="scipp.Variable.dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype</span></code></a></p></td>
+<td><p>Data type contained in the variable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.fields" title="scipp.Variable.fields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fields</span></code></a></p></td>
+<td><p>Provides access to fields of structured types such as vectors or matrices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.is_binned" title="scipp.Variable.is_binned"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_binned</span></code></a></p></td>
+<td><p>Return True if the object is binned.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.ndim" title="scipp.Variable.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></p></td>
+<td><p>Number of dimensions of the data (read-only).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.shape" title="scipp.Variable.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code></a></p></td>
+<td><p>Shape of the data (read-only).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.size" title="scipp.Variable.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></p></td>
+<td><p>Number of elements in the data (read-only).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.sizes" title="scipp.Variable.sizes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sizes</span></code></a></p></td>
+<td><p>dict mapping dimension labels to dimension sizes (read-only).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.unit" title="scipp.Variable.unit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unit</span></code></a></p></td>
+<td><p>Physical unit of the data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.value" title="scipp.Variable.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></a></p></td>
+<td><p>The only value for 0-dimensional data, raising an exception if the data is not 0-dimensional.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.values" title="scipp.Variable.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></a></p></td>
+<td><p>Array of values of the data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scipp.Variable.variance" title="scipp.Variable.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code></a></p></td>
+<td><p>The only variance for 0-dimensional data, raising an exception if the data is not 0-dimensional.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scipp.Variable.variances" title="scipp.Variable.variances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variances</span></code></a></p></td>
+<td><p>Array of variances of the data.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.__getitem__" title="Link to this definition">#</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: int) -&gt; scipp._scipp.core.Variable</p></li>
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: slice) -&gt; scipp._scipp.core.Variable</p></li>
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: scipp._scipp.core.Variable) -&gt; scipp._scipp.core.Variable</p></li>
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: tuple[str, int]) -&gt; scipp._scipp.core.Variable</p></li>
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: tuple[str, slice]) -&gt; scipp._scipp.core.Variable</p></li>
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: ellipsis) -&gt; scipp._scipp.core.Variable</p></li>
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: list[int]) -&gt; scipp._scipp.core.Variable</p></li>
+<li><p>__getitem__(self: scipp._scipp.core.Variable, arg0: tuple[str, list[int]]) -&gt; scipp._scipp.core.Variable</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.aligned">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aligned</span></span><a class="headerlink" href="#scipp.Variable.aligned" title="Link to this definition">#</a></dt>
+<dd><p>Alignment flag for coordinates.</p>
+<p>Indicates whether a coordinate is aligned.
+Aligned coordinates must match between the operands of binary operations while
+unaligned coordinates are dropped on mismatch.</p>
+<p>This flag is only meaningful when the variable is contained in a <code class="docutils literal notranslate"><span class="pre">coords</span></code>
+<code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<p>It cannot be set on a variable directly;
+instead, use <code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.Coords.set_aligned()</span></code>.</p>
+<p>For <em>binned</em> coordinates of a binned data array <code class="docutils literal notranslate"><span class="pre">da</span></code>,
+<code class="docutils literal notranslate"><span class="pre">da.bins.coords[name].aligned</span></code> should always be <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+The alignment w.r.t. the events can be queried via
+<code class="docutils literal notranslate"><span class="pre">da.bins.coords[name].bins.aligned</span></code> and set via
+<code class="docutils literal notranslate"><span class="pre">da.bins.coords.set_aligned(name,</span> <span class="pre">aligned)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.all">
+<span class="sig-name descname"><span class="pre">all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.all" title="Link to this definition">#</a></dt>
+<dd><p>Logical AND over input values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.all.html#scipp.all" title="scipp.all"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.all()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.any">
+<span class="sig-name descname"><span class="pre">any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.any" title="Link to this definition">#</a></dt>
+<dd><p>Logical OR over input values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.any.html#scipp.any" title="scipp.any"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.any()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.astype">
+<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><span class="pre">scipp._scipp.core.Variable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><span class="pre">object</span></a></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><span class="pre">scipp._scipp.core.Variable</span></a></span></span><a class="headerlink" href="#scipp.Variable.astype" title="Link to this definition">#</a></dt>
+<dd><p>Converts a Variable or DataArray to a different dtype.</p>
+<p>If the dtype is unchanged and <code class="docutils literal notranslate"><span class="pre">copy</span></code> is <cite>False</cite>, the object
+is returned without making a deep copy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> – Target dtype.</p></li>
+<li><p><strong>copy</strong> – If <cite>False</cite>, return the input object if possible.
+If <cite>True</cite>, the function always returns a new object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>If the data cannot be converted to the requested dtype.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>New variable or data array with specified dtype.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Union[<a class="reference internal" href="#scipp.Variable" title="scipp.Variable">scipp.Variable</a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp.DataArray">scipp.DataArray</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.bin">
+<span class="sig-name descname"><span class="pre">bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.bin" title="Link to this definition">#</a></dt>
+<dd><p>Create binned data by binning input along all dimensions given by edges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.bin.html#scipp.bin" title="scipp.bin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.bin()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.bins">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scipp.Bins.html#scipp.Bins" title="scipp.core.bins.Bins"><span class="pre">Bins</span></a><span class="p"><span class="pre">[</span></span><span class="pre">_O</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scipp.Variable.bins" title="Link to this definition">#</a></dt>
+<dd><p>Returns helper <a class="reference internal" href="scipp.Bins.html#scipp.Bins" title="scipp.Bins"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipp.Bins</span></code></a> for bin-wise operations.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 25.11.0: </span><code class="docutils literal notranslate"><span class="pre">bins</span></code> currently returns <code class="docutils literal notranslate"><span class="pre">None</span></code> if the object is not binned.
+In the future, this will change and <code class="docutils literal notranslate"><span class="pre">bins</span></code> will raise a
+<a class="reference internal" href="scipp.BinnedDataError.html#scipp.BinnedDataError" title="scipp.BinnedDataError"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipp.BinnedDataError</span></code></a> instead.
+Use <code class="docutils literal notranslate"><span class="pre">x.is_binned</span></code> instead of <code class="docutils literal notranslate"><span class="pre">x.bins</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">None</span></code> to check
+if <code class="docutils literal notranslate"><span class="pre">x</span></code> contains binned data.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.broadcast">
+<span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.broadcast" title="Link to this definition">#</a></dt>
+<dd><p>Broadcast a Variable or a DataArray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.broadcast.html#scipp.broadcast" title="scipp.broadcast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.broadcast()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.ceil">
+<span class="sig-name descname"><span class="pre">ceil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.ceil" title="Link to this definition">#</a></dt>
+<dd><p>Round up to the nearest integer of all values passed in x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.ceil.html#scipp.ceil" title="scipp.ceil"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.ceil()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">_T</span></code>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><span class="pre">scipp._scipp.core.Variable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><span class="pre">scipp._scipp.core.Variable</span></a></span></span><a class="headerlink" href="#scipp.Variable.copy" title="Link to this definition">#</a></dt>
+<dd><p>Return a (by default deep) copy.</p>
+<p>If <cite>deep=True</cite> (the default), a deep copy is made. Otherwise, a shallow
+copy is made, and the returned data (and meta data) values are new views
+of the data and meta data values of this object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.cumsum">
+<span class="sig-name descname"><span class="pre">cumsum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inclusive'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.cumsum" title="Link to this definition">#</a></dt>
+<dd><p>Return the cumulative sum along the specified dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.cumsum.html#scipp.cumsum" title="scipp.cumsum"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.cumsum()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.dim">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dim</span></span><a class="headerlink" href="#scipp.Variable.dim" title="Link to this definition">#</a></dt>
+<dd><p>The only dimension label for 1-dimensional data, raising an exception if the data is not 1-dimensional.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.dims">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dims</span></span><a class="headerlink" href="#scipp.Variable.dims" title="Link to this definition">#</a></dt>
+<dd><p>Dimension labels of the data (read-only).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.dtype">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#scipp.Variable.dtype" title="Link to this definition">#</a></dt>
+<dd><p>Data type contained in the variable.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.fields">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></em><a class="headerlink" href="#scipp.Variable.fields" title="Link to this definition">#</a></dt>
+<dd><p>Provides access to fields of structured types such as vectors or matrices.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.flatten">
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.flatten" title="Link to this definition">#</a></dt>
+<dd><p>Flatten multiple dimensions into a single dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.flatten.html#scipp.flatten" title="scipp.flatten"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.flatten()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.floor">
+<span class="sig-name descname"><span class="pre">floor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.floor" title="Link to this definition">#</a></dt>
+<dd><p>Round down to the nearest integer of all values passed in x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.floor.html#scipp.floor" title="scipp.floor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.floor()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">_T</span></code>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.fold" title="Link to this definition">#</a></dt>
+<dd><p>Fold a single dimension of a variable or data array into multiple dims.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.fold.html#scipp.fold" title="scipp.fold"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.fold()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.hist">
+<span class="sig-name descname"><span class="pre">hist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.hist" title="Link to this definition">#</a></dt>
+<dd><p>Compute a histogram.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.hist.html#scipp.hist" title="scipp.hist"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.hist()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> | <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> | <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.is_binned">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_binned</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#scipp.Variable.is_binned" title="Link to this definition">#</a></dt>
+<dd><p>Return True if the object is binned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.max">
+<span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.max" title="Link to this definition">#</a></dt>
+<dd><p>Maximum of elements in the input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.max.html#scipp.max" title="scipp.max"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.max()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.mean" title="Link to this definition">#</a></dt>
+<dd><p>Arithmetic mean of elements in the input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.mean.html#scipp.mean" title="scipp.mean"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.mean()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.median" title="Link to this definition">#</a></dt>
+<dd><p>Compute the median of the input values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.median.html#scipp.median" title="scipp.median"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.median()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.min">
+<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.min" title="Link to this definition">#</a></dt>
+<dd><p>Minimum of elements in the input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.min.html#scipp.min" title="scipp.min"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.min()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nanhist">
+<span class="sig-name descname"><span class="pre">nanhist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nanhist" title="Link to this definition">#</a></dt>
+<dd><p>Compute a histogram, skipping NaN values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nanhist.html#scipp.nanhist" title="scipp.nanhist"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nanhist()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> | <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> | <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nanmax">
+<span class="sig-name descname"><span class="pre">nanmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nanmax" title="Link to this definition">#</a></dt>
+<dd><p>Maximum of elements in the input ignoring NaN’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nanmax.html#scipp.nanmax" title="scipp.nanmax"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nanmax()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nanmean">
+<span class="sig-name descname"><span class="pre">nanmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nanmean" title="Link to this definition">#</a></dt>
+<dd><p>Arithmetic mean of elements in the input ignoring NaN’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nanmean.html#scipp.nanmean" title="scipp.nanmean"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nanmean()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nanmedian">
+<span class="sig-name descname"><span class="pre">nanmedian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nanmedian" title="Link to this definition">#</a></dt>
+<dd><p>Compute the median of the input values ignoring NaN’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nanmedian.html#scipp.nanmedian" title="scipp.nanmedian"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nanmedian()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nanmin">
+<span class="sig-name descname"><span class="pre">nanmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nanmin" title="Link to this definition">#</a></dt>
+<dd><p>Minimum of elements in the input ignoring NaN’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nanmin.html#scipp.nanmin" title="scipp.nanmin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nanmin()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nanstd">
+<span class="sig-name descname"><span class="pre">nanstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nanstd" title="Link to this definition">#</a></dt>
+<dd><p>Compute the standard deviation of the input values ignoring NaN’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nanstd.html#scipp.nanstd" title="scipp.nanstd"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nanstd()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nansum">
+<span class="sig-name descname"><span class="pre">nansum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nansum" title="Link to this definition">#</a></dt>
+<dd><p>Sum of elements in the input ignoring NaN’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nansum.html#scipp.nansum" title="scipp.nansum"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nansum()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.nanvar">
+<span class="sig-name descname"><span class="pre">nanvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.nanvar" title="Link to this definition">#</a></dt>
+<dd><p>Compute the variance of the input values ignoring NaN’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.nanvar.html#scipp.nanvar" title="scipp.nanvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.nanvar()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.ndim">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#scipp.Variable.ndim" title="Link to this definition">#</a></dt>
+<dd><p>Number of dimensions of the data (read-only).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.plot" title="Link to this definition">#</a></dt>
+<dd><p>Wrapper function to plot data.
+See <a class="reference external" href="https://scipp.github.io/plopp/">https://scipp.github.io/plopp/</a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.rename">
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.rename" title="Link to this definition">#</a></dt>
+<dd><p>Rename dimension labels.</p>
+<p>The renaming can be defined:</p>
+<ul class="simple">
+<li><p>using a dict mapping the old to new names, e.g. <code class="docutils literal notranslate"><span class="pre">rename({'x':</span> <span class="pre">'a',</span> <span class="pre">'y':</span> <span class="pre">'b'})</span></code></p></li>
+<li><p>using keyword arguments, e.g. <code class="docutils literal notranslate"><span class="pre">rename(x='a',</span> <span class="pre">y='b')</span></code></p></li>
+</ul>
+<p>In both cases, x is renamed to a and y to b.</p>
+<p>Dimensions not specified in either input are unchanged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dims_dict</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Dictionary or items iterator mapping old to new names.</p></li>
+<li><p><strong>names</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Mapping of old to new names as keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></span> – A new variable with renamed dimensions which shares a buffer with the input.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#scipp.Variable.rename_dims" title="scipp.Variable.rename_dims"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipp.Variable.rename_dims</span></code></a></dt><dd><p>Equivalent for <code class="docutils literal notranslate"><span class="pre">Variable</span></code> but differs for <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> and <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.rename_dims">
+<span class="sig-name descname"><span class="pre">rename_dims</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.rename_dims" title="Link to this definition">#</a></dt>
+<dd><p>Rename dimensions.</p>
+<p>The renaming can be defined:</p>
+<ul class="simple">
+<li><p>using a dict mapping the old to new names, e.g.
+<code class="docutils literal notranslate"><span class="pre">rename_dims({'x':</span> <span class="pre">'a',</span> <span class="pre">'y':</span> <span class="pre">'b'})</span></code></p></li>
+<li><p>using keyword arguments, e.g. <code class="docutils literal notranslate"><span class="pre">rename_dims(x='a',</span> <span class="pre">y='b')</span></code></p></li>
+</ul>
+<p>In both cases, x is renamed to a and y to b.</p>
+<p>Dimensions not specified in either input are unchanged.</p>
+<p>This function only renames dimensions.
+See the <code class="docutils literal notranslate"><span class="pre">rename</span></code> method to also rename coordinates and attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dims_dict</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Dictionary or items iterator mapping old to new names.</p></li>
+<li><p><strong>names</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Mapping of old to new names as keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">_T</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>)</span> – A new object with renamed dimensions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.round">
+<span class="sig-name descname"><span class="pre">round</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.round" title="Link to this definition">#</a></dt>
+<dd><p>Round to the given number of decimals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.round.html#scipp.round" title="scipp.round"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.round()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">_T</span></code>)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.save_hdf5">
+<span class="sig-name descname"><span class="pre">save_hdf5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.save_hdf5" title="Link to this definition">#</a></dt>
+<dd><p>Write an object out to file in HDF5 format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.shape">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#scipp.Variable.shape" title="Link to this definition">#</a></dt>
+<dd><p>Shape of the data (read-only).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.size">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#scipp.Variable.size" title="Link to this definition">#</a></dt>
+<dd><p>Number of elements in the data (read-only).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.sizes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sizes</span></span><a class="headerlink" href="#scipp.Variable.sizes" title="Link to this definition">#</a></dt>
+<dd><p>dict mapping dimension labels to dimension sizes (read-only).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.squeeze">
+<span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.squeeze" title="Link to this definition">#</a></dt>
+<dd><p>Remove dimensions of length 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.squeeze.html#scipp.squeeze" title="scipp.squeeze"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.squeeze()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.std" title="Link to this definition">#</a></dt>
+<dd><p>Compute the standard deviation of the input values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.std.html#scipp.std" title="scipp.std"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.std()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.sum">
+<span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.sum" title="Link to this definition">#</a></dt>
+<dd><p>Sum of elements in the input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.sum.html#scipp.sum" title="scipp.sum"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.sum()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.to" title="Link to this definition">#</a></dt>
+<dd><p>Converts a Variable or DataArray to a different dtype and/or a different unit.</p>
+<p>If the dtype and unit are both unchanged and <code class="docutils literal notranslate"><span class="pre">copy</span></code> is <cite>False</cite>,
+the object is returned without making a deep copy.</p>
+<p>This method will choose whether to do the dtype or units translation first, by
+using the following rules in order:</p>
+<ul class="simple">
+<li><p>If either the input or output dtype is float64, the unit translation will be done
+on the float64 type</p></li>
+<li><p>If either the input or output dtype is float32, the unit translation will be done
+on the float32 type</p></li>
+<li><p>If both the input and output dtypes are integer types, the unit translation will
+be done on the larger type</p></li>
+<li><p>In other cases, the dtype is converted first and then the unit translation is done</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="scipp.Unit.html#scipp.Unit" title="scipp._scipp.core.Unit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Unit</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Target unit. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the unit is unchanged.</p></li>
+<li><p><strong>dtype</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Target dtype. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the dtype is unchanged.</p></li>
+<li><p><strong>copy</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, return the input object if possible.
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the function always returns a new object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Same</span> <span class="pre">as</span> <span class="pre">input</span></code> – New object with specified dtype and unit.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="scipp.DTypeError.html#scipp.DTypeError" title="scipp.DTypeError"><strong>scipp.DTypeError</strong></a> – If the input cannot be converted to the given dtype.</p></li>
+<li><p><a class="reference internal" href="scipp.UnitError.html#scipp.UnitError" title="scipp.UnitError"><strong>scipp.UnitError</strong></a> – If the input cannot be converted to the given unit.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../functions/scipp.to_unit.html#scipp.to_unit" title="scipp.to_unit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipp.to_unit</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray.astype" title="scipp.DataArray.astype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipp.DataArray.astype</span></code></a>, <a class="reference internal" href="#scipp.Variable.astype" title="scipp.Variable.astype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipp.Variable.astype</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.transpose">
+<span class="sig-name descname"><span class="pre">transpose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.transpose" title="Link to this definition">#</a></dt>
+<dd><p>Transpose dimensions of the input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.transpose.html#scipp.transpose" title="scipp.transpose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.transpose()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.underlying_size">
+<span class="sig-name descname"><span class="pre">underlying_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><span class="pre">scipp._scipp.core.Variable</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#scipp.Variable.underlying_size" title="Link to this definition">#</a></dt>
+<dd><p>Return the size of the object in bytes.</p>
+<p>The size includes the object itself and all arrays contained in it.
+But arrays may be counted multiple times if components share buffers,
+e.g. multiple coordinates referencing the same memory.
+Conversely, the size may be underestimated. Especially, but not only,
+with dtype=PyObject.</p>
+<p>This function includes all memory of the underlying buffers. Use
+<code class="docutils literal notranslate"><span class="pre">__sizeof__</span></code> to get the size of the current slice only.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.unit">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#scipp.Variable.unit" title="Link to this definition">#</a></dt>
+<dd><p>Physical unit of the data.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.value">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#scipp.Variable.value" title="Link to this definition">#</a></dt>
+<dd><p>The only value for 0-dimensional data, raising an exception if the data is not 0-dimensional.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.values">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#scipp.Variable.values" title="Link to this definition">#</a></dt>
+<dd><p>Array of values of the data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scipp.Variable.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.Variable.var" title="Link to this definition">#</a></dt>
+<dd><p>Compute the variance of the input values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Seealso<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Details in <a class="reference internal" href="../functions/scipp.var.html#scipp.var" title="scipp.var"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scipp.var()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">VariableLikeType</span></code>, <a class="reference internal" href="#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>, <a class="reference internal" href="scipp.DataArray.html#scipp.DataArray" title="scipp._scipp.core.DataArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a>, <a class="reference internal" href="scipp.Dataset.html#scipp.Dataset" title="scipp._scipp.core.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>, <a class="reference internal" href="scipp.DataGroup.html#scipp.DataGroup" title="scipp.core.data_group.DataGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGroup</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>])</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.variance">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">variance</span></span><a class="headerlink" href="#scipp.Variable.variance" title="Link to this definition">#</a></dt>
+<dd><p>The only variance for 0-dimensional data, raising an exception if the data is not 0-dimensional.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scipp.Variable.variances">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">variances</span></span><a class="headerlink" href="#scipp.Variable.variances" title="Link to this definition">#</a></dt>
+<dd><p>Array of variances of the data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="scipp.Unit.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">scipp.Unit</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="scipp.Bins.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">scipp.Bins</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 Scipp contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><!-- This will display the version of the docs -->
+Current Scipp version: 25.12.0 (<a href="https://github.com/scipp/Scipp/releases">older versions</a>).</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

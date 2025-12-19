@@ -1,0 +1,979 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>scipp.logspace &#8212; Scipp</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=6867b9c9"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/functions/scipp.logspace';</script>
+    <script src="../../_static/anaconda-icon.js?v=461bdc62"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="scipp.ones" href="scipp.ones.html" />
+    <link rel="prev" title="scipp.linspace" href="scipp.linspace.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="25.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo-2022.svg" class="logo__image only-light" alt="Scipp - Home"/>
+    <img src="../../_static/logo-dark.svg" class="logo__image only-dark pst-js-only" alt="Scipp - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/classes.html">Classes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.DataArray.html">scipp.DataArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.DataGroup.html">scipp.DataGroup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.Dataset.html">scipp.Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.DType.html">scipp.DType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.Unit.html">scipp.Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.Variable.html">scipp.Variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.Bins.html">scipp.Bins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.Coords.html">scipp.Coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.GroupByDataArray.html">scipp.GroupByDataArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.GroupByDataset.html">scipp.GroupByDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.Lookup.html">scipp.Lookup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.Masks.html">scipp.Masks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.BinEdgeError.html">scipp.BinEdgeError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.BinnedDataError.html">scipp.BinnedDataError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.CoordError.html">scipp.CoordError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.DataArrayError.html">scipp.DataArrayError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.DatasetError.html">scipp.DatasetError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.DimensionError.html">scipp.DimensionError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.DTypeError.html">scipp.DTypeError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.UnitError.html">scipp.UnitError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.VariableError.html">scipp.VariableError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.VariancesError.html">scipp.VariancesError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.typing.DTypeLike.html">scipp.typing.DTypeLike</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.typing.MetaDataMap.html">scipp.typing.MetaDataMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes/scipp.typing.VariableLike.html">scipp.typing.VariableLike</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../reference/creation-functions.html">Creation functions</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scipp.array.html">scipp.array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.arange.html">scipp.arange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.datetime.html">scipp.datetime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.datetimes.html">scipp.datetimes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.empty.html">scipp.empty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.empty_like.html">scipp.empty_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.epoch.html">scipp.epoch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.full.html">scipp.full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.full_like.html">scipp.full_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.geomspace.html">scipp.geomspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.index.html">scipp.index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.linspace.html">scipp.linspace</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">scipp.logspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.ones.html">scipp.ones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.ones_like.html">scipp.ones_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.scalar.html">scipp.scalar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.vector.html">scipp.vector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.vectors.html">scipp.vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.zeros.html">scipp.zeros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.zeros_like.html">scipp.zeros_like</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/free-functions.html">Free functions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="scipp.bin.html">scipp.bin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.bins.html">scipp.bins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.bins_like.html">scipp.bins_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.collapse.html">scipp.collapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.curve_fit.html">scipp.curve_fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.elemwise_func.html">scipp.elemwise_func</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.group.html">scipp.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.hist.html">scipp.hist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.logical_not.html">scipp.logical_not</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.logical_and.html">scipp.logical_and</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.logical_or.html">scipp.logical_or</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.logical_xor.html">scipp.logical_xor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.lookup.html">scipp.lookup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nanhist.html">scipp.nanhist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.merge.html">scipp.merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.midpoints.html">scipp.midpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.rebin.html">scipp.rebin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.reduce.html">scipp.reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.slices.html">scipp.slices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.sort.html">scipp.sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.stddevs.html">scipp.stddevs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.to_unit.html">scipp.to_unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.transform_coords.html">scipp.transform_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.values.html">scipp.values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.variances.html">scipp.variances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.where.html">scipp.where</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.abs.html">scipp.abs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.add.html">scipp.add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.ceil.html">scipp.ceil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.cross.html">scipp.cross</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.divide.html">scipp.divide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.dot.html">scipp.dot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.erf.html">scipp.erf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.erfc.html">scipp.erfc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.exp.html">scipp.exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.floor.html">scipp.floor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.floor_divide.html">scipp.floor_divide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.log.html">scipp.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.log10.html">scipp.log10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.mod.html">scipp.mod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.multiply.html">scipp.multiply</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.negative.html">scipp.negative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.norm.html">scipp.norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.pow.html">scipp.pow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.reciprocal.html">scipp.reciprocal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.round.html">scipp.round</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.sqrt.html">scipp.sqrt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.subtract.html">scipp.subtract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.broadcast.html">scipp.broadcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.concat.html">scipp.concat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.flatten.html">scipp.flatten</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.fold.html">scipp.fold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.squeeze.html">scipp.squeeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.transpose.html">scipp.transpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.allclose.html">scipp.allclose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.allsorted.html">scipp.allsorted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.equal.html">scipp.equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.greater.html">scipp.greater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.greater_equal.html">scipp.greater_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.identical.html">scipp.identical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.isclose.html">scipp.isclose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.islinspace.html">scipp.islinspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.issorted.html">scipp.issorted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.less.html">scipp.less</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.less_equal.html">scipp.less_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.not_equal.html">scipp.not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.isnan.html">scipp.isnan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.isinf.html">scipp.isinf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.isfinite.html">scipp.isfinite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.isposinf.html">scipp.isposinf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.isneginf.html">scipp.isneginf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nan_to_num.html">scipp.nan_to_num</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.all.html">scipp.all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.any.html">scipp.any</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.cumsum.html">scipp.cumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.max.html">scipp.max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.mean.html">scipp.mean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.median.html">scipp.median</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.min.html">scipp.min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nanmax.html">scipp.nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nanmean.html">scipp.nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nanmedian.html">scipp.nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nanmin.html">scipp.nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nanstd.html">scipp.nanstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nansum.html">scipp.nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.nanvar.html">scipp.nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.std.html">scipp.std</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.sum.html">scipp.sum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.var.html">scipp.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.sin.html">scipp.sin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.cos.html">scipp.cos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.tan.html">scipp.tan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.asin.html">scipp.asin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.acos.html">scipp.acos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.atan.html">scipp.atan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.atan2.html">scipp.atan2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.sinh.html">scipp.sinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.cosh.html">scipp.cosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.tanh.html">scipp.tanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.asinh.html">scipp.asinh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.acosh.html">scipp.acosh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.atanh.html">scipp.atanh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.groupby.html">scipp.groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.counts_to_density.html">scipp.counts_to_density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.density_to_counts.html">scipp.density_to_counts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.make_html.html">scipp.make_html</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.make_svg.html">scipp.make_svg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.plot.html">scipp.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.show.html">scipp.show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.show_graph.html">scipp.show_graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.table.html">scipp.table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.to_html.html">scipp.to_html</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.get_logger.html">scipp.get_logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipp.display_logs.html">scipp.display_logs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/modules.html">Modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.binning.html">scipp.binning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.binning.make_binned.html">scipp.binning.make_binned</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.binning.make_histogrammed.html">scipp.binning.make_histogrammed</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.compat.html">scipp.compat</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.dict.html">scipp.compat.dict</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.dict.from_dict.html">scipp.compat.dict.from_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.dict.to_dict.html">scipp.compat.dict.to_dict</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.html">scipp.compat.pandas_compat</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.from_pandas.html">scipp.compat.pandas_compat.from_pandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.from_pandas_dataframe.html">scipp.compat.pandas_compat.from_pandas_dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.from_pandas_series.html">scipp.compat.pandas_compat.from_pandas_series</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.pandas_compat.parse_bracket_header.html">scipp.compat.pandas_compat.parse_bracket_header</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.wrapping.html">scipp.compat.wrapping</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.wrapping.wrap1d.html">scipp.compat.wrapping.wrap1d</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.compat.xarray_compat.html">scipp.compat.xarray_compat</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.xarray_compat.from_xarray.html">scipp.compat.xarray_compat.from_xarray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.compat.xarray_compat.to_xarray.html">scipp.compat.xarray_compat.to_xarray</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.constants.html">scipp.constants</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.constants.physical_constants.html">scipp.constants.physical_constants</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.io.html">scipp.io</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.io.csv.html">scipp.io.csv</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.io.csv.load_csv.html">scipp.io.csv.load_csv</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.io.hdf5.html">scipp.io.hdf5</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.io.hdf5.load_hdf5.html">scipp.io.hdf5.load_hdf5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.io.hdf5.save_hdf5.html">scipp.io.hdf5.save_hdf5</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.spatial.html">scipp.spatial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.affine_transform.html">scipp.spatial.affine_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.affine_transforms.html">scipp.spatial.affine_transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.as_vectors.html">scipp.spatial.as_vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.inv.html">scipp.spatial.inv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.linear_transform.html">scipp.spatial.linear_transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.linear_transforms.html">scipp.spatial.linear_transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotation.html">scipp.spatial.rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotation_as_rotvec.html">scipp.spatial.rotation_as_rotvec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotations.html">scipp.spatial.rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.rotations_from_rotvecs.html">scipp.spatial.rotations_from_rotvecs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.scaling_from_vector.html">scipp.spatial.scaling_from_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.scalings_from_vectors.html">scipp.spatial.scalings_from_vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.translation.html">scipp.spatial.translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.spatial.translations.html">scipp.spatial.translations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.units.html">scipp.units</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.units.aliases.html">scipp.units.aliases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.units.UnitAliases.html">scipp.units.UnitAliases</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.html">scipp.scipy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.integrate.html">scipp.scipy.integrate</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.integrate.simpson.html">scipp.scipy.integrate.simpson</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.integrate.trapezoid.html">scipp.scipy.integrate.trapezoid</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.interpolate.html">scipp.scipy.interpolate</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.interpolate.interp1d.html">scipp.scipy.interpolate.interp1d</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.html">scipp.scipy.ndimage</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.gaussian_filter.html">scipp.scipy.ndimage.gaussian_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.generic_filter.html">scipp.scipy.ndimage.generic_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.maximum_filter.html">scipp.scipy.ndimage.maximum_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.median_filter.html">scipp.scipy.ndimage.median_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.minimum_filter.html">scipp.scipy.ndimage.minimum_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.percentile_filter.html">scipp.scipy.ndimage.percentile_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.ndimage.rank_filter.html">scipp.scipy.ndimage.rank_filter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.optimize.html">scipp.scipy.optimize</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.optimize.curve_fit.html">scipp.scipy.optimize.curve_fit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.html">scipp.scipy.signal</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.butter.html">scipp.scipy.signal.butter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.find_peaks.html">scipp.scipy.signal.find_peaks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.sosfiltfilt.html">scipp.scipy.signal.sosfiltfilt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipy/scipp.scipy.signal.SOS.html">scipp.scipy.signal.SOS</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.logging.html">scipp.logging</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.clear_log_widget.html">scipp.logging.clear_log_widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.display_logs.html">scipp.logging.display_logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.get_log_widget.html">scipp.logging.get_log_widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.get_logger.html">scipp.logging.get_logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.get_widget_handler.html">scipp.logging.get_widget_handler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.make_log_widget.html">scipp.logging.make_log_widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.make_widget_handler.html">scipp.logging.make_widget_handler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.WidgetHandler.html">scipp.logging.WidgetHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/scipp.logging.WidgetLogRecord.html">scipp.logging.WidgetLogRecord</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/scipp.testing.html">scipp.testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.testing.assertions.html">scipp.testing.assertions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.assertions.assert_allclose.html">scipp.testing.assertions.assert_allclose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.assertions.assert_identical.html">scipp.testing.assertions.assert_identical</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/scipp.testing.strategies.html">scipp.testing.strategies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.coord_dicts.html">scipp.testing.strategies.coord_dicts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.dataarrays.html">scipp.testing.strategies.dataarrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.dims.html">scipp.testing.strategies.dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.floating_dtypes.html">scipp.testing.strategies.floating_dtypes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.integer_dtypes.html">scipp.testing.strategies.integer_dtypes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.n_variables.html">scipp.testing.strategies.n_variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.scalar_numeric_dtypes.html">scipp.testing.strategies.scalar_numeric_dtypes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.sizes_dicts.html">scipp.testing.strategies.sizes_dicts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.units.html">scipp.testing.strategies.units</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/scipp.testing.strategies.variables.html">scipp.testing.strategies.variables</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/scipp.sphinxext.autoplot.html">scipp.sphinxext.autoplot</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/linear-algebra.html">Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/dtype.html">Data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/units.html">Physical units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/error-propagation.html">Propagation of uncertainties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/ownership-mechanism-and-readonly-flags.html">Ownership mechanism and readonly flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/testing.html">Testing code with Scipp</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scipp.logspace"><code class="docutils literal notranslate"><span class="pre">logspace()</span></code></a></li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/functions/scipp.logspace.rst"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../reference/index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../../reference/creation-functions.html" class="nav-link">Creation functions</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">scipp.logspace</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="scipp-logspace">
+<h1>scipp.logspace<a class="headerlink" href="#scipp-logspace" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="scipp.logspace">
+<span class="sig-prename descclassname"><span class="pre">scipp.</span></span><span class="sig-name descname"><span class="pre">logspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base=10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit=&lt;automatically</span> <span class="pre">deduced</span> <span class="pre">unit&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scipp.logspace" title="Link to this definition">#</a></dt>
+<dd><p>Constructs a <a class="reference internal" href="../classes/scipp.Variable.html#scipp.Variable" title="scipp.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> with values spaced evenly on a log scale.</p>
+<p>This is similar to <a class="reference internal" href="scipp.geomspace.html#scipp.geomspace" title="scipp.geomspace"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipp.geomspace()</span></code></a>, but with endpoints specified
+as exponents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Dimension label.</p></li>
+<li><p><strong>start</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">NumberOrVar</span></code>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference internal" href="../classes/scipp.Variable.html#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>)</span>) – The starting value of the sequence.</p></li>
+<li><p><strong>stop</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">NumberOrVar</span></code>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference internal" href="../classes/scipp.Variable.html#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>)</span>) – The end value of the sequence.</p></li>
+<li><p><strong>num</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Number of samples to generate.</p></li>
+<li><p><strong>base</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">10.0</span></code>) – The base of the log space.</p></li>
+<li><p><strong>endpoint</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – If True, <cite>step</cite> is the last returned value.
+Otherwise, it is not included.</p></li>
+<li><p><strong>unit</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../classes/scipp.Unit.html#scipp.Unit" title="scipp._scipp.core.Unit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Unit</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultUnit</span></code> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">&lt;automatically</span> <span class="pre">deduced</span> <span class="pre">unit&gt;</span></code>) – Unit of contents.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference internal" href="../classes/scipp.typing.DTypeLike.html#scipp.typing.DTypeLike" title="scipp.typing.DTypeLike"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipp.typing.DTypeLike</span></code></a>) – Type of underlying data. By default, inferred from <cite>value</cite> argument.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../classes/scipp.Variable.html#scipp.Variable" title="scipp._scipp.core.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></span> – A variable of evenly spaced values on a logscale.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="scipp.arange.html#scipp.arange" title="scipp.arange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipp.arange</span></code></a>, <a class="reference internal" href="scipp.geomspace.html#scipp.geomspace" title="scipp.geomspace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipp.geomspace</span></code></a>, <a class="reference internal" href="scipp.linspace.html#scipp.linspace" title="scipp.linspace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipp.linspace</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">&lt;scipp.Variable&gt; (x: 4)    float64  [dimensionless]  [10, 100, 1000, 10000]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">&lt;scipp.Variable&gt; (x: 4)    float64  [dimensionless]  [10, 56.2341, 316.228, 1778.28]</span>
+</pre></div>
+</div>
+<p>Set a different base:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">&lt;scipp.Variable&gt; (x: 4)    float64  [dimensionless]  [2, 4, 8, 16]</span>
+</pre></div>
+</div>
+<p>Set a unit:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="go">&lt;scipp.Variable&gt; (x: 3)    float64              [m]  [10, 100, 1000]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="scipp.linspace.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">scipp.linspace</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="scipp.ones.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">scipp.ones</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 Scipp contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><!-- This will display the version of the docs -->
+Current Scipp version: 25.12.0 (<a href="https://github.com/scipp/Scipp/releases">older versions</a>).</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
