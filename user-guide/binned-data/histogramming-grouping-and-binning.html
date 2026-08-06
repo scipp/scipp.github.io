@@ -1,0 +1,1620 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Histogramming, grouping, and binning &#8212; Scipp</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=dbc7823d"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/binned-data/histogramming-grouping-and-binning';</script>
+    <script src="../../_static/anaconda-icon.js?v=461bdc62"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GroupBy" href="../groupby.html" />
+    <link rel="prev" title="Rearranging and Filtering Binned Data" href="filtering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="26.8.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo-2022.svg" class="logo__image only-light" alt="Scipp - Home"/>
+    <img src="../../_static/logo-dark.svg" class="logo__image only-dark pst-js-only" alt="Scipp - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting-started/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../development/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/plopp">
+    Plopp
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippnexus">
+    Scippnexus
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/scippneutron">
+    Scippneutron
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://scipp.github.io/ess">
+    Ess
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scipp/scipp" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/scipp/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/scipp/scipp" title="Conda" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-custom fa-anaconda fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Conda</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data-structures.html">Data Structures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../data-structures/data-structures.html">Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data-structures/creating-arrays-and-datasets.html">Creating Arrays and Datasets</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../slicing.html">Indexing and Selecting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computation.html">Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../masking.html">Masking</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../binned-data.html">Binned Data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="binned-data.html">Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computation.html">Computation with Binned Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Rearranging and Filtering Binned Data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Histogramming, grouping, and binning</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../groupby.html">GroupBy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate-transformations.html">Coordinate transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reading-and-writing-files.html">Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips-tricks-and-anti-patterns.html">Tips, tricks, and anti-patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../representations-and-tables.html">Representations and Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting.html">Plotting</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Histogramming">Histogramming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Grouping">Grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Binning">Binning</a></li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/user-guide/binned-data/histogramming-grouping-and-binning.ipynb"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../binned-data.html" class="nav-link">Binned Data</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Histogramming, grouping, and binning</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Histogramming,-grouping,-and-binning">
+<h1>Histogramming, grouping, and binning<a class="headerlink" href="#Histogramming,-grouping,-and-binning" title="Link to this heading">#</a></h1>
+<section id="Overview">
+<h2>Overview<a class="headerlink" href="#Overview" title="Link to this heading">#</a></h2>
+<p>Histogramming (see <a class="reference internal" href="../../generated/functions/scipp.hist.html#scipp.hist"><span class="std std-ref">sc.hist</span></a>), grouping (using <a class="reference internal" href="../groupby.html"><span class="doc">sc.groupby</span></a>), and binning (see <a class="reference internal" href="binned-data.html"><span class="doc">Binned data</span></a>) all serve similar but slightly different purposes. Picking the optimal one of the three for a particular application may yield more natural code and better performance. Let us start by an example. Consider a table of scattered measurements:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">values</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">sc</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="n">sc</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">counts</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">variances</span><span class="o">=</span><span class="n">values</span>
+    <span class="p">),</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">sc</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)),</span>
+        <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">sc</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">values</span> <span class="o">*=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">5.0</span> <span class="o">*</span> <span class="n">table</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<table><tr><th style="text-align: center;" colspan="2">Coordinates</th><th style="text-align: center;border-left:1px solid #a9a9a9;">Data</th></tr><tr><td style="border-bottom:2px solid #a9a9a9;"><span style="font-weight: bold;">x</span> [m]</td><td style="border-bottom:2px solid #a9a9a9;"><span style="font-weight: bold;">y</span> [m]</td><td style="border-left:1px solid #a9a9a9;border-bottom:2px solid #a9a9a9;"><span style="font-weight: bold;"></span> [counts]</td></tr><tr><td>0.234</td><td>0.781</td><td style="border-left:1px solid #a9a9a9;">2.530&plusmn;2.858</td></tr><tr><td>0.657</td><td>0.336</td><td style="border-left:1px solid #a9a9a9;">0.230&plusmn;2.477</td></tr><tr><td>0.078</td><td>0.692</td><td style="border-left:1px solid #a9a9a9;">5.147&plusmn;2.760</td></tr><tr><td>0.962</td><td>0.008</td><td style="border-left:1px solid #a9a9a9;">0.005&plusmn;0.791</td></tr><tr><td>0.448</td><td>0.767</td><td style="border-left:1px solid #a9a9a9;">0.523&plusmn;2.216</td></tr></table></div>
+</div>
+<p>We may now be interested in the total intensity (counts) as a function of <code class="docutils literal notranslate"><span class="pre">'x'</span></code>. There are three ways to do this:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xbins</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;histogram&#39;</span><span class="p">:</span> <span class="n">table</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbins</span><span class="p">),</span>
+        <span class="s1">&#39;groupby&#39;</span><span class="p">:</span> <span class="n">table</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">xbins</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;bin&#39;</span><span class="p">:</span> <span class="n">table</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbins</span><span class="p">)</span><span class="o">.</span><span class="n">bins</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_3_0.svg" src="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_3_0.svg" />
+</div>
+</div>
+<p>In the above plot we can only see a single line, since the three solutions yield exactly the same result (neglecting floating-point rounding errors):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hist</span></code> sorts data points into ‘x’ bins, summing immediately.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> groups by ‘x’ and then sums (on-the-fly) all data points falling in the same ‘x’ bin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bin</span></code> sorts data points into ‘x’ bins. Summing all rows in a bin yields the same result as grouping and summing directly.</p></li>
+</ul>
+<p>So in this case we get equivalent results, but the application areas differ, as described in more detail in the following sections.</p>
+</section>
+<section id="Histogramming">
+<h2>Histogramming<a class="headerlink" href="#Histogramming" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../generated/functions/scipp.hist.html"><span class="doc">scipp.hist</span></a> directly sums the data and is efficient. Limitations are:</p>
+<ul class="simple">
+<li><p>When histogramming in more than one dimension, the implementation uses <code class="docutils literal notranslate"><span class="pre">sc.bin</span></code> internally, which may be less efficient and uses more memory.</p></li>
+<li><p>Can only apply “sum” or “nansum” to accumulate into a bin. <a class="reference internal" href="../../generated/functions/scipp.nanhist.html"><span class="doc">scipp.nanhist</span></a> is currently implemented differently and uses <code class="docutils literal notranslate"><span class="pre">sc.bin</span></code> internally. It therefore uses more memory and may be less efficient.</p></li>
+</ul>
+<p>We can also histogram binned data (since <a class="reference internal" href="#Binning"><span class="std std-ref">binning</span></a> preserves the <code class="docutils literal notranslate"><span class="pre">'y'</span></code> coord), to create 2-D (or N-D) histograms:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binned</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbins</span><span class="p">)</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">binned</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_5_0.svg" src="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_5_0.svg" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div><!-- Original source from -->
+<!-- https://github.com/jsignell/xarray/blob/1d960933ab252e0f79f7e050e6c9261d55568057/xarray/static/html/icons-svg-inline.html -->
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<title>Show/Hide data repr</title>
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<title>Show/Hide attributes</title>
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg><style id="scipp-style-sheet">.sc-root{--sc-background-color0:var(--jp-layout-color0,#fff);--sc-background-color1:var(--jp-layout-color1,#fcfcfc);--sc-background-color2:var(--jp-layout-color2,#efefef);--sc-inverse-background-color0:var(--jp-inverse-layout-color4,#111);--sc-font-color0:var(--jp-content-font-color0,#000);--sc-font-color1:var(--jp-content-font-color1,#555);--sc-font-color2:var(--jp-content-font-color2,#888);--sc-font-color3:var(--jp-content-font-color3,#ccc);}body.vscode-dark .sc-root{--sc-font-color0:rgba(255,255,255,1);--sc-font-color1:rgba(255,255,255,0.70);--sc-font-color2:rgba(255,255,255,0.54);--sc-font-color3:rgba(255,255,255,0.38);--sc-border-color:#1F1F1F;--sc-disabled-color:#515151;--sc-background-color0:#111111;--sc-background-color1:#111111;--sc-background-color2:#313131;}.sc-root.sc-wrap,.sc-root .sc-wrap{font-size:14px;min-width:300px;max-width:800px;}.sc-root .sc-var-attrs .sc-wrap{padding-left:3em !important;}.sc-root .sc-header{padding-top:6px !important;padding-bottom:6px !important;margin-bottom:4px !important;border-bottom:solid 1px #ddd;}.sc-root .sc-header > div,.sc-root .sc-header > ul{display:inline !important;margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-obj-type,.sc-root .sc-array-name{margin-left:2px !important;margin-right:10px !important;}.sc-root .sc-obj-type{color:var(--sc-font-color1);}.sc-root .sc-underlying-size{color:var(--sc-font-color2);}.sc-root ul.sc-sections{padding-left:0 !important;list-style:none !important;display:grid !important;grid-template-columns:150px auto auto auto 1fr 20px 20px !important;}.sc-root li.sc-section-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-section-item input{display:none !important;}.sc-root .sc-section-item input:enabled + label{cursor:pointer;color:var(--sc-font-color1);}.sc-root .sc-section-item input:enabled + label:hover{color:var(--sc-font-color0);}.sc-root label.sc-section-summary{grid-column:1 !important;font-weight:500;margin:0 !important;}.sc-root .sc-section-summary > span{display:inline-block !important;padding-left:0.5em !important;}.sc-root .sc-section-summary-in:disabled + label{color:var(--sc-font-color1);}.sc-root .sc-section-summary-in + label:before{display:inline-block !important;content:'►';font-size:11px;width:15px !important;text-align:center !important;}.sc-root .sc-section-summary-in:disabled + label:before{display:none !important;}.sc-root .sc-section-summary-in:checked + label:before{content:'▼';}.sc-root .sc-section-summary-in:checked + label > span{display:none !important;}.sc-root .sc-section-summary,.sc-root .sc-section-inline-details{padding-top:4px !important;padding-bottom:4px !important;}.sc-root .sc-section-inline-details{grid-column:2 / 6 !important;margin:0 !important;}.sc-root .sc-section-details{display:none !important;grid-column:1 / -1 !important;margin:0 0 5px 0 !important;}.sc-root .sc-section-summary-in:checked ~ .sc-section-details{display:contents !important;}.sc-root .sc-array-wrap{grid-column:1 / -1 !important;display:grid !important;grid-template-columns:20px auto !important;}.sc-root .sc-array-wrap > label{grid-column:1 !important;vertical-align:top !important;}.sc-root .sc-preview{color:var(--sc-font-color2);}.sc-root .sc-array-preview,.sc-root .sc-array-data{padding:0 5px !important;grid-column:2 !important;}.sc-root .sc-array-data,.sc-root .sc-array-in:checked ~ .sc-array-preview{display:none !important;}.sc-root .sc-array-in:checked ~ .sc-array-data,.sc-root .sc-array-preview{display:inline-block !important;}.sc-root ul.sc-dim-list{display:inline-block !important;list-style:none !important;padding:0 !important;margin:0 !important;}.sc-root ul.sc-dim-list > li{display:inline-block !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-dim-list:before{content:'(';}.sc-root .sc-dim-list:after{content:')';}.sc-root .sc-dim-list li:not(:last-child):after{content:',';padding-right:5px !important;}.sc-root .sc-dim-list li span,.sc-root .sc-standalone-var-name > span span,.sc-root .sc-var-name > span span{padding:0 !important;}.sc-root .sc-aligned{font-weight:bold;}.sc-root ul.sc-var-list,.sc-root li.sc-var-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-var-item > div,.sc-root .sc-var-item label,.sc-root .sc-var-item > .sc-var-name span{background-color:var(--sc-background-color1);margin-bottom:0 !important;}.sc-root .sc-var-item > .sc-var-name:hover span{padding-right:5px !important;}.sc-root .sc-var-list > li:nth-child(odd) > div,.sc-root .sc-var-list > li:nth-child(odd) > label,.sc-root .sc-var-list > li:nth-child(odd) > .sc-var-name span{background-color:var(--sc-background-color2);}.sc-root .sc-var-name{grid-column:1 !important;}.sc-root .sc-var-dims{grid-column:2 !important;}.sc-root .sc-var-dtype{grid-column:3 !important;text-align:right !important;color:var(--sc-font-color2);}.sc-root .sc-var-unit{grid-column:4 !important;text-align:left !important;color:var(--sc-font-color1);max-width:50pt !important;text-overflow:ellipsis;}.sc-root .sc-value-preview{grid-column:5 !important;}.sc-root .sc-var-preview-variances{text-align:right !important;}.sc-root .sc-sections .sc-section-item .sc-section-summary,.sc-root .sc-sections .sc-section-item .sc-section-inline-details,.sc-root .sc-section-item .sc-var-list .sc-var-item > div,.sc-root .sc-section-item .sc-var-list .sc-var-item > label,.sc-root .sc-section-details .sc-var-list .sc-var-item > div,.sc-root .sc-section-details .sc-var-list .sc-var-item > label{margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-var-name,.sc-root .sc-var-dims,.sc-root .sc-var-dtype,.sc-root .sc-var-unit,.sc-root .sc-preview,.sc-root .sc-attrs dt{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;padding-right:10px !important;}.sc-root .sc-var-name:hover,.sc-root .sc-var-dims:hover,.sc-root .sc-var-dtype:hover,.sc-root .sc-var-unit:hover,.sc-root .sc-attrs dt:hover{overflow:visible !important;width:auto !important;z-index:1 !important;}.sc-root .sc-var-attrs{display:block !important;}.sc-root pre.sc-var-data{display:none !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{background-color:var(--sc-background-color0) !important;padding-bottom:5px !important;}.sc-root .sc-var-attrs-in:checked ~ .sc-var-attrs{display:none !important;}.sc-root .sc-var-data-in:checked ~ pre.sc-var-data{display:block !important;}.sc-root .sc-var-data > table{float:right !important;}.sc-root .sc-var-name span,.sc-root pre.sc-var-data{padding-left:25px !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{grid-column:1 / -1 !important;}.sc-root dl.sc-attrs{padding:0 !important;margin:0 !important;display:grid !important;grid-template-columns:125px auto !important;}.sc-root .sc-attrs dt,.sc-root .sc-attrs dd{padding:0 10px 0 0 !important;margin:0 !important;float:left !important;width:auto !important;}.sc-root .sc-attrs dt{font-weight:normal;grid-column:1 !important;}.sc-root .sc-attrs dt:hover span{display:inline-block !important;padding-right:10px !important;}.sc-root .sc-attrs dd{grid-column:2 !important;white-space:pre-wrap !important;word-break:break-all !important;}.sc-root .sc-icon-database,.sc-root .sc-icon-file-text2{display:inline-block !important;vertical-align:middle !important;width:1em !important;height:1.5em !important;max-width:none !important;stroke-width:0;stroke:currentColor;fill:currentColor;}.sc-root label.sc-hide-icon svg{opacity:0 !important;}.sc-root .sc-standalone-var-name{grid-column:1 / 3 !important;}.sc-root .sc-standalone-var-name span{padding-left:25px !important;padding-right:10px !important;}.sc-root .sc-title{font-weight:bold;font-size:1.5em;}.sc-root .sc-subtitle{font-weight:normal;font-style:italic;text-align:left !important;font-size:1.2em;padding:1px !important;}.sc-root .sc-label{fill:var(--sc-font-color0,#444444);text-anchor:middle;}.sc-root .sc-name{fill:var(--sc-font-color0,#111111);}.sc-root .sc-inset-line{stroke:var(--sc-font-color1);stroke-width:0.05;stroke-dasharray:0.2,0.2;}.sc-log-wrap{height:25ex;resize:vertical;overflow-y:scroll;display:flex;flex-direction:column-reverse;border:1px solid;border-color:var(--jp-border-color2);background-color:var(--sc-background-color1);}div.sc-log{line-height:2.5ex;}table.sc-log{table-layout:auto;border-collapse:collapse;}tr.sc-log:nth-child(even){background-color:var(--sc-background-color0);}tr.sc-log > td{vertical-align:top;padding-bottom:0.5ex;}.sc-log-time-stamp{min-width:22ch;font-family:var(--jp-code-font-family);color:var(--sc-font-color2);}.sc-log-level{min-width:10ch;}tr.sc-log-debug td.sc-log-level{color:var(--jp-accent-color1);}tr.sc-log-info td.sc-log-level{color:var(--jp-info-color1);}tr.sc-log-warning td.sc-log-level{color:var(--jp-warn-color1);}tr.sc-log-error td.sc-log-level{font-weight:bold;color:var(--jp-error-color2);}tr.sc-log-critical td.sc-log-level{font-weight:bold;color:var(--sc-background-color0);background-color:var(--jp-error-color1);}.sc-log-message{white-space:pre-wrap;width:100%;}.sc-log-html-payload{white-space:normal;}.sc-log-name{padding-right:0.5em;text-align:right;white-space:pre-wrap;color:var(--sc-font-color3);}</style><div class='sc-wrap sc-root'><div class='sc-header'><div class='sc-obj-type'>scipp.DataArray (19.96 KB)</div></div><ul class='sc-sections'><li class='sc-section-item'><input id='section-cad85599-6209-4c87-95fa-ea7803726138' class='sc-section-summary-in' type='checkbox' disabled ><label for='section-cad85599-6209-4c87-95fa-ea7803726138' class='sc-section-summary' >Dimensions:</label><div class='sc-section-inline-details'><ul class='sc-dim-list'><li><span class='sc-has-index'>x</span>: 39</li><li><span class='sc-has-index'>y</span>: 30</li></ul></div><div class='sc-section-details'></div></li><li class='sc-section-item'><input id='section-0bb740f6-5b9c-45b0-ac1c-414ddf3903f4' class='sc-section-summary-in' type='checkbox'  checked><label for='section-0bb740f6-5b9c-45b0-ac1c-414ddf3903f4' class='sc-section-summary'  title='Expand/collapse section'>Coordinates: <span>(2)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>x</span></div><div class='sc-var-dims'>(x [bin-edge])</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.0, 0.026, ..., 0.974, 1.0</div></span></div><input id='attrs-c99a28ae-a0c1-495d-a4b2-33662a6bac0f' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-c99a28ae-a0c1-495d-a4b2-33662a6bac0f' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5f25f763-8e2b-46ab-9eab-8b71ad435a8f' class='sc-var-data-in' type='checkbox'><label for='data-5f25f763-8e2b-46ab-9eab-8b71ad435a8f' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([0.        , 0.02564103, 0.05128205, 0.07692308, 0.1025641 ,
+       0.12820513, 0.15384615, 0.17948718, 0.20512821, 0.23076923,
+       0.25641026, 0.28205128, 0.30769231, 0.33333333, 0.35897436,
+       0.38461538, 0.41025641, 0.43589744, 0.46153846, 0.48717949,
+       0.51282051, 0.53846154, 0.56410256, 0.58974359, 0.61538462,
+       0.64102564, 0.66666667, 0.69230769, 0.71794872, 0.74358974,
+       0.76923077, 0.79487179, 0.82051282, 0.84615385, 0.87179487,
+       0.8974359 , 0.92307692, 0.94871795, 0.97435897, 1.        ])</pre></span></li><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>y</span></div><div class='sc-var-dims'>(y [bin-edge])</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.000, 0.033, ..., 0.967, 1.000</div></span></div><input id='attrs-6945d483-a675-4e1c-a220-bec973eaad22' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-6945d483-a675-4e1c-a220-bec973eaad22' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-ad831d4c-4ec0-48ef-8d2c-bc6c29d856ab' class='sc-var-data-in' type='checkbox'><label for='data-ad831d4c-4ec0-48ef-8d2c-bc6c29d856ab' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([1.15814814e-04, 3.34450865e-02, 6.67743582e-02, 1.00103630e-01,
+       1.33432902e-01, 1.66762173e-01, 2.00091445e-01, 2.33420717e-01,
+       2.66749988e-01, 3.00079260e-01, 3.33408532e-01, 3.66737803e-01,
+       4.00067075e-01, 4.33396347e-01, 4.66725618e-01, 5.00054890e-01,
+       5.33384162e-01, 5.66713433e-01, 6.00042705e-01, 6.33371977e-01,
+       6.66701248e-01, 7.00030520e-01, 7.33359792e-01, 7.66689063e-01,
+       8.00018335e-01, 8.33347607e-01, 8.66676878e-01, 9.00006150e-01,
+       9.33335422e-01, 9.66664693e-01, 9.99993965e-01])</pre></span></li></ul></div></li><li class='sc-section-item'><input id='section-4fb10043-dcbf-42c5-aac7-dda064e92545' class='sc-section-summary-in' type='checkbox'  checked><label for='section-4fb10043-dcbf-42c5-aac7-dda064e92545' class='sc-section-summary'  title='Expand/collapse section'>Data: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span></span></div><div class='sc-var-dims'>(x, y)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>counts</div><div class='sc-value-preview sc-preview'><span><div>26.980, 22.598, ..., 0.245, 0.095</div></span><span><div>σ = 5.360, 4.930, ..., 5.830, 3.560</div></span></div><input id='attrs-eb689f6e-eaa3-470b-8878-a809854c5cba' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-eb689f6e-eaa3-470b-8878-a809854c5cba' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8b567942-689e-4c00-8db2-91c2f87bec56' class='sc-var-data-in' type='checkbox'><label for='data-8b567942-689e-4c00-8db2-91c2f87bec56' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([[26.98016735, 22.59846937,  4.96957051, ..., 29.17671979,
+        19.47180463, 17.65393855],
+       [19.82249373, 20.10796124, 26.0912018 , ..., 17.43483849,
+        22.62520572, 12.07069152],
+       [ 8.76757898, 13.86872282, 16.68448897, ..., 13.1683459 ,
+         9.40284914, 10.13544167],
+       ...,
+       [ 0.10641675,  0.11923765,  0.08502718, ...,  0.27718427,
+         0.04723335,  0.18579527],
+       [ 0.20120807,  0.03719262,  0.12166418, ...,  0.17956861,
+         0.21219734,  0.16268177],
+       [ 0.21730928,  0.16660479,  0.        , ...,  0.09163025,
+         0.24493667,  0.09480197]], shape=(39, 30))<br><br>Variances (σ²):<br>array([[28.72752839, 24.30916534,  5.16774899, ..., 30.83937005,
+        20.30269334, 19.02492089],
+       [23.87965528, 24.59402899, 31.59899915, ..., 20.95357673,
+        27.21173139, 14.51297109],
+       [12.49645147, 19.92673742, 22.93148411, ..., 17.50169372,
+        12.40377161, 14.02856671],
+       ...,
+       [11.84311158, 13.01493024,  9.04860529, ..., 29.77429525,
+         4.97736067, 20.30524849],
+       [25.15437731,  4.39327285, 14.53620571, ..., 21.83991487,
+        26.40129136, 19.57536967],
+       [30.42967953, 23.0924039 ,  0.        , ..., 12.95422912,
+        33.99079146, 12.67709191]], shape=(39, 30))</pre></li></ul></div></li></ul></div></div></div>
+</div>
+<p>Another capability of <code class="docutils literal notranslate"><span class="pre">hist</span></code> is to histogram a dimension that has previously been binned with a different or higher resolution, i.e. different bin edges. Compare to the plot of the initial example:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binned</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbins</span><span class="p">)</span>
+<span class="n">binned</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_8_0.svg" src="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_8_0.svg" />
+</div>
+</div>
+</section>
+<section id="Grouping">
+<h2>Grouping<a class="headerlink" href="#Grouping" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> is more flexible in terms of operations than can be applied and may be the go-to solution when a quick one-liner is required. Limitations are:</p>
+<ul class="simple">
+<li><p>Can only group along a single dimension.</p></li>
+<li><p>Works best for small to medium-sized data, or if data is already mostly sorted along the grouping dimension. Slow if millions of small input slices contribute to each group.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> can also operate on binned data, combining bin contents by concatenation:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binned</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbins</span><span class="p">)</span>
+<span class="n">binned</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;param&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">39</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">binned</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;param&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">grouped</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div><!-- Original source from -->
+<!-- https://github.com/jsignell/xarray/blob/1d960933ab252e0f79f7e050e6c9261d55568057/xarray/static/html/icons-svg-inline.html -->
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<title>Show/Hide data repr</title>
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<title>Show/Hide attributes</title>
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg><style id="scipp-style-sheet">.sc-root{--sc-background-color0:var(--jp-layout-color0,#fff);--sc-background-color1:var(--jp-layout-color1,#fcfcfc);--sc-background-color2:var(--jp-layout-color2,#efefef);--sc-inverse-background-color0:var(--jp-inverse-layout-color4,#111);--sc-font-color0:var(--jp-content-font-color0,#000);--sc-font-color1:var(--jp-content-font-color1,#555);--sc-font-color2:var(--jp-content-font-color2,#888);--sc-font-color3:var(--jp-content-font-color3,#ccc);}body.vscode-dark .sc-root{--sc-font-color0:rgba(255,255,255,1);--sc-font-color1:rgba(255,255,255,0.70);--sc-font-color2:rgba(255,255,255,0.54);--sc-font-color3:rgba(255,255,255,0.38);--sc-border-color:#1F1F1F;--sc-disabled-color:#515151;--sc-background-color0:#111111;--sc-background-color1:#111111;--sc-background-color2:#313131;}.sc-root.sc-wrap,.sc-root .sc-wrap{font-size:14px;min-width:300px;max-width:800px;}.sc-root .sc-var-attrs .sc-wrap{padding-left:3em !important;}.sc-root .sc-header{padding-top:6px !important;padding-bottom:6px !important;margin-bottom:4px !important;border-bottom:solid 1px #ddd;}.sc-root .sc-header > div,.sc-root .sc-header > ul{display:inline !important;margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-obj-type,.sc-root .sc-array-name{margin-left:2px !important;margin-right:10px !important;}.sc-root .sc-obj-type{color:var(--sc-font-color1);}.sc-root .sc-underlying-size{color:var(--sc-font-color2);}.sc-root ul.sc-sections{padding-left:0 !important;list-style:none !important;display:grid !important;grid-template-columns:150px auto auto auto 1fr 20px 20px !important;}.sc-root li.sc-section-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-section-item input{display:none !important;}.sc-root .sc-section-item input:enabled + label{cursor:pointer;color:var(--sc-font-color1);}.sc-root .sc-section-item input:enabled + label:hover{color:var(--sc-font-color0);}.sc-root label.sc-section-summary{grid-column:1 !important;font-weight:500;margin:0 !important;}.sc-root .sc-section-summary > span{display:inline-block !important;padding-left:0.5em !important;}.sc-root .sc-section-summary-in:disabled + label{color:var(--sc-font-color1);}.sc-root .sc-section-summary-in + label:before{display:inline-block !important;content:'►';font-size:11px;width:15px !important;text-align:center !important;}.sc-root .sc-section-summary-in:disabled + label:before{display:none !important;}.sc-root .sc-section-summary-in:checked + label:before{content:'▼';}.sc-root .sc-section-summary-in:checked + label > span{display:none !important;}.sc-root .sc-section-summary,.sc-root .sc-section-inline-details{padding-top:4px !important;padding-bottom:4px !important;}.sc-root .sc-section-inline-details{grid-column:2 / 6 !important;margin:0 !important;}.sc-root .sc-section-details{display:none !important;grid-column:1 / -1 !important;margin:0 0 5px 0 !important;}.sc-root .sc-section-summary-in:checked ~ .sc-section-details{display:contents !important;}.sc-root .sc-array-wrap{grid-column:1 / -1 !important;display:grid !important;grid-template-columns:20px auto !important;}.sc-root .sc-array-wrap > label{grid-column:1 !important;vertical-align:top !important;}.sc-root .sc-preview{color:var(--sc-font-color2);}.sc-root .sc-array-preview,.sc-root .sc-array-data{padding:0 5px !important;grid-column:2 !important;}.sc-root .sc-array-data,.sc-root .sc-array-in:checked ~ .sc-array-preview{display:none !important;}.sc-root .sc-array-in:checked ~ .sc-array-data,.sc-root .sc-array-preview{display:inline-block !important;}.sc-root ul.sc-dim-list{display:inline-block !important;list-style:none !important;padding:0 !important;margin:0 !important;}.sc-root ul.sc-dim-list > li{display:inline-block !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-dim-list:before{content:'(';}.sc-root .sc-dim-list:after{content:')';}.sc-root .sc-dim-list li:not(:last-child):after{content:',';padding-right:5px !important;}.sc-root .sc-dim-list li span,.sc-root .sc-standalone-var-name > span span,.sc-root .sc-var-name > span span{padding:0 !important;}.sc-root .sc-aligned{font-weight:bold;}.sc-root ul.sc-var-list,.sc-root li.sc-var-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-var-item > div,.sc-root .sc-var-item label,.sc-root .sc-var-item > .sc-var-name span{background-color:var(--sc-background-color1);margin-bottom:0 !important;}.sc-root .sc-var-item > .sc-var-name:hover span{padding-right:5px !important;}.sc-root .sc-var-list > li:nth-child(odd) > div,.sc-root .sc-var-list > li:nth-child(odd) > label,.sc-root .sc-var-list > li:nth-child(odd) > .sc-var-name span{background-color:var(--sc-background-color2);}.sc-root .sc-var-name{grid-column:1 !important;}.sc-root .sc-var-dims{grid-column:2 !important;}.sc-root .sc-var-dtype{grid-column:3 !important;text-align:right !important;color:var(--sc-font-color2);}.sc-root .sc-var-unit{grid-column:4 !important;text-align:left !important;color:var(--sc-font-color1);max-width:50pt !important;text-overflow:ellipsis;}.sc-root .sc-value-preview{grid-column:5 !important;}.sc-root .sc-var-preview-variances{text-align:right !important;}.sc-root .sc-sections .sc-section-item .sc-section-summary,.sc-root .sc-sections .sc-section-item .sc-section-inline-details,.sc-root .sc-section-item .sc-var-list .sc-var-item > div,.sc-root .sc-section-item .sc-var-list .sc-var-item > label,.sc-root .sc-section-details .sc-var-list .sc-var-item > div,.sc-root .sc-section-details .sc-var-list .sc-var-item > label{margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-var-name,.sc-root .sc-var-dims,.sc-root .sc-var-dtype,.sc-root .sc-var-unit,.sc-root .sc-preview,.sc-root .sc-attrs dt{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;padding-right:10px !important;}.sc-root .sc-var-name:hover,.sc-root .sc-var-dims:hover,.sc-root .sc-var-dtype:hover,.sc-root .sc-var-unit:hover,.sc-root .sc-attrs dt:hover{overflow:visible !important;width:auto !important;z-index:1 !important;}.sc-root .sc-var-attrs{display:block !important;}.sc-root pre.sc-var-data{display:none !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{background-color:var(--sc-background-color0) !important;padding-bottom:5px !important;}.sc-root .sc-var-attrs-in:checked ~ .sc-var-attrs{display:none !important;}.sc-root .sc-var-data-in:checked ~ pre.sc-var-data{display:block !important;}.sc-root .sc-var-data > table{float:right !important;}.sc-root .sc-var-name span,.sc-root pre.sc-var-data{padding-left:25px !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{grid-column:1 / -1 !important;}.sc-root dl.sc-attrs{padding:0 !important;margin:0 !important;display:grid !important;grid-template-columns:125px auto !important;}.sc-root .sc-attrs dt,.sc-root .sc-attrs dd{padding:0 10px 0 0 !important;margin:0 !important;float:left !important;width:auto !important;}.sc-root .sc-attrs dt{font-weight:normal;grid-column:1 !important;}.sc-root .sc-attrs dt:hover span{display:inline-block !important;padding-right:10px !important;}.sc-root .sc-attrs dd{grid-column:2 !important;white-space:pre-wrap !important;word-break:break-all !important;}.sc-root .sc-icon-database,.sc-root .sc-icon-file-text2{display:inline-block !important;vertical-align:middle !important;width:1em !important;height:1.5em !important;max-width:none !important;stroke-width:0;stroke:currentColor;fill:currentColor;}.sc-root label.sc-hide-icon svg{opacity:0 !important;}.sc-root .sc-standalone-var-name{grid-column:1 / 3 !important;}.sc-root .sc-standalone-var-name span{padding-left:25px !important;padding-right:10px !important;}.sc-root .sc-title{font-weight:bold;font-size:1.5em;}.sc-root .sc-subtitle{font-weight:normal;font-style:italic;text-align:left !important;font-size:1.2em;padding:1px !important;}.sc-root .sc-label{fill:var(--sc-font-color0,#444444);text-anchor:middle;}.sc-root .sc-name{fill:var(--sc-font-color0,#111111);}.sc-root .sc-inset-line{stroke:var(--sc-font-color1);stroke-width:0.05;stroke-dasharray:0.2,0.2;}.sc-log-wrap{height:25ex;resize:vertical;overflow-y:scroll;display:flex;flex-direction:column-reverse;border:1px solid;border-color:var(--jp-border-color2);background-color:var(--sc-background-color1);}div.sc-log{line-height:2.5ex;}table.sc-log{table-layout:auto;border-collapse:collapse;}tr.sc-log:nth-child(even){background-color:var(--sc-background-color0);}tr.sc-log > td{vertical-align:top;padding-bottom:0.5ex;}.sc-log-time-stamp{min-width:22ch;font-family:var(--jp-code-font-family);color:var(--sc-font-color2);}.sc-log-level{min-width:10ch;}tr.sc-log-debug td.sc-log-level{color:var(--jp-accent-color1);}tr.sc-log-info td.sc-log-level{color:var(--jp-info-color1);}tr.sc-log-warning td.sc-log-level{color:var(--jp-warn-color1);}tr.sc-log-error td.sc-log-level{font-weight:bold;color:var(--jp-error-color2);}tr.sc-log-critical td.sc-log-level{font-weight:bold;color:var(--sc-background-color0);background-color:var(--jp-error-color1);}.sc-log-message{white-space:pre-wrap;width:100%;}.sc-log-html-payload{white-space:normal;}.sc-log-name{padding-right:0.5em;text-align:right;white-space:pre-wrap;color:var(--sc-font-color3);}</style><div class='sc-wrap sc-root'><div class='sc-header'><div class='sc-obj-type'>scipp.DataArray (158.44 KB)</div></div><ul class='sc-sections'><li class='sc-section-item'><input id='section-af5e43b9-1c84-460c-a005-13899451c872' class='sc-section-summary-in' type='checkbox' disabled ><label for='section-af5e43b9-1c84-460c-a005-13899451c872' class='sc-section-summary' >Dimensions:</label><div class='sc-section-inline-details'><ul class='sc-dim-list'><li><span class='sc-has-index'>param</span>: 4</li></ul></div><div class='sc-section-details'></div></li><li class='sc-section-item'><input id='section-e3d25799-e494-4f8d-ac1c-f97d2aedb9aa' class='sc-section-summary-in' type='checkbox'  checked><label for='section-e3d25799-e494-4f8d-ac1c-f97d2aedb9aa' class='sc-section-summary'  title='Expand/collapse section'>Coordinates: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>param</span></div><div class='sc-var-dims'>(param)</div><div class='sc-var-dtype'>int32</div><div class='sc-var-unit'>𝟙</div><div class='sc-value-preview sc-preview'><span><div>0, 1, 2, 3</div></span></div><input id='attrs-2f82a672-5200-4527-bde8-83ff22f79aec' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-2f82a672-5200-4527-bde8-83ff22f79aec' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8373dd9a-a3a8-472e-82b3-05f1cb5c5448' class='sc-var-data-in' type='checkbox'><label for='data-8373dd9a-a3a8-472e-82b3-05f1cb5c5448' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([0, 1, 2, 3], dtype=int32)</pre></span></li></ul></div></li><li class='sc-section-item'><input id='section-5be9728c-733f-42ee-a838-853fa2ad7197' class='sc-section-summary-in' type='checkbox'  checked><label for='section-5be9728c-733f-42ee-a838-853fa2ad7197' class='sc-section-summary'  title='Expand/collapse section'>Data: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span></span></div><div class='sc-var-dims'>(param)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>counts</div><div class='sc-value-preview sc-preview'><span><div>binned data [len=528, len=1155, len=1002, len=2315]</div></span></div><input id='attrs-baa67c0d-bdd0-4b16-ae4a-58c031772637' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-baa67c0d-bdd0-4b16-ae4a-58c031772637' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-15d4f4bb-1905-4149-9b62-800f4b40eac6' class='sc-var-data-in' type='checkbox'><label for='data-15d4f4bb-1905-4149-9b62-800f4b40eac6' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>dim=&#x27;position&#x27;,
+content=DataArray(
+          dims=(position: 5000),
+          data=float64[counts],
+          coords={&#x27;x&#x27;:float64[m], &#x27;y&#x27;:float64[m]})</pre></li></ul></div></li></ul></div></div></div>
+</div>
+<p>Each output bin is a combination of multiple input bins:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div><!-- Original source from -->
+<!-- https://github.com/jsignell/xarray/blob/1d960933ab252e0f79f7e050e6c9261d55568057/xarray/static/html/icons-svg-inline.html -->
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<title>Show/Hide data repr</title>
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<title>Show/Hide attributes</title>
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg><style id="scipp-style-sheet">.sc-root{--sc-background-color0:var(--jp-layout-color0,#fff);--sc-background-color1:var(--jp-layout-color1,#fcfcfc);--sc-background-color2:var(--jp-layout-color2,#efefef);--sc-inverse-background-color0:var(--jp-inverse-layout-color4,#111);--sc-font-color0:var(--jp-content-font-color0,#000);--sc-font-color1:var(--jp-content-font-color1,#555);--sc-font-color2:var(--jp-content-font-color2,#888);--sc-font-color3:var(--jp-content-font-color3,#ccc);}body.vscode-dark .sc-root{--sc-font-color0:rgba(255,255,255,1);--sc-font-color1:rgba(255,255,255,0.70);--sc-font-color2:rgba(255,255,255,0.54);--sc-font-color3:rgba(255,255,255,0.38);--sc-border-color:#1F1F1F;--sc-disabled-color:#515151;--sc-background-color0:#111111;--sc-background-color1:#111111;--sc-background-color2:#313131;}.sc-root.sc-wrap,.sc-root .sc-wrap{font-size:14px;min-width:300px;max-width:800px;}.sc-root .sc-var-attrs .sc-wrap{padding-left:3em !important;}.sc-root .sc-header{padding-top:6px !important;padding-bottom:6px !important;margin-bottom:4px !important;border-bottom:solid 1px #ddd;}.sc-root .sc-header > div,.sc-root .sc-header > ul{display:inline !important;margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-obj-type,.sc-root .sc-array-name{margin-left:2px !important;margin-right:10px !important;}.sc-root .sc-obj-type{color:var(--sc-font-color1);}.sc-root .sc-underlying-size{color:var(--sc-font-color2);}.sc-root ul.sc-sections{padding-left:0 !important;list-style:none !important;display:grid !important;grid-template-columns:150px auto auto auto 1fr 20px 20px !important;}.sc-root li.sc-section-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-section-item input{display:none !important;}.sc-root .sc-section-item input:enabled + label{cursor:pointer;color:var(--sc-font-color1);}.sc-root .sc-section-item input:enabled + label:hover{color:var(--sc-font-color0);}.sc-root label.sc-section-summary{grid-column:1 !important;font-weight:500;margin:0 !important;}.sc-root .sc-section-summary > span{display:inline-block !important;padding-left:0.5em !important;}.sc-root .sc-section-summary-in:disabled + label{color:var(--sc-font-color1);}.sc-root .sc-section-summary-in + label:before{display:inline-block !important;content:'►';font-size:11px;width:15px !important;text-align:center !important;}.sc-root .sc-section-summary-in:disabled + label:before{display:none !important;}.sc-root .sc-section-summary-in:checked + label:before{content:'▼';}.sc-root .sc-section-summary-in:checked + label > span{display:none !important;}.sc-root .sc-section-summary,.sc-root .sc-section-inline-details{padding-top:4px !important;padding-bottom:4px !important;}.sc-root .sc-section-inline-details{grid-column:2 / 6 !important;margin:0 !important;}.sc-root .sc-section-details{display:none !important;grid-column:1 / -1 !important;margin:0 0 5px 0 !important;}.sc-root .sc-section-summary-in:checked ~ .sc-section-details{display:contents !important;}.sc-root .sc-array-wrap{grid-column:1 / -1 !important;display:grid !important;grid-template-columns:20px auto !important;}.sc-root .sc-array-wrap > label{grid-column:1 !important;vertical-align:top !important;}.sc-root .sc-preview{color:var(--sc-font-color2);}.sc-root .sc-array-preview,.sc-root .sc-array-data{padding:0 5px !important;grid-column:2 !important;}.sc-root .sc-array-data,.sc-root .sc-array-in:checked ~ .sc-array-preview{display:none !important;}.sc-root .sc-array-in:checked ~ .sc-array-data,.sc-root .sc-array-preview{display:inline-block !important;}.sc-root ul.sc-dim-list{display:inline-block !important;list-style:none !important;padding:0 !important;margin:0 !important;}.sc-root ul.sc-dim-list > li{display:inline-block !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-dim-list:before{content:'(';}.sc-root .sc-dim-list:after{content:')';}.sc-root .sc-dim-list li:not(:last-child):after{content:',';padding-right:5px !important;}.sc-root .sc-dim-list li span,.sc-root .sc-standalone-var-name > span span,.sc-root .sc-var-name > span span{padding:0 !important;}.sc-root .sc-aligned{font-weight:bold;}.sc-root ul.sc-var-list,.sc-root li.sc-var-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-var-item > div,.sc-root .sc-var-item label,.sc-root .sc-var-item > .sc-var-name span{background-color:var(--sc-background-color1);margin-bottom:0 !important;}.sc-root .sc-var-item > .sc-var-name:hover span{padding-right:5px !important;}.sc-root .sc-var-list > li:nth-child(odd) > div,.sc-root .sc-var-list > li:nth-child(odd) > label,.sc-root .sc-var-list > li:nth-child(odd) > .sc-var-name span{background-color:var(--sc-background-color2);}.sc-root .sc-var-name{grid-column:1 !important;}.sc-root .sc-var-dims{grid-column:2 !important;}.sc-root .sc-var-dtype{grid-column:3 !important;text-align:right !important;color:var(--sc-font-color2);}.sc-root .sc-var-unit{grid-column:4 !important;text-align:left !important;color:var(--sc-font-color1);max-width:50pt !important;text-overflow:ellipsis;}.sc-root .sc-value-preview{grid-column:5 !important;}.sc-root .sc-var-preview-variances{text-align:right !important;}.sc-root .sc-sections .sc-section-item .sc-section-summary,.sc-root .sc-sections .sc-section-item .sc-section-inline-details,.sc-root .sc-section-item .sc-var-list .sc-var-item > div,.sc-root .sc-section-item .sc-var-list .sc-var-item > label,.sc-root .sc-section-details .sc-var-list .sc-var-item > div,.sc-root .sc-section-details .sc-var-list .sc-var-item > label{margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-var-name,.sc-root .sc-var-dims,.sc-root .sc-var-dtype,.sc-root .sc-var-unit,.sc-root .sc-preview,.sc-root .sc-attrs dt{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;padding-right:10px !important;}.sc-root .sc-var-name:hover,.sc-root .sc-var-dims:hover,.sc-root .sc-var-dtype:hover,.sc-root .sc-var-unit:hover,.sc-root .sc-attrs dt:hover{overflow:visible !important;width:auto !important;z-index:1 !important;}.sc-root .sc-var-attrs{display:block !important;}.sc-root pre.sc-var-data{display:none !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{background-color:var(--sc-background-color0) !important;padding-bottom:5px !important;}.sc-root .sc-var-attrs-in:checked ~ .sc-var-attrs{display:none !important;}.sc-root .sc-var-data-in:checked ~ pre.sc-var-data{display:block !important;}.sc-root .sc-var-data > table{float:right !important;}.sc-root .sc-var-name span,.sc-root pre.sc-var-data{padding-left:25px !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{grid-column:1 / -1 !important;}.sc-root dl.sc-attrs{padding:0 !important;margin:0 !important;display:grid !important;grid-template-columns:125px auto !important;}.sc-root .sc-attrs dt,.sc-root .sc-attrs dd{padding:0 10px 0 0 !important;margin:0 !important;float:left !important;width:auto !important;}.sc-root .sc-attrs dt{font-weight:normal;grid-column:1 !important;}.sc-root .sc-attrs dt:hover span{display:inline-block !important;padding-right:10px !important;}.sc-root .sc-attrs dd{grid-column:2 !important;white-space:pre-wrap !important;word-break:break-all !important;}.sc-root .sc-icon-database,.sc-root .sc-icon-file-text2{display:inline-block !important;vertical-align:middle !important;width:1em !important;height:1.5em !important;max-width:none !important;stroke-width:0;stroke:currentColor;fill:currentColor;}.sc-root label.sc-hide-icon svg{opacity:0 !important;}.sc-root .sc-standalone-var-name{grid-column:1 / 3 !important;}.sc-root .sc-standalone-var-name span{padding-left:25px !important;padding-right:10px !important;}.sc-root .sc-title{font-weight:bold;font-size:1.5em;}.sc-root .sc-subtitle{font-weight:normal;font-style:italic;text-align:left !important;font-size:1.2em;padding:1px !important;}.sc-root .sc-label{fill:var(--sc-font-color0,#444444);text-anchor:middle;}.sc-root .sc-name{fill:var(--sc-font-color0,#111111);}.sc-root .sc-inset-line{stroke:var(--sc-font-color1);stroke-width:0.05;stroke-dasharray:0.2,0.2;}.sc-log-wrap{height:25ex;resize:vertical;overflow-y:scroll;display:flex;flex-direction:column-reverse;border:1px solid;border-color:var(--jp-border-color2);background-color:var(--sc-background-color1);}div.sc-log{line-height:2.5ex;}table.sc-log{table-layout:auto;border-collapse:collapse;}tr.sc-log:nth-child(even){background-color:var(--sc-background-color0);}tr.sc-log > td{vertical-align:top;padding-bottom:0.5ex;}.sc-log-time-stamp{min-width:22ch;font-family:var(--jp-code-font-family);color:var(--sc-font-color2);}.sc-log-level{min-width:10ch;}tr.sc-log-debug td.sc-log-level{color:var(--jp-accent-color1);}tr.sc-log-info td.sc-log-level{color:var(--jp-info-color1);}tr.sc-log-warning td.sc-log-level{color:var(--jp-warn-color1);}tr.sc-log-error td.sc-log-level{font-weight:bold;color:var(--jp-error-color2);}tr.sc-log-critical td.sc-log-level{font-weight:bold;color:var(--sc-background-color0);background-color:var(--jp-error-color1);}.sc-log-message{white-space:pre-wrap;width:100%;}.sc-log-html-payload{white-space:normal;}.sc-log-name{padding-right:0.5em;text-align:right;white-space:pre-wrap;color:var(--sc-font-color3);}</style><div class='sc-wrap sc-root'><div class='sc-header'><div class='sc-obj-type'>scipp.DataArray (17.62 KB <span class='sc-underlying-size'>out of 157.37 KB</span>)</div></div><ul class='sc-sections'><li class='sc-section-item'><input id='section-5cca1a76-152c-4a7e-b8a5-00c4987c8dc4' class='sc-section-summary-in' type='checkbox' disabled ><label for='section-5cca1a76-152c-4a7e-b8a5-00c4987c8dc4' class='sc-section-summary' >Dimensions:</label><div class='sc-section-inline-details'><ul class='sc-dim-list'><li><span>position</span>: 528</li></ul></div><div class='sc-section-details'></div></li><li class='sc-section-item'><input id='section-4774a9b8-d297-4dfc-a454-5d986e47660e' class='sc-section-summary-in' type='checkbox'  checked><label for='section-4774a9b8-d297-4dfc-a454-5d986e47660e' class='sc-section-summary'  title='Expand/collapse section'>Coordinates: <span>(2)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>x</span></div><div class='sc-var-dims'>(position)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.165, 0.157, ..., 0.878, 0.884</div></span></div><input id='attrs-d4e35b14-6e2d-46bc-9f29-5675d456cf62' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-d4e35b14-6e2d-46bc-9f29-5675d456cf62' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-64472b12-7a3c-4a0c-b4e7-6ce7e0ff02e0' class='sc-var-data-in' type='checkbox'><label for='data-64472b12-7a3c-4a0c-b4e7-6ce7e0ff02e0' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([0.16512853, 0.15698605, 0.17009264, 0.17048107, 0.17465282,
+       0.17038755, 0.17456547, 0.17534144, 0.17058891, 0.15471394,
+       0.16859688, 0.15419865, 0.16040343, 0.16108671, 0.15702492,
+       0.17524782, 0.17569178, 0.16578097, 0.16733085, 0.15634303,
+       0.15688879, 0.17122345, 0.15609902, 0.1643307 , 0.17581758,
+       0.16440364, 0.15516272, 0.16029959, 0.16939994, 0.17003244,
+       0.17153863, 0.15572285, 0.16941387, 0.16620326, 0.15708909,
+       0.17046912, 0.15794839, 0.15810558, 0.16581543, 0.17742124,
+       0.17306992, 0.17611005, 0.17940951, 0.17599307, 0.17497374,
+       0.16587451, 0.17343987, 0.16111613, 0.16641448, 0.16461398,
+       0.17587728, 0.17862858, 0.16121539, 0.16931193, 0.17801341,
+       0.16592686, 0.16201918, 0.16212975, 0.15928065, 0.15585822,
+       0.15869913, 0.16706517, 0.16103722, 0.17609321, 0.16951542,
+       0.15428182, 0.17077844, 0.16476876, 0.16220578, 0.16863282,
+       0.16567174, 0.17723968, 0.15439184, 0.16189138, 0.1764788 ,
+       0.16321603, 0.15431683, 0.17652888, 0.16237975, 0.17290224,
+       0.16743449, 0.1651463 , 0.16989661, 0.1747147 , 0.16725869,
+       0.17200249, 0.17006639, 0.15997235, 0.15413087, 0.16478937,
+       0.16455916, 0.17115176, 0.17780776, 0.16595439, 0.17593272,
+       0.1737853 , 0.17644387, 0.16010932, 0.16136963, 0.16867359,
+       0.16353839, 0.16901746, 0.17428307, 0.15584876, 0.16808878,
+       0.16491604, 0.17648694, 0.15998813, 0.1675194 , 0.16226538,
+       0.17781763, 0.16212911, 0.15523813, 0.16765718, 0.16978862,
+       0.17056625, 0.16133853, 0.16492765, 0.17461446, 0.16891629,
+       0.17453386, 0.16652379, 0.16834981, 0.20057772, 0.19773762,
+       0.20489258, 0.19610551, 0.19729335, 0.18109334, 0.18839799,
+       0.19789637, 0.1795902 , 0.18466011, 0.19415053, 0.19391555,
+       0.18417996, 0.20027846, 0.20462565, 0.19861297, 0.19271358,
+       0.18405912, 0.19230911, 0.20019109, 0.17984824, 0.18452038,
+       0.20318464, 0.19391074, 0.19764255, 0.20027582, 0.18644455,
+       0.18447516, 0.18764095, 0.18027179, 0.19749369, 0.18145095,
+       0.19418741, 0.20154257, 0.1957323 , 0.17984625, 0.18669407,
+       0.18297598, 0.19767278, 0.1931142 , 0.18706912, 0.20198434,
+       0.18251787, 0.19753858, 0.18935222, 0.1886299 , 0.18822876,
+       0.20410698, 0.19456836, 0.20021604, 0.17984584, 0.19247674,
+       0.19938717, 0.18062801, 0.18628513, 0.18801414, 0.18205846,
+       0.18632633, 0.1993204 , 0.19913805, 0.20152069, 0.19462145,
+       0.19738799, 0.18465033, 0.2003919 , 0.19134794, 0.18247077,
+       0.19344621, 0.19951009, 0.20494079, 0.20093375, 0.20276725,
+       0.20450345, 0.19700388, 0.19043979, 0.18434596, 0.19059799,
+       0.19018792, 0.19338442, 0.19533368, 0.20408574, 0.19719805,
+       0.1819642 , 0.19471021, 0.19792184, 0.18419367, 0.18706945,
+       0.19318139, 0.1882099 , 0.19014334, 0.19959124, 0.18399743,
+       0.19456696, 0.20428537, 0.20049738, 0.19974017, 0.18752789,
+       0.18753218, 0.19920066, 0.18740036, 0.1939387 , 0.20287124,
+       0.19859068, 0.18754963, 0.19593932, 0.19803645, 0.18470623,
+       0.18152621, 0.19728415, 0.18208122, 0.19439289, 0.18308462,
+       0.20328115, 0.20004712, 0.1869472 , 0.19556578, 0.2016425 ,
+       0.20307459, 0.19017028, 0.18740703, 0.18363142, 0.19751202,
+       0.2027479 , 0.19317512, 0.20123805, 0.19222931, 0.20058004,
+       0.18841016, 0.19477681, 0.18854731, 0.1920217 , 0.20319207,
+       0.20394273, 0.18925426, 0.18469793, 0.181884  , 0.18376287,
+       0.19134299, 0.19620822, 0.19040731, 0.18483805, 0.38489232,
+       0.40191567, 0.40220847, 0.38670871, 0.39141302, 0.38467487,
+       0.39839404, 0.38994236, 0.39899788, 0.39641465, 0.3922251 ,
+       0.40138244, 0.39450358, 0.39383529, 0.40032713, 0.39490828,
+       0.39324545, 0.40341601, 0.40251229, 0.39531015, 0.40210107,
+       0.39389241, 0.39634645, 0.40003557, 0.40681167, 0.39340537,
+       0.4101865 , 0.39326993, 0.39619784, 0.40437164, 0.39438785,
+       0.40120603, 0.39907753, 0.40378489, 0.40689075, 0.40833683,
+       0.40672142, 0.40013123, 0.3888599 , 0.39398009, 0.39057076,
+       0.40359998, 0.39274428, 0.40757218, 0.40619883, 0.40342119,
+       0.39992829, 0.38593473, 0.40004604, 0.39031084, 0.3861598 ,
+       0.38742854, 0.39397947, 0.39139319, 0.39922963, 0.4013532 ,
+       0.40524544, 0.4060991 , 0.38486883, 0.40693767, 0.39021731,
+       0.40808898, 0.40952938, 0.40692669, 0.40877024, 0.40650428,
+       0.40669497, 0.39955332, 0.39746387, 0.39414012, 0.39033434,
+       0.40231709, 0.3949535 , 0.39809224, 0.40090702, 0.40274065,
+       0.38572445, 0.40095384, 0.39596728, 0.39494505, 0.40706122,
+       0.40730996, 0.40414415, 0.38838008, 0.39179445, 0.40382323,
+       0.40282203, 0.39393799, 0.39606933, 0.3971774 , 0.38876053,
+       0.3903585 , 0.39266349, 0.39077668, 0.40232936, 0.40937126,
+       0.40615364, 0.40363763, 0.40358526, 0.40807877, 0.40032074,
+       0.40356876, 0.408174  , 0.38810472, 0.39431193, 0.39811512,
+       0.40384036, 0.39620492, 0.38556981, 0.39802498, 0.39319154,
+       0.40033986, 0.40247116, 0.38871652, 0.38863214, 0.39515357,
+       0.38736136, 0.40138723, 0.40917761, 0.40116511, 0.38474609,
+       0.38527067, 0.39960882, 0.40129209, 0.38624746, 0.39862624,
+       0.39613241, 0.40461727, 0.40963604, 0.38464178, 0.40220653,
+       0.3889551 , 0.39357816, 0.39583791, 0.40832494, 0.40127084,
+       0.39520911, 0.4045978 , 0.40627503, 0.38724591, 0.89679389,
+       0.88036991, 0.88291063, 0.89645003, 0.87345549, 0.88028046,
+       0.88788328, 0.87399735, 0.89215692, 0.88266256, 0.87980403,
+       0.88400528, 0.87688174, 0.88899429, 0.88043017, 0.88530006,
+       0.89532686, 0.87496578, 0.87302583, 0.87806697, 0.88687959,
+       0.88787949, 0.89138237, 0.87642287, 0.87272596, 0.87689867,
+       0.87359165, 0.89730217, 0.88410453, 0.89314327, 0.88369833,
+       0.87449252, 0.87448158, 0.89710887, 0.8862751 , 0.89001591,
+       0.88115826, 0.87823677, 0.87829641, 0.88906734, 0.87700667,
+       0.88591389, 0.8935886 , 0.88979446, 0.87726244, 0.89237287,
+       0.88923435, 0.88250907, 0.88704542, 0.89435037, 0.89092881,
+       0.87532945, 0.89094047, 0.89524427, 0.87530272, 0.88011144,
+       0.88798957, 0.8729664 , 0.8827303 , 0.87212408, 0.87224643,
+       0.89671239, 0.88309636, 0.88285035, 0.89594651, 0.88213364,
+       0.8825678 , 0.87653261, 0.87761883, 0.89144333, 0.87923503,
+       0.87369788, 0.88621989, 0.8788462 , 0.88655764, 0.88442265,
+       0.8948817 , 0.89410754, 0.88671015, 0.89430002, 0.88977631,
+       0.89494511, 0.87517117, 0.88119698, 0.87245073, 0.87999465,
+       0.89626464, 0.89024779, 0.88694053, 0.87526181, 0.87993169,
+       0.89269259, 0.89672432, 0.89134668, 0.88018886, 0.89013478,
+       0.89151759, 0.89358993, 0.87220084, 0.8763815 , 0.87956601,
+       0.87203757, 0.87708827, 0.89031754, 0.8805698 , 0.88582526,
+       0.87978717, 0.89615205, 0.87809138, 0.883694  , 0.87327113,
+       0.87960495, 0.88710881, 0.87796676, 0.87237869, 0.87823826,
+       0.87667764, 0.88708443, 0.88976178, 0.89224158, 0.88855898,
+       0.89263745, 0.87791745, 0.88393023])</pre></span></li><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>y</span></div><div class='sc-var-dims'>(position)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.729, 0.954, ..., 0.249, 0.131</div></span></div><input id='attrs-5477b08c-b951-46ba-81b7-c2f09ec40b7e' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-5477b08c-b951-46ba-81b7-c2f09ec40b7e' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-27e97b87-d104-480c-92da-e8a89e7276ea' class='sc-var-data-in' type='checkbox'><label for='data-27e97b87-d104-480c-92da-e8a89e7276ea' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([7.29098983e-01, 9.53578870e-01, 9.14650139e-01, 8.68435329e-01,
+       5.89568461e-01, 9.02167925e-01, 4.94016288e-01, 5.56401515e-01,
+       6.53916524e-01, 8.35355667e-01, 4.52422468e-01, 9.47194981e-01,
+       4.55905846e-01, 5.10608841e-01, 2.82775881e-01, 3.51056992e-01,
+       8.14458866e-01, 3.27396589e-01, 3.56364910e-01, 4.78662552e-01,
+       9.94930804e-01, 5.36269414e-01, 4.13501929e-01, 1.36146712e-01,
+       1.32299517e-01, 2.96013380e-01, 9.51683595e-01, 9.17380458e-02,
+       5.96514750e-01, 6.65025888e-01, 1.68229599e-01, 6.65420050e-01,
+       8.75056275e-01, 4.89803963e-01, 3.30482625e-01, 9.88918922e-01,
+       2.10143360e-02, 2.60678056e-01, 5.36839260e-01, 1.57413040e-01,
+       3.75653309e-01, 3.84283456e-01, 7.05235987e-01, 1.13333247e-01,
+       7.70124008e-01, 3.16535861e-01, 9.19733701e-01, 2.92163289e-01,
+       4.53147948e-01, 1.96607647e-01, 3.59197003e-01, 1.77411989e-02,
+       9.01051271e-01, 1.11294979e-01, 4.59151907e-02, 7.05175238e-01,
+       9.38806891e-01, 7.75009912e-01, 1.87348657e-01, 4.19755227e-02,
+       4.57439876e-02, 6.22306506e-01, 1.76449903e-01, 1.88736225e-01,
+       6.29497589e-01, 5.05181995e-01, 1.67176220e-01, 8.81660558e-01,
+       1.76990034e-01, 8.74472077e-01, 6.07702099e-01, 8.03013893e-01,
+       6.92515312e-01, 2.88618104e-02, 5.14997210e-02, 1.55936484e-01,
+       1.32149996e-02, 1.21499750e-01, 3.14645035e-01, 2.61677733e-01,
+       1.73751259e-01, 6.48047252e-01, 8.37239472e-01, 2.00531521e-01,
+       7.38764658e-01, 2.99482164e-01, 7.42005229e-01, 6.29419767e-01,
+       7.96001546e-01, 1.95424639e-01, 3.84751831e-02, 1.85713076e-01,
+       5.52810327e-01, 4.92062862e-01, 3.51575372e-01, 9.15028893e-01,
+       4.28039185e-01, 1.32689767e-01, 3.27366241e-01, 5.11839077e-02,
+       7.54317610e-03, 4.51048729e-01, 8.23036961e-01, 6.82740171e-01,
+       7.56910332e-01, 3.04367336e-01, 3.49747905e-01, 8.65979167e-01,
+       9.96624928e-01, 5.82293380e-01, 1.03554450e-01, 7.42205647e-01,
+       3.00736813e-01, 6.70369712e-01, 8.98329449e-01, 6.69896845e-01,
+       3.08257990e-01, 6.78765134e-01, 8.72174036e-01, 6.70781311e-01,
+       9.30197524e-01, 6.25803124e-03, 9.31049103e-01, 1.55759611e-01,
+       6.76907362e-01, 4.01366250e-01, 7.39530300e-01, 7.55071269e-01,
+       8.88818929e-01, 6.43673752e-02, 6.15745179e-01, 1.81167454e-01,
+       1.13466421e-01, 7.28905925e-01, 8.19219241e-01, 8.57988383e-01,
+       4.50190188e-01, 5.42227524e-01, 2.67192101e-01, 7.39184165e-01,
+       7.93367344e-01, 6.84258865e-01, 6.73612900e-02, 1.66723215e-01,
+       3.62945194e-01, 3.76403650e-01, 3.30218763e-01, 7.05622586e-01,
+       4.36764558e-03, 9.83158301e-01, 3.12031762e-01, 1.20882025e-01,
+       7.94658487e-01, 8.91361079e-01, 9.30787072e-01, 3.61789554e-01,
+       7.67742828e-01, 4.04879361e-01, 7.88369846e-01, 4.38259916e-01,
+       4.04001611e-01, 6.88705642e-01, 1.56705664e-01, 9.09397687e-01,
+       8.91948532e-01, 3.12766960e-01, 4.44747974e-01, 7.24245602e-01,
+       5.54301929e-01, 5.74983839e-01, 7.48861477e-01, 2.69052046e-01,
+       5.12984111e-01, 6.06511269e-02, 4.53941679e-01, 5.02125872e-03,
+       3.46660435e-01, 8.55646376e-01, 7.69254861e-01, 5.53528441e-01,
+       7.68613657e-01, 1.53776542e-01, 9.56006368e-01, 5.90186175e-01,
+       4.08344172e-01, 2.83889553e-01, 7.82443273e-01, 8.38552073e-01,
+       9.76771759e-01, 2.88751414e-01, 4.19988566e-01, 7.43474372e-01,
+       8.06064100e-01, 7.13239254e-01, 6.78841675e-01, 2.27252770e-01,
+       6.40686970e-01, 8.35901672e-01, 2.28845153e-01, 4.09238560e-01,
+       5.01031449e-01, 2.79292556e-01, 1.19490425e-01, 1.25414184e-01,
+       9.02414918e-01, 3.12613443e-01, 2.01040686e-01, 2.32250472e-01,
+       4.17647191e-01, 4.72504883e-01, 1.61465957e-01, 6.49540366e-01,
+       9.42429333e-01, 9.77728079e-01, 2.62911849e-01, 5.73595621e-01,
+       5.54971846e-01, 3.74501268e-01, 2.78121803e-01, 9.11930595e-01,
+       1.51328486e-03, 2.35633133e-01, 6.11177538e-01, 5.55233897e-01,
+       2.09245603e-01, 8.50601061e-01, 8.07132309e-01, 6.37847297e-01,
+       9.61509014e-01, 2.92517457e-01, 4.54193459e-01, 7.31623777e-01,
+       1.21495498e-01, 1.79832781e-01, 6.65150444e-01, 7.52506435e-01,
+       7.60473695e-01, 6.45804925e-01, 7.48882134e-01, 6.13588881e-01,
+       5.00177620e-01, 7.67703451e-01, 3.88867327e-01, 3.16469613e-01,
+       4.34639521e-01, 5.83190189e-01, 8.44945391e-01, 3.39300398e-04,
+       9.12173082e-01, 1.00957690e-01, 7.90484430e-02, 1.53135139e-01,
+       2.69174600e-01, 9.94838066e-01, 5.85054902e-01, 4.53413551e-01,
+       7.74249433e-01, 5.96548467e-01, 5.69878054e-02, 6.52607496e-01,
+       5.60228601e-01, 5.36909949e-01, 1.04793381e-01, 5.66579820e-01,
+       1.15784807e-01, 5.80139582e-02, 3.97503737e-01, 7.67115407e-01,
+       9.09693148e-01, 3.62585608e-01, 3.86293042e-01, 1.95917776e-01,
+       8.44346396e-01, 1.46057090e-01, 7.92076208e-01, 1.28572856e-01,
+       1.95742963e-01, 3.48797478e-01, 1.35465409e-01, 5.48103921e-01,
+       2.79241126e-02, 6.21028666e-01, 1.88456044e-01, 4.48666393e-01,
+       1.03425960e-01, 1.71998980e-02, 2.97054053e-01, 1.65972817e-01,
+       2.62423886e-01, 9.06518442e-01, 6.88577289e-01, 7.15727351e-01,
+       1.73208738e-01, 9.59975199e-02, 3.04531775e-01, 8.51789716e-01,
+       8.16059906e-01, 5.37610593e-01, 2.95625780e-01, 3.24278626e-01,
+       1.23290600e-01, 4.16398958e-01, 7.69725332e-01, 2.14179632e-01,
+       8.32487303e-03, 1.02594405e-01, 8.28255234e-02, 4.23055115e-01,
+       1.93808556e-01, 3.54194136e-02, 7.33943686e-01, 2.39157707e-01,
+       9.88162907e-01, 7.32374283e-01, 5.57894261e-03, 7.37886551e-01,
+       6.71262103e-01, 4.69846633e-01, 9.77625455e-01, 1.42638415e-01,
+       8.25051158e-01, 9.80673596e-01, 6.91415851e-01, 3.33098049e-01,
+       6.43194610e-01, 4.30143780e-01, 9.57466987e-01, 9.56043975e-01,
+       5.77489974e-02, 7.34449129e-01, 1.38078892e-01, 4.37785164e-01,
+       8.89873575e-01, 9.71406824e-01, 4.03772792e-01, 1.44012053e-01,
+       7.53311582e-01, 2.97444571e-01, 2.74601795e-01, 6.86741029e-01,
+       7.10431108e-01, 3.15638365e-01, 3.21124630e-01, 6.74198121e-01,
+       4.99230930e-02, 9.23077168e-01, 6.99397523e-01, 4.27372156e-01,
+       6.36859652e-01, 5.18277081e-01, 7.35029912e-02, 7.71671381e-01,
+       7.48634968e-02, 8.07036443e-01, 1.96541280e-01, 9.06390025e-01,
+       1.72105438e-01, 1.59662842e-01, 8.11568911e-01, 9.09253535e-01,
+       4.72763768e-01, 5.47714464e-01, 1.99230382e-01, 5.97445081e-01,
+       3.73217689e-01, 2.98968365e-01, 6.50901521e-01, 6.20394554e-01,
+       3.34478847e-01, 5.64937169e-01, 6.04344054e-01, 1.98772293e-01,
+       7.41576906e-02, 2.39686684e-01, 1.56413514e-01, 8.47451301e-01,
+       7.14998375e-01, 6.97621005e-02, 5.48705621e-01, 6.53586320e-01,
+       4.22548076e-01, 6.25312916e-01, 9.76107942e-01, 7.34491204e-01,
+       3.34619077e-01, 3.81841796e-01, 3.41627855e-03, 7.90758924e-01,
+       5.94251654e-01, 7.14066901e-01, 3.49064121e-01, 8.36220587e-01,
+       9.94844615e-01, 2.30724734e-01, 3.41494502e-01, 3.48337854e-01,
+       5.46749696e-01, 2.55271221e-01, 4.64047646e-01, 1.13804092e-01,
+       4.46227267e-01, 5.24172225e-02, 3.47106453e-01, 5.39442941e-01,
+       1.00828003e-01, 8.85349313e-02, 4.01824059e-01, 5.92193434e-01,
+       8.13552360e-01, 3.07404815e-01, 6.49763256e-01, 1.21833366e-01,
+       8.80300570e-01, 9.69729498e-01, 4.93260976e-01, 3.77149532e-01,
+       8.86731436e-01, 7.26136170e-01, 3.82709282e-01, 2.23384341e-01,
+       9.77697384e-01, 1.11242871e-01, 9.15740469e-01, 3.32204452e-01,
+       8.20505296e-01, 1.60015761e-02, 3.71789411e-01, 5.02389127e-01,
+       8.57637752e-01, 8.53593981e-02, 1.57954219e-03, 9.49545616e-01,
+       4.79909294e-01, 9.27779094e-01, 5.71007751e-01, 2.69918961e-01,
+       2.81846821e-01, 6.53357613e-01, 6.27206010e-01, 2.22512638e-01,
+       5.33036949e-01, 8.07921891e-01, 1.58230349e-01, 3.48928273e-01,
+       4.34421035e-01, 2.47047698e-01, 5.99663218e-01, 5.89008285e-01,
+       5.96344526e-01, 9.26417261e-01, 3.20832276e-01, 2.78690157e-01,
+       3.02391381e-01, 8.25584681e-01, 6.13294727e-01, 6.84868471e-01,
+       1.17889385e-01, 9.03336978e-01, 4.43124011e-01, 2.36967510e-01,
+       6.97516831e-01, 7.89476417e-01, 7.52571235e-01, 1.77125780e-02,
+       8.23675897e-01, 3.38661840e-01, 8.85679534e-02, 5.25783634e-01,
+       4.88441666e-01, 3.19734124e-01, 7.22217713e-01, 4.84693056e-01,
+       6.01499580e-01, 5.98185639e-01, 9.70219254e-01, 7.11025368e-01,
+       9.05229472e-01, 5.37917191e-01, 9.88793030e-01, 1.70357584e-01,
+       1.23622697e-01, 9.21399731e-01, 8.68378219e-01, 9.19770085e-01,
+       8.65652520e-01, 1.73142485e-01, 2.11045412e-01, 3.34325013e-01,
+       6.66948473e-01, 3.00880347e-01, 5.81745005e-01, 8.29460556e-01,
+       1.66832421e-01, 4.81462037e-01, 3.17397076e-01, 1.52336767e-01,
+       7.66285379e-01, 1.45126585e-02, 8.94354520e-01, 4.17578248e-02,
+       8.55399568e-02, 4.51521725e-01, 6.89143738e-02, 4.57929092e-01,
+       4.13466083e-01, 2.70520428e-02, 5.39007251e-01, 9.04413343e-01,
+       2.20345127e-01, 7.97066428e-01, 4.83866141e-02, 1.92470523e-01,
+       4.34587404e-01, 5.14303459e-01, 7.97541693e-01, 8.12207645e-01,
+       4.19051863e-01, 5.05638068e-02, 1.75075436e-01, 4.93351166e-01,
+       5.68794496e-01, 1.69790890e-01, 5.41858539e-01, 5.21360238e-01,
+       7.05654857e-01, 9.76229543e-01, 2.48578792e-01, 1.30607987e-01])</pre></span></li></ul></div></li><li class='sc-section-item'><input id='section-e62afbd9-cee8-4638-a655-2cfc18ee8402' class='sc-section-summary-in' type='checkbox'  checked><label for='section-e62afbd9-cee8-4638-a655-2cfc18ee8402' class='sc-section-summary'  title='Expand/collapse section'>Data: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span></span></div><div class='sc-var-dims'>(position)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>counts</div><div class='sc-value-preview sc-preview'><span><div>2.650, 2.103, ..., 0.031, 0.085</div></span><span><div>σ = 2.460, 2.147, ..., 1.572, 2.654</div></span></div><input id='attrs-860b07c4-e32a-40af-aa56-5250dbe494bc' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-860b07c4-e32a-40af-aa56-5250dbe494bc' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9d5c5af3-bff8-40d7-9195-b04937d3a0e5' class='sc-var-data-in' type='checkbox'><label for='data-9d5c5af3-bff8-40d7-9195-b04937d3a0e5' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([2.65007135e+00, 2.10312957e+00, 2.28228695e+00, 2.76695881e+00,
+       1.24566737e+00, 2.50131461e+00, 3.42755518e+00, 1.96670034e+00,
+       9.17541610e-01, 1.23010520e+00, 1.97178898e+00, 1.09479915e+00,
+       4.45759020e+00, 3.86214461e+00, 1.27195843e+00, 8.55847011e-01,
+       1.81144128e+00, 4.00564764e+00, 1.38069420e+00, 1.76764831e+00,
+       3.37861478e-01, 1.04351179e-01, 3.04995328e+00, 8.46573361e-01,
+       1.56746330e+00, 3.54420912e+00, 1.60276571e+00, 1.24444248e+00,
+       3.11804493e+00, 1.20231555e+00, 2.54841006e-01, 4.19714668e+00,
+       4.51262493e-01, 6.55520629e-01, 2.49462406e-01, 3.60399424e+00,
+       1.57009815e+00, 1.58902532e+00, 2.53205011e+00, 1.60899016e+00,
+       3.80399962e+00, 1.80617346e+00, 4.47405494e-01, 2.55269213e+00,
+       2.93415951e+00, 8.65480557e-03, 1.20429152e+00, 8.54444089e-01,
+       1.88180321e+00, 2.38335780e+00, 1.60171063e+00, 3.30689496e+00,
+       2.33238051e+00, 3.50684701e+00, 1.26369846e-01, 3.92889777e+00,
+       4.29718434e+00, 1.21537424e+00, 2.20488747e+00, 6.97587117e-01,
+       4.13217158e+00, 3.22714603e+00, 2.46297674e+00, 2.16165962e+00,
+       6.83007759e-01, 2.80117188e+00, 7.80534956e-01, 6.81863891e-01,
+       8.73733570e-01, 3.11844977e+00, 2.29620130e+00, 3.23591361e+00,
+       2.88701421e-01, 3.78232087e+00, 2.62951636e+00, 3.25211117e-01,
+       3.33234865e+00, 3.89548366e+00, 3.59732875e+00, 4.14309664e-01,
+       1.11628087e+00, 5.08830153e-01, 2.19381259e+00, 6.88001563e-01,
+       2.36230287e+00, 4.05296227e+00, 4.22963384e+00, 2.95932401e+00,
+       3.46150054e+00, 1.33189042e-01, 2.16216175e+00, 2.53226914e-01,
+       3.12288422e+00, 2.50299753e+00, 6.60177772e-01, 2.55454834e+00,
+       8.09591935e-01, 3.64826769e+00, 2.09402935e+00, 3.83134390e+00,
+       1.72952505e-01, 3.52183733e+00, 1.95091356e+00, 2.47271799e+00,
+       1.55008730e+00, 1.15551499e+00, 3.76216637e+00, 8.33308306e-01,
+       2.27991190e+00, 3.53508636e+00, 4.05865084e+00, 2.30491943e+00,
+       3.72127962e+00, 9.89446481e-01, 4.54745150e-01, 1.20671704e+00,
+       1.37026974e+00, 3.97279098e+00, 2.85384849e+00, 2.49324132e+00,
+       3.48261013e+00, 2.98842336e+00, 5.14456958e-01, 3.20429081e+00,
+       2.01677909e+00, 9.38519686e-01, 2.00570385e+00, 3.55776338e+00,
+       3.20142803e+00, 3.77823520e+00, 5.35087572e-01, 3.78869750e+00,
+       1.36011819e+00, 3.62913514e+00, 2.37672718e+00, 2.73108386e+00,
+       2.37491874e+00, 1.55504936e+00, 2.33508267e+00, 3.00203666e+00,
+       6.87191586e-01, 2.76370968e+00, 3.34396844e+00, 1.91514352e+00,
+       1.11132899e+00, 2.44319893e+00, 1.01752250e+00, 8.43063530e-01,
+       1.77834978e+00, 1.23132974e+00, 6.49851040e-01, 2.64015987e+00,
+       2.57696144e+00, 1.05544768e+00, 1.65691880e+00, 3.75490943e+00,
+       1.10842194e+00, 2.12575258e+00, 3.62630339e+00, 3.85429910e+00,
+       2.96343786e+00, 2.75974651e-01, 1.54661941e+00, 2.98058315e+00,
+       3.50001745e-01, 1.77148136e+00, 3.56511830e+00, 3.25222898e+00,
+       1.88089294e+00, 1.93517415e+00, 2.25152678e+00, 4.22078058e-01,
+       3.20181327e+00, 1.28097260e+00, 2.07606632e+00, 3.44227771e+00,
+       1.74236694e+00, 2.37550617e+00, 6.40476477e-01, 3.24014426e+00,
+       2.24177998e+00, 1.80277895e+00, 2.37122039e+00, 2.12463296e+00,
+       6.00606769e-01, 2.92116875e+00, 1.10302848e-01, 9.73784518e-01,
+       2.78875676e+00, 9.15459860e-02, 2.56929999e+00, 6.49299142e-01,
+       1.75099902e+00, 3.82527686e-01, 1.90070886e+00, 1.75953017e+00,
+       1.04282384e+00, 6.48513854e-01, 3.84644264e+00, 1.00758249e+00,
+       1.98398849e+00, 2.77196715e+00, 2.67341654e+00, 2.78920097e+00,
+       1.32731131e+00, 3.29535124e+00, 2.79794522e+00, 3.73577992e-01,
+       2.04082754e+00, 3.45060397e-01, 1.41825808e+00, 4.64623054e-01,
+       1.71699158e+00, 2.99025952e+00, 2.05224877e-01, 6.51364990e-02,
+       1.22179657e+00, 2.92494046e+00, 2.07083065e+00, 1.51601123e+00,
+       3.66757244e-01, 1.46392112e+00, 3.27536511e+00, 2.37399683e+00,
+       1.69124924e+00, 3.26766038e+00, 1.37449884e+00, 1.46883024e+00,
+       1.90239185e+00, 5.59172857e-01, 2.59141933e+00, 2.08535403e+00,
+       4.01379812e+00, 2.69029489e+00, 8.98666018e-01, 8.00803712e-01,
+       1.97554616e+00, 3.14922081e+00, 9.56070454e-01, 1.30614903e+00,
+       8.34538239e-01, 1.52186734e+00, 2.26914159e+00, 8.60962846e-01,
+       3.38333321e+00, 3.08684196e+00, 4.66024931e-01, 1.50795090e-02,
+       1.43738454e+00, 1.09493759e+00, 2.02132272e+00, 1.98375037e+00,
+       1.69989717e+00, 3.70898503e+00, 1.36376277e+00, 1.45955335e+00,
+       1.42954421e+00, 1.14407261e+00, 2.39057969e+00, 2.32158010e+00,
+       1.83953802e+00, 1.82120027e+00, 3.29084949e+00, 7.88673871e-01,
+       9.59816031e-01, 8.28530669e-01, 2.10786381e-01, 5.69761174e-01,
+       1.10632133e+00, 7.45994304e-01, 8.02466442e-01, 3.76274886e-01,
+       8.70249246e-01, 9.20832789e-01, 8.72268235e-01, 5.45982422e-01,
+       7.30514229e-01, 1.37409917e+00, 7.46714018e-01, 1.73494350e-01,
+       1.19304743e+00, 4.11036133e-01, 2.91902934e-01, 3.11319869e-01,
+       9.74635759e-01, 1.28625705e+00, 1.22659207e+00, 1.11257454e+00,
+       2.35025224e-01, 8.09831421e-01, 1.26364566e+00, 3.27874752e-01,
+       3.31347184e-01, 7.22393883e-01, 1.05057181e+00, 1.31709250e+00,
+       5.59334726e-01, 8.80203975e-01, 1.28991244e+00, 4.82943642e-02,
+       1.22522270e+00, 6.31745572e-01, 5.27391305e-01, 6.61926645e-01,
+       1.03692080e+00, 2.15482193e-02, 1.09627510e+00, 1.75263777e-01,
+       9.02480345e-01, 7.32729835e-01, 6.21420197e-01, 7.19020641e-01,
+       3.84291162e-01, 1.20444783e+00, 3.02339995e-01, 1.39915754e+00,
+       2.78322975e-01, 1.02140585e-01, 9.20524000e-02, 8.89685181e-01,
+       3.21444613e-01, 6.38677564e-01, 2.67722763e-01, 6.56158956e-01,
+       7.96381702e-01, 9.81670445e-01, 1.02920145e+00, 8.86284085e-01,
+       4.98403645e-01, 8.15560550e-01, 3.45489210e-01, 1.65197454e-01,
+       1.05679117e-01, 5.42498038e-01, 1.22567588e-02, 7.50089836e-01,
+       1.29207641e+00, 1.06249146e+00, 1.30893215e+00, 3.26201406e-01,
+       3.44255181e-01, 4.32750936e-01, 2.23581982e-01, 8.93719820e-01,
+       7.39357040e-02, 5.80563782e-02, 1.07767460e+00, 5.93222989e-01,
+       1.34620583e+00, 7.92226992e-01, 9.03892834e-01, 5.89935759e-01,
+       1.68459179e-01, 6.59695477e-01, 1.28410332e+00, 1.08088481e+00,
+       9.77312674e-01, 1.18044429e+00, 2.73256099e-01, 7.55697803e-01,
+       9.66796650e-01, 7.97898617e-01, 1.01146399e+00, 6.93421545e-01,
+       8.37325270e-01, 1.13170294e+00, 2.33543518e-02, 1.19612847e+00,
+       1.37844938e+00, 9.19198103e-01, 6.73233146e-01, 6.35128007e-02,
+       1.99952255e-01, 1.08793015e+00, 4.43451224e-01, 1.29455416e+00,
+       6.26053935e-01, 6.64915058e-01, 7.34769700e-01, 1.84069473e-01,
+       1.40187511e+00, 6.26667449e-01, 3.58906882e-03, 1.11446778e+00,
+       1.16813603e+00, 1.02547586e+00, 9.77852419e-01, 2.71662093e-01,
+       1.10337844e+00, 6.95553069e-01, 1.18305228e+00, 1.65912891e-01,
+       1.22765176e+00, 6.23361749e-01, 7.17649407e-01, 1.37108125e+00,
+       2.22920263e-01, 2.82843439e-01, 5.31237036e-01, 1.04832406e+00,
+       8.32767290e-01, 1.24377405e+00, 5.01860141e-02, 2.04280456e-02,
+       4.01863825e-02, 2.10079727e-02, 2.08924391e-02, 5.57837269e-02,
+       1.09775432e-01, 3.51943284e-02, 9.27669427e-02, 7.22449540e-03,
+       1.05614300e-01, 1.10027279e-01, 7.07720374e-02, 8.12904273e-02,
+       8.82138482e-02, 3.26408570e-02, 3.98320188e-02, 6.48285694e-03,
+       5.52882877e-02, 1.40541941e-02, 6.79483544e-02, 1.37456738e-02,
+       1.90886660e-02, 5.03369179e-02, 1.06678995e-01, 1.22587559e-01,
+       1.11453794e-01, 1.31333405e-02, 6.17246740e-02, 3.52610075e-02,
+       4.19165073e-02, 8.55529156e-02, 6.87069917e-02, 7.76719759e-03,
+       9.43325357e-03, 4.77520639e-02, 5.04552447e-02, 4.58144405e-02,
+       9.46760346e-02, 6.45530792e-02, 1.15247369e-01, 1.10719280e-01,
+       1.04718670e-02, 1.00203418e-01, 1.08980503e-01, 9.64999896e-02,
+       9.02116959e-02, 1.09490117e-01, 4.78649781e-02, 1.16196689e-01,
+       1.11833539e-01, 8.12894205e-02, 1.39716668e-02, 4.57765499e-03,
+       5.37565957e-02, 9.21841545e-02, 9.88537940e-02, 4.38785523e-02,
+       7.49321555e-02, 9.90717853e-02, 2.06788883e-02, 1.16912982e-01,
+       1.05660368e-01, 5.85174155e-04, 3.59124206e-03, 1.19394923e-01,
+       4.22683451e-02, 3.24748793e-02, 1.20381254e-01, 1.08499865e-01,
+       1.07119773e-01, 3.04350951e-02, 8.38134492e-02, 4.43710699e-02,
+       1.18330770e-01, 4.83253272e-02, 1.87463184e-02, 2.80806549e-02,
+       2.82462448e-02, 3.71024441e-02, 6.61329092e-02, 1.80668066e-03,
+       3.61999139e-02, 1.31620487e-02, 8.62829117e-02, 2.22479326e-02,
+       5.37287685e-02, 1.06858467e-01, 2.82755536e-02, 5.46395394e-02,
+       2.24700504e-02, 7.27157764e-02, 6.57446715e-02, 5.39283933e-02,
+       1.39002938e-02, 7.86783744e-02, 2.71057804e-02, 2.58214374e-02,
+       2.47668581e-02, 4.06032747e-03, 1.54180540e-02, 1.15146749e-01,
+       9.38871527e-03, 1.16933333e-01, 5.84995395e-02, 7.27009040e-02,
+       6.90230440e-02, 1.98278987e-02, 8.53421144e-02, 9.14108923e-02,
+       3.71805599e-02, 4.80752140e-02, 1.01531228e-01, 5.56634872e-02,
+       3.64802267e-03, 3.09475499e-02, 1.33447539e-02, 7.27761592e-02,
+       7.35397233e-02, 3.50616607e-02, 5.16197775e-02, 9.36970710e-02,
+       1.02800145e-01, 1.09014438e-01, 3.06678960e-02, 8.47764343e-02])<br><br>Variances (σ²):<br>array([6.05103427, 4.61059433, 5.34221933, 6.4892968 , 2.98301795,
+       5.86354385, 8.20443275, 4.72592997, 2.1530538 , 2.66624036,
+       4.58103811, 2.36686002, 9.94058078, 8.64219136, 2.78899801,
+       2.05561581, 4.36047814, 9.17617181, 3.18751195, 3.8626952 ,
+       0.74031806, 0.24564298, 6.65668326, 1.92532559, 3.77555156,
+       8.06338317, 3.48178227, 2.77370947, 7.2732692 , 2.81345005,
+       0.60084259, 9.14328016, 1.05270521, 1.50484638, 0.54716678,
+       8.4518754 , 3.45865611, 3.50310147, 5.80144173, 3.90677779,
+       9.03768124, 4.35689973, 1.09719572, 6.15407162, 7.03775878,
+       0.01983578, 2.86649716, 1.91224215, 4.32452737, 5.4280516 ,
+       3.85919488, 8.0780666 , 5.2224486 , 8.17660468, 0.3077476 ,
+       9.00692034, 9.66060147, 2.73382245, 4.88944939, 1.52068858,
+       9.13669512, 7.44039546, 5.50995669, 5.21397402, 1.59412984,
+       6.05840735, 1.83329786, 1.55413419, 1.96609457, 7.24636617,
+       5.25728553, 7.84997009, 0.62475039, 8.49769307, 6.35469523,
+       0.73550306, 7.20850459, 9.41648838, 8.10183295, 0.98350714,
+       2.57841521, 1.16193937, 5.13009404, 1.64807728, 5.45171582,
+       9.57792022, 9.89913488, 6.58518631, 7.48092554, 0.30360161,
+       4.9229321 , 0.59588325, 7.59732181, 5.73886233, 1.59108707,
+       6.0909369 , 1.95618159, 8.12380813, 4.69237232, 8.90473872,
+       0.39178334, 8.19947487, 4.66325229, 5.39008816, 3.59216515,
+       2.63564078, 9.09231577, 1.85445168, 5.26843742, 7.95709996,
+       9.87433289, 5.18459251, 8.08700349, 2.28799594, 1.06281917,
+       2.83129645, 3.07006969, 9.06215629, 6.83284232, 5.80178153,
+       8.33489858, 6.8713794 , 1.19375725, 8.73536183, 5.42050958,
+       2.61433937, 5.34693018, 9.54100509, 7.91740654, 9.6914783 ,
+       1.43930016, 9.29961761, 3.42421464, 9.58066518, 6.26702759,
+       6.85925178, 6.46469304, 4.32596633, 6.30354481, 7.86843231,
+       1.72487306, 7.22913512, 9.09853767, 4.70691997, 2.79591232,
+       6.74790056, 2.68297022, 2.26483015, 4.84072704, 3.12776101,
+       1.63454373, 6.74663734, 6.3469216 , 2.83327548, 4.10503592,
+       9.91452835, 3.03633196, 5.65639851, 8.91241312, 9.80271647,
+       7.39814972, 0.74149835, 4.0618661 , 7.59480592, 0.9608899 ,
+       4.41234138, 9.57245893, 8.38212707, 4.83023985, 4.95967954,
+       6.24726318, 1.1165871 , 8.71283723, 3.1482566 , 5.4349951 ,
+       9.32845346, 4.29900919, 6.02933186, 1.63972383, 8.05191645,
+       5.69109029, 4.88383779, 6.41792602, 5.81943106, 1.58929798,
+       7.83753015, 0.27768333, 2.65221266, 7.25967894, 0.22796572,
+       6.75892962, 1.76065991, 4.87875674, 1.04468407, 5.23864644,
+       4.89181835, 2.7925403 , 1.68055998, 9.66855187, 2.61311726,
+       5.13484063, 7.28982343, 7.09950918, 7.73831427, 3.55781131,
+       8.18525015, 7.40708037, 1.00499314, 5.12599033, 0.87924775,
+       3.72600403, 1.19067535, 4.44282471, 8.11177251, 0.5149622 ,
+       0.17231425, 3.39311791, 7.97060986, 5.62179294, 3.87181023,
+       0.93669813, 3.96347768, 8.35977198, 6.2605527 , 4.66376781,
+       8.82005092, 3.51077691, 3.91244671, 5.12071569, 1.4080905 ,
+       6.42268821, 5.59212517, 9.97561932, 7.1108035 , 2.24471664,
+       2.21281695, 5.37135664, 8.01962021, 2.54188317, 3.57975957,
+       2.30365325, 3.93845884, 5.79176316, 2.15642803, 9.08315387,
+       8.50698874, 1.22428801, 0.04124488, 3.75831882, 2.98499351,
+       5.18517156, 5.25338819, 4.36363019, 9.68779398, 3.76673272,
+       4.04646689, 3.68262923, 2.88084606, 5.9355273 , 5.81861559,
+       4.78855843, 4.85756296, 8.52652841, 1.98732171, 6.57614017,
+       6.18098058, 1.57480627, 3.93930985, 7.83111977, 5.10559527,
+       5.88204766, 2.64395652, 6.39818122, 6.68319678, 6.19949123,
+       4.06227729, 5.25148739, 9.84510937, 5.52654393, 1.24973455,
+       8.52274227, 3.08948958, 2.1841517 , 2.24704582, 7.2776929 ,
+       9.21837295, 8.89929357, 8.22233796, 1.79677952, 5.78979969,
+       9.82503214, 2.34251715, 2.40223757, 5.45576845, 7.54793391,
+       9.79093351, 4.11393698, 6.628131  , 9.86534478, 0.37203912,
+       9.36266261, 4.67106744, 3.6857979 , 4.74598924, 7.30902118,
+       0.16211291, 7.81183258, 1.34500505, 6.87839804, 5.50759311,
+       4.59006273, 4.95208373, 2.8402027 , 8.47885529, 2.08463947,
+       9.70860901, 1.99555918, 0.72293266, 0.67756542, 6.61856363,
+       2.43829051, 4.86535628, 1.83407605, 5.01952925, 5.60360338,
+       7.55300326, 7.97594484, 6.77958367, 3.84781787, 6.22542549,
+       2.63974149, 1.21793008, 0.77102952, 3.89280432, 0.08629306,
+       5.60704122, 9.30933845, 7.77627764, 9.71573495, 2.44357701,
+       2.36848418, 3.21290743, 1.61908196, 6.43892944, 0.56594786,
+       0.44495109, 8.12971875, 4.13594347, 9.54733836, 5.96678844,
+       6.77382336, 4.22892709, 1.22052958, 4.80621589, 8.9697996 ,
+       7.61083183, 6.9613178 , 8.32925732, 2.04275823, 5.8517606 ,
+       7.36693013, 6.0039311 , 7.60894923, 5.33493482, 6.19697338,
+       8.51276956, 0.17976552, 8.32791956, 9.89984275, 6.7282965 ,
+       5.0710009 , 0.46047846, 1.37461323, 7.95978399, 3.1670173 ,
+       9.58180195, 4.68345943, 4.64358461, 5.12926572, 1.32753763,
+       9.72419886, 4.66271025, 0.02776513, 8.28297777, 7.9975865 ,
+       7.03930964, 7.21128819, 2.02033666, 7.61114847, 5.10429959,
+       8.57421845, 1.25457136, 9.51893904, 4.26559049, 5.36157893,
+       9.58668482, 1.59512111, 2.04690276, 4.0921796 , 7.79550244,
+       6.0077151 , 9.40403956, 0.38264648, 0.14161871, 3.55993533,
+       1.71428538, 1.72665357, 4.93314673, 8.6534573 , 2.87063128,
+       7.85972387, 0.57104278, 9.14148709, 9.0819222 , 5.75879854,
+       6.75511092, 7.07393828, 2.7809177 , 3.25133819, 0.54221447,
+       4.86195263, 1.11627193, 5.34478762, 1.10882813, 1.60920039,
+       4.26473886, 9.19795206, 9.80786489, 8.75377127, 1.05326213,
+       4.86899109, 3.13156639, 3.48492695, 7.44167632, 5.70069075,
+       0.61546126, 0.7474362 , 4.23681309, 4.24060907, 3.92326255,
+       7.75623422, 5.21175362, 9.30737979, 9.4364458 , 0.84027203,
+       8.40659472, 9.50061693, 8.25451178, 7.24793068, 9.48719842,
+       4.08287169, 9.58380221, 9.43553924, 7.11362851, 1.20191995,
+       0.36424769, 4.62470906, 8.1031618 , 7.86482463, 3.57593815,
+       6.35203789, 7.79062748, 1.70746444, 9.15495289, 8.27887237,
+       0.05181689, 0.2970736 , 9.86440841, 3.72853624, 2.6734767 ,
+       9.93185752, 8.68551523, 8.62173584, 2.62493921, 6.80061717,
+       3.50195642, 9.94259478, 3.91349758, 1.57779812, 2.33833442,
+       2.47840141, 3.24289118, 5.57037276, 0.15806263, 3.09622312,
+       1.15523968, 6.86016941, 1.82299129, 4.21414596, 8.70348193,
+       2.49818767, 4.68441693, 1.89483302, 5.78409645, 5.3531318 ,
+       4.68031211, 1.23093781, 6.78250474, 2.20987511, 2.21250129,
+       2.13686343, 0.35397039, 1.20778497, 9.21064241, 0.7630614 ,
+       9.15258692, 4.69597116, 6.23504771, 5.63802669, 1.66273029,
+       6.94379616, 8.07174426, 2.99962621, 3.98876419, 7.99620282,
+       4.52489269, 0.30788592, 2.4952086 , 1.04630147, 5.87569539,
+       5.89119353, 2.95877444, 4.41478226, 8.11342042, 8.73926747,
+       9.45848555, 2.47205141, 7.04214958])</pre></li></ul></div></li></ul></div></div></div>
+</div>
+</section>
+<section id="Binning">
+<h2>Binning<a class="headerlink" href="#Binning" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../../generated/functions/scipp.bin.html"><span class="doc">scipp.bin</span></a> actually reorders data and meta data such that all data contributing to a bin is in a contiguous block. Binning along multiple dimensions is supported. Of the three options it is the only solution that supports <em>modifying</em> data in the grouped/binned layout. A variety of operations on such binned data is available. Limitations are:</p>
+<ul class="simple">
+<li><p>Requires copying and reordering the input data and can thus become expensive.</p></li>
+</ul>
+<p>In the above example the <code class="docutils literal notranslate"><span class="pre">'y'</span></code> information is dropped by <code class="docutils literal notranslate"><span class="pre">hist</span></code> and <code class="docutils literal notranslate"><span class="pre">groupby</span></code>, but <code class="docutils literal notranslate"><span class="pre">bin</span></code> preserves it:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binned</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbins</span><span class="p">)</span>
+<span class="n">binned</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div><!-- Original source from -->
+<!-- https://github.com/jsignell/xarray/blob/1d960933ab252e0f79f7e050e6c9261d55568057/xarray/static/html/icons-svg-inline.html -->
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<title>Show/Hide data repr</title>
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<title>Show/Hide attributes</title>
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg><style id="scipp-style-sheet">.sc-root{--sc-background-color0:var(--jp-layout-color0,#fff);--sc-background-color1:var(--jp-layout-color1,#fcfcfc);--sc-background-color2:var(--jp-layout-color2,#efefef);--sc-inverse-background-color0:var(--jp-inverse-layout-color4,#111);--sc-font-color0:var(--jp-content-font-color0,#000);--sc-font-color1:var(--jp-content-font-color1,#555);--sc-font-color2:var(--jp-content-font-color2,#888);--sc-font-color3:var(--jp-content-font-color3,#ccc);}body.vscode-dark .sc-root{--sc-font-color0:rgba(255,255,255,1);--sc-font-color1:rgba(255,255,255,0.70);--sc-font-color2:rgba(255,255,255,0.54);--sc-font-color3:rgba(255,255,255,0.38);--sc-border-color:#1F1F1F;--sc-disabled-color:#515151;--sc-background-color0:#111111;--sc-background-color1:#111111;--sc-background-color2:#313131;}.sc-root.sc-wrap,.sc-root .sc-wrap{font-size:14px;min-width:300px;max-width:800px;}.sc-root .sc-var-attrs .sc-wrap{padding-left:3em !important;}.sc-root .sc-header{padding-top:6px !important;padding-bottom:6px !important;margin-bottom:4px !important;border-bottom:solid 1px #ddd;}.sc-root .sc-header > div,.sc-root .sc-header > ul{display:inline !important;margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-obj-type,.sc-root .sc-array-name{margin-left:2px !important;margin-right:10px !important;}.sc-root .sc-obj-type{color:var(--sc-font-color1);}.sc-root .sc-underlying-size{color:var(--sc-font-color2);}.sc-root ul.sc-sections{padding-left:0 !important;list-style:none !important;display:grid !important;grid-template-columns:150px auto auto auto 1fr 20px 20px !important;}.sc-root li.sc-section-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-section-item input{display:none !important;}.sc-root .sc-section-item input:enabled + label{cursor:pointer;color:var(--sc-font-color1);}.sc-root .sc-section-item input:enabled + label:hover{color:var(--sc-font-color0);}.sc-root label.sc-section-summary{grid-column:1 !important;font-weight:500;margin:0 !important;}.sc-root .sc-section-summary > span{display:inline-block !important;padding-left:0.5em !important;}.sc-root .sc-section-summary-in:disabled + label{color:var(--sc-font-color1);}.sc-root .sc-section-summary-in + label:before{display:inline-block !important;content:'►';font-size:11px;width:15px !important;text-align:center !important;}.sc-root .sc-section-summary-in:disabled + label:before{display:none !important;}.sc-root .sc-section-summary-in:checked + label:before{content:'▼';}.sc-root .sc-section-summary-in:checked + label > span{display:none !important;}.sc-root .sc-section-summary,.sc-root .sc-section-inline-details{padding-top:4px !important;padding-bottom:4px !important;}.sc-root .sc-section-inline-details{grid-column:2 / 6 !important;margin:0 !important;}.sc-root .sc-section-details{display:none !important;grid-column:1 / -1 !important;margin:0 0 5px 0 !important;}.sc-root .sc-section-summary-in:checked ~ .sc-section-details{display:contents !important;}.sc-root .sc-array-wrap{grid-column:1 / -1 !important;display:grid !important;grid-template-columns:20px auto !important;}.sc-root .sc-array-wrap > label{grid-column:1 !important;vertical-align:top !important;}.sc-root .sc-preview{color:var(--sc-font-color2);}.sc-root .sc-array-preview,.sc-root .sc-array-data{padding:0 5px !important;grid-column:2 !important;}.sc-root .sc-array-data,.sc-root .sc-array-in:checked ~ .sc-array-preview{display:none !important;}.sc-root .sc-array-in:checked ~ .sc-array-data,.sc-root .sc-array-preview{display:inline-block !important;}.sc-root ul.sc-dim-list{display:inline-block !important;list-style:none !important;padding:0 !important;margin:0 !important;}.sc-root ul.sc-dim-list > li{display:inline-block !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-dim-list:before{content:'(';}.sc-root .sc-dim-list:after{content:')';}.sc-root .sc-dim-list li:not(:last-child):after{content:',';padding-right:5px !important;}.sc-root .sc-dim-list li span,.sc-root .sc-standalone-var-name > span span,.sc-root .sc-var-name > span span{padding:0 !important;}.sc-root .sc-aligned{font-weight:bold;}.sc-root ul.sc-var-list,.sc-root li.sc-var-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-var-item > div,.sc-root .sc-var-item label,.sc-root .sc-var-item > .sc-var-name span{background-color:var(--sc-background-color1);margin-bottom:0 !important;}.sc-root .sc-var-item > .sc-var-name:hover span{padding-right:5px !important;}.sc-root .sc-var-list > li:nth-child(odd) > div,.sc-root .sc-var-list > li:nth-child(odd) > label,.sc-root .sc-var-list > li:nth-child(odd) > .sc-var-name span{background-color:var(--sc-background-color2);}.sc-root .sc-var-name{grid-column:1 !important;}.sc-root .sc-var-dims{grid-column:2 !important;}.sc-root .sc-var-dtype{grid-column:3 !important;text-align:right !important;color:var(--sc-font-color2);}.sc-root .sc-var-unit{grid-column:4 !important;text-align:left !important;color:var(--sc-font-color1);max-width:50pt !important;text-overflow:ellipsis;}.sc-root .sc-value-preview{grid-column:5 !important;}.sc-root .sc-var-preview-variances{text-align:right !important;}.sc-root .sc-sections .sc-section-item .sc-section-summary,.sc-root .sc-sections .sc-section-item .sc-section-inline-details,.sc-root .sc-section-item .sc-var-list .sc-var-item > div,.sc-root .sc-section-item .sc-var-list .sc-var-item > label,.sc-root .sc-section-details .sc-var-list .sc-var-item > div,.sc-root .sc-section-details .sc-var-list .sc-var-item > label{margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-var-name,.sc-root .sc-var-dims,.sc-root .sc-var-dtype,.sc-root .sc-var-unit,.sc-root .sc-preview,.sc-root .sc-attrs dt{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;padding-right:10px !important;}.sc-root .sc-var-name:hover,.sc-root .sc-var-dims:hover,.sc-root .sc-var-dtype:hover,.sc-root .sc-var-unit:hover,.sc-root .sc-attrs dt:hover{overflow:visible !important;width:auto !important;z-index:1 !important;}.sc-root .sc-var-attrs{display:block !important;}.sc-root pre.sc-var-data{display:none !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{background-color:var(--sc-background-color0) !important;padding-bottom:5px !important;}.sc-root .sc-var-attrs-in:checked ~ .sc-var-attrs{display:none !important;}.sc-root .sc-var-data-in:checked ~ pre.sc-var-data{display:block !important;}.sc-root .sc-var-data > table{float:right !important;}.sc-root .sc-var-name span,.sc-root pre.sc-var-data{padding-left:25px !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{grid-column:1 / -1 !important;}.sc-root dl.sc-attrs{padding:0 !important;margin:0 !important;display:grid !important;grid-template-columns:125px auto !important;}.sc-root .sc-attrs dt,.sc-root .sc-attrs dd{padding:0 10px 0 0 !important;margin:0 !important;float:left !important;width:auto !important;}.sc-root .sc-attrs dt{font-weight:normal;grid-column:1 !important;}.sc-root .sc-attrs dt:hover span{display:inline-block !important;padding-right:10px !important;}.sc-root .sc-attrs dd{grid-column:2 !important;white-space:pre-wrap !important;word-break:break-all !important;}.sc-root .sc-icon-database,.sc-root .sc-icon-file-text2{display:inline-block !important;vertical-align:middle !important;width:1em !important;height:1.5em !important;max-width:none !important;stroke-width:0;stroke:currentColor;fill:currentColor;}.sc-root label.sc-hide-icon svg{opacity:0 !important;}.sc-root .sc-standalone-var-name{grid-column:1 / 3 !important;}.sc-root .sc-standalone-var-name span{padding-left:25px !important;padding-right:10px !important;}.sc-root .sc-title{font-weight:bold;font-size:1.5em;}.sc-root .sc-subtitle{font-weight:normal;font-style:italic;text-align:left !important;font-size:1.2em;padding:1px !important;}.sc-root .sc-label{fill:var(--sc-font-color0,#444444);text-anchor:middle;}.sc-root .sc-name{fill:var(--sc-font-color0,#111111);}.sc-root .sc-inset-line{stroke:var(--sc-font-color1);stroke-width:0.05;stroke-dasharray:0.2,0.2;}.sc-log-wrap{height:25ex;resize:vertical;overflow-y:scroll;display:flex;flex-direction:column-reverse;border:1px solid;border-color:var(--jp-border-color2);background-color:var(--sc-background-color1);}div.sc-log{line-height:2.5ex;}table.sc-log{table-layout:auto;border-collapse:collapse;}tr.sc-log:nth-child(even){background-color:var(--sc-background-color0);}tr.sc-log > td{vertical-align:top;padding-bottom:0.5ex;}.sc-log-time-stamp{min-width:22ch;font-family:var(--jp-code-font-family);color:var(--sc-font-color2);}.sc-log-level{min-width:10ch;}tr.sc-log-debug td.sc-log-level{color:var(--jp-accent-color1);}tr.sc-log-info td.sc-log-level{color:var(--jp-info-color1);}tr.sc-log-warning td.sc-log-level{color:var(--jp-warn-color1);}tr.sc-log-error td.sc-log-level{font-weight:bold;color:var(--jp-error-color2);}tr.sc-log-critical td.sc-log-level{font-weight:bold;color:var(--sc-background-color0);background-color:var(--jp-error-color1);}.sc-log-message{white-space:pre-wrap;width:100%;}.sc-log-html-payload{white-space:normal;}.sc-log-name{padding-right:0.5em;text-align:right;white-space:pre-wrap;color:var(--sc-font-color3);}</style><div class='sc-wrap sc-root'><div class='sc-header'><div class='sc-obj-type'>scipp.DataArray (5.03 KB <span class='sc-underlying-size'>out of 157.37 KB</span>)</div></div><ul class='sc-sections'><li class='sc-section-item'><input id='section-8bf33a5b-8716-45a2-a6a1-370cf227437d' class='sc-section-summary-in' type='checkbox' disabled ><label for='section-8bf33a5b-8716-45a2-a6a1-370cf227437d' class='sc-section-summary' >Dimensions:</label><div class='sc-section-inline-details'><ul class='sc-dim-list'><li><span>position</span>: 125</li></ul></div><div class='sc-section-details'></div></li><li class='sc-section-item'><input id='section-92a616c8-4050-464a-9f80-e4ca4e9ba0e1' class='sc-section-summary-in' type='checkbox'  checked><label for='section-92a616c8-4050-464a-9f80-e4ca4e9ba0e1' class='sc-section-summary'  title='Expand/collapse section'>Coordinates: <span>(2)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>x</span></div><div class='sc-var-dims'>(position)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.004, 0.021, ..., 0.011, 0.010</div></span></div><input id='attrs-abea10e1-bedd-449b-b0a8-9c8d01a6c8bb' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-abea10e1-bedd-449b-b0a8-9c8d01a6c8bb' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c1be7425-1814-4376-badf-088d89fc05bd' class='sc-var-data-in' type='checkbox'><label for='data-c1be7425-1814-4376-badf-088d89fc05bd' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([4.48273589e-03, 2.13419599e-02, 2.04773601e-02, 2.07407591e-02,
+       1.43409331e-02, 1.79532205e-02, 2.91740830e-03, 1.25660531e-02,
+       2.08714736e-02, 1.38116720e-02, 3.25827749e-03, 4.63079560e-03,
+       1.60045048e-02, 3.92846606e-03, 1.01264108e-02, 8.73373710e-03,
+       1.51013248e-03, 4.65186595e-03, 1.50555801e-02, 7.80926175e-03,
+       1.03152398e-02, 2.90573604e-03, 1.83138493e-02, 1.09088511e-02,
+       3.65366451e-03, 8.47899582e-03, 2.32666251e-02, 7.57802906e-03,
+       2.21350485e-02, 4.31886755e-03, 2.06463571e-02, 1.29068204e-02,
+       1.18188891e-02, 2.55696975e-02, 2.27749992e-02, 2.47627298e-02,
+       2.13906022e-02, 2.06905410e-02, 6.85305681e-03, 1.43584649e-02,
+       2.40207982e-02, 2.01447876e-02, 8.70501569e-03, 1.33360507e-02,
+       9.87820293e-04, 6.86769363e-03, 8.41719810e-03, 1.54660919e-02,
+       9.87344656e-03, 8.14734968e-03, 1.44274689e-02, 2.51031421e-02,
+       2.26296298e-02, 5.04880764e-03, 8.10149443e-03, 1.62577324e-02,
+       1.29840304e-02, 8.05453836e-03, 2.32667686e-02, 1.65623840e-02,
+       2.16505598e-02, 2.31422923e-03, 1.39610122e-02, 2.38337314e-02,
+       1.45989351e-02, 1.05570255e-02, 9.51841280e-03, 1.77175782e-02,
+       2.32504212e-02, 2.03267842e-02, 1.08041062e-02, 1.97121214e-02,
+       2.36072527e-02, 1.31609994e-02, 5.41337523e-03, 3.50867728e-03,
+       7.99662317e-03, 5.19961881e-03, 1.68225765e-03, 2.36433745e-02,
+       3.10292462e-03, 1.23178803e-02, 6.92565518e-03, 2.37796815e-02,
+       9.70479110e-05, 1.28675086e-02, 1.16550705e-02, 2.05615995e-02,
+       1.86095004e-02, 3.82881078e-03, 1.32571971e-02, 1.00694077e-02,
+       1.75270706e-02, 9.73754025e-03, 4.23271613e-03, 2.07509769e-02,
+       2.41425949e-02, 1.18770656e-02, 9.20656628e-04, 5.64096360e-03,
+       5.19395726e-03, 1.04676647e-02, 2.11572646e-02, 1.45678243e-04,
+       9.34679526e-03, 1.00576818e-02, 1.64498752e-02, 3.50747692e-03,
+       1.83611029e-02, 2.04466025e-02, 2.04222308e-02, 1.07985496e-02,
+       2.09386437e-02, 4.90810555e-03, 5.36930957e-03, 1.19213438e-02,
+       1.16978895e-02, 1.05198326e-02, 8.83883321e-03, 1.24560501e-02,
+       2.34600148e-02, 1.48112378e-02, 7.19469783e-03, 1.05648919e-02,
+       9.92666630e-03])</pre></span></li><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>y</span></div><div class='sc-var-dims'>(position)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.849, 0.685, ..., 0.328, 0.997</div></span></div><input id='attrs-0de1194d-2cf2-4e0c-b4b2-c3acdbc06bf1' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-0de1194d-2cf2-4e0c-b4b2-c3acdbc06bf1' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-2df2cba6-8008-41eb-b874-a3a2644b96ab' class='sc-var-data-in' type='checkbox'><label for='data-2df2cba6-8008-41eb-b874-a3a2644b96ab' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([0.848967  , 0.68507645, 0.46499842, 0.0471345 , 0.05403387,
+       0.92916675, 0.25508618, 0.41605006, 0.48025916, 0.00279752,
+       0.55610684, 0.52935206, 0.62527873, 0.08742   , 0.94154627,
+       0.0536669 , 0.67472088, 0.66389088, 0.79382539, 0.48835081,
+       0.19919143, 0.37184334, 0.73866295, 0.16997559, 0.89157041,
+       0.61878452, 0.84777403, 0.32090206, 0.92763993, 0.40822508,
+       0.34715989, 0.39075497, 0.15127795, 0.31130813, 0.03619893,
+       0.49135865, 0.43208493, 0.79104777, 0.59091758, 0.66048507,
+       0.42291041, 0.36588297, 0.62436756, 0.30892438, 0.28507339,
+       0.03411835, 0.1671235 , 0.28087123, 0.86313099, 0.57191805,
+       0.2034253 , 0.16257595, 0.50950646, 0.93673605, 0.75561362,
+       0.60238148, 0.02206298, 0.00752482, 0.21061627, 0.9170027 ,
+       0.15386483, 0.35688276, 0.49036845, 0.88591288, 0.14240602,
+       0.11751276, 0.12373507, 0.2405989 , 0.63431606, 0.86244877,
+       0.18829657, 0.5789189 , 0.84732737, 0.74263803, 0.61115358,
+       0.91464309, 0.93155389, 0.68714181, 0.16531493, 0.372413  ,
+       0.48805166, 0.30679755, 0.9481636 , 0.21329867, 0.46483725,
+       0.00629255, 0.96009995, 0.16402756, 0.99030864, 0.64846299,
+       0.77139251, 0.83073617, 0.09128049, 0.60337501, 0.20029722,
+       0.87214433, 0.32278575, 0.67286982, 0.13780731, 0.64174743,
+       0.35514341, 0.48617503, 0.34547915, 0.70778799, 0.00684673,
+       0.39819158, 0.13972542, 0.82084912, 0.70723881, 0.18262683,
+       0.96748805, 0.30011   , 0.32414947, 0.65171089, 0.21147091,
+       0.18103546, 0.21429419, 0.66719941, 0.77573673, 0.92283971,
+       0.62038216, 0.27529683, 0.23354602, 0.32845466, 0.99736167])</pre></span></li></ul></div></li><li class='sc-section-item'><input id='section-b207a029-aef4-410c-ae04-a40e66ac931f' class='sc-section-summary-in' type='checkbox'  checked><label for='section-b207a029-aef4-410c-ae04-a40e66ac931f' class='sc-section-summary'  title='Expand/collapse section'>Data: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span></span></div><div class='sc-var-dims'>(position)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>counts</div><div class='sc-value-preview sc-preview'><span><div>2.669, 6.301, ..., 4.411, 9.285</div></span><span><div>σ = 1.652, 2.648, ..., 2.156, 3.124</div></span></div><input id='attrs-9d9ee434-2771-43bf-83e3-849436fe063f' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-9d9ee434-2771-43bf-83e3-849436fe063f' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3ff9e1c7-26e4-4b63-a448-3eb010730b1c' class='sc-var-data-in' type='checkbox'><label for='data-3ff9e1c7-26e4-4b63-a448-3eb010730b1c' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([2.66912137, 6.30129927, 6.090129  , 3.0860372 , 3.03977021,
+       5.1510594 , 2.04829119, 1.32888294, 1.32646469, 5.88325244,
+       5.39421572, 0.55656367, 1.50960068, 3.58149117, 3.88916421,
+       2.67525485, 8.95225324, 1.52605993, 7.53694765, 8.22882005,
+       1.13775638, 9.60866664, 5.04480099, 5.83227995, 9.03591562,
+       1.80733404, 1.8883412 , 5.16447587, 1.58587835, 1.62071374,
+       4.90366505, 3.95330571, 0.41675765, 8.49480356, 6.37375156,
+       1.51043715, 8.734781  , 0.0294915 , 6.3062488 , 4.7752426 ,
+       0.44873775, 8.59470331, 6.5947441 , 5.10277075, 8.02577513,
+       7.42365556, 4.71111384, 1.31224201, 1.40294692, 7.70231538,
+       6.44904513, 1.30578859, 0.94788446, 5.26075957, 7.65995877,
+       0.76449324, 8.64487057, 0.26056685, 5.14398392, 1.7660522 ,
+       5.93892217, 5.15349799, 6.24232442, 7.92983865, 3.47774   ,
+       0.89394412, 8.27169908, 4.13027201, 5.41525604, 2.34395153,
+       7.64817532, 7.95085962, 7.59868285, 8.50515472, 8.8565373 ,
+       5.92608814, 9.02431092, 2.96118419, 1.60616866, 3.14649231,
+       9.07920104, 1.78200135, 5.04499222, 0.52013305, 3.04847437,
+       8.2155537 , 5.27688864, 7.48724913, 0.12259332, 4.04031904,
+       3.61388401, 6.57972688, 1.38807934, 7.82306139, 6.01294318,
+       3.13919935, 0.89495663, 3.62230081, 6.60572822, 7.9271936 ,
+       6.86558082, 2.44842595, 7.74680458, 0.3473013 , 3.97592378,
+       4.99587902, 5.56306645, 8.6751558 , 1.48568402, 0.515266  ,
+       8.24665961, 4.32592077, 5.09454469, 0.53478196, 9.0088356 ,
+       7.52401565, 1.92884565, 3.40781675, 4.74750525, 5.72333077,
+       7.30042622, 5.99534228, 7.83079597, 4.41061775, 9.28468561])<br><br>Variances (σ²):<br>array([2.72962168, 7.01089695, 6.74671733, 3.42325415, 3.26574067,
+       5.6348386 , 2.07838869, 1.4150558 , 1.47237191, 6.30389758,
+       5.48281472, 0.56960068, 1.63536773, 3.65253546, 4.09115093,
+       2.79466805, 9.02010452, 1.56197108, 8.12621438, 8.55648043,
+       1.19797716, 9.74928693, 5.52856038, 6.15923296, 9.20250365,
+       1.88560332, 2.12130592, 5.3639131 , 1.771477  , 1.6560926 ,
+       5.43693064, 4.21684079, 0.44212796, 9.65333179, 7.1425027 ,
+       1.70952023, 9.7207802 , 0.03270588, 6.52607897, 5.13067435,
+       0.50600302, 9.50549505, 6.88811913, 5.45462531, 8.06551331,
+       7.68299978, 4.91361711, 1.41774502, 1.47394458, 8.02256126,
+       6.93145275, 1.48041559, 1.06143895, 5.39525282, 7.9766145 ,
+       0.82923356, 9.22471504, 0.27127475, 5.77860153, 1.91852868,
+       6.61791565, 5.21347621, 6.69363903, 8.93343827, 3.74109119,
+       0.94239867, 8.67488442, 4.51286027, 6.08284351, 2.59470315,
+       8.07269702, 8.77441989, 8.55068321, 9.08366199, 9.09952978,
+       6.03096909, 9.39244145, 3.0391788 , 1.61973559, 3.54133988,
+       9.2211598 , 1.89520401, 5.22275159, 0.5858027 , 3.04995397,
+       8.76149624, 5.593538  , 8.29795796, 0.13454787, 4.11841225,
+       3.86155164, 6.9194776 , 1.51521354, 8.21337285, 6.14155473,
+       3.48240333, 1.00978047, 3.8439279 , 6.63620636, 8.1539616 ,
+       7.04621384, 2.57998523, 8.61122659, 0.34755437, 4.16614478,
+       5.25353816, 6.03996884, 8.82863724, 1.62853494, 0.57073002,
+       9.13322969, 4.56590965, 5.65682916, 0.54806815, 9.25396748,
+       7.98613338, 2.04502735, 3.59186297, 4.96202258, 6.09111523,
+       8.2090139 , 6.45618812, 8.11762522, 4.6498698 , 9.75714333])</pre></li></ul></div></li></ul></div></div></div>
+</div>
+<p>If we omit the call to <code class="docutils literal notranslate"><span class="pre">bins.sum</span></code> in the original example, we can subsequently apply another <a class="reference internal" href="#Histogramming"><span class="std std-ref">histogramming</span></a> or binning operation to the data:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binned</span> <span class="o">=</span> <span class="n">binned</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">binned</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div><!-- Original source from -->
+<!-- https://github.com/jsignell/xarray/blob/1d960933ab252e0f79f7e050e6c9261d55568057/xarray/static/html/icons-svg-inline.html -->
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<title>Show/Hide data repr</title>
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<title>Show/Hide attributes</title>
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg><style id="scipp-style-sheet">.sc-root{--sc-background-color0:var(--jp-layout-color0,#fff);--sc-background-color1:var(--jp-layout-color1,#fcfcfc);--sc-background-color2:var(--jp-layout-color2,#efefef);--sc-inverse-background-color0:var(--jp-inverse-layout-color4,#111);--sc-font-color0:var(--jp-content-font-color0,#000);--sc-font-color1:var(--jp-content-font-color1,#555);--sc-font-color2:var(--jp-content-font-color2,#888);--sc-font-color3:var(--jp-content-font-color3,#ccc);}body.vscode-dark .sc-root{--sc-font-color0:rgba(255,255,255,1);--sc-font-color1:rgba(255,255,255,0.70);--sc-font-color2:rgba(255,255,255,0.54);--sc-font-color3:rgba(255,255,255,0.38);--sc-border-color:#1F1F1F;--sc-disabled-color:#515151;--sc-background-color0:#111111;--sc-background-color1:#111111;--sc-background-color2:#313131;}.sc-root.sc-wrap,.sc-root .sc-wrap{font-size:14px;min-width:300px;max-width:800px;}.sc-root .sc-var-attrs .sc-wrap{padding-left:3em !important;}.sc-root .sc-header{padding-top:6px !important;padding-bottom:6px !important;margin-bottom:4px !important;border-bottom:solid 1px #ddd;}.sc-root .sc-header > div,.sc-root .sc-header > ul{display:inline !important;margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-obj-type,.sc-root .sc-array-name{margin-left:2px !important;margin-right:10px !important;}.sc-root .sc-obj-type{color:var(--sc-font-color1);}.sc-root .sc-underlying-size{color:var(--sc-font-color2);}.sc-root ul.sc-sections{padding-left:0 !important;list-style:none !important;display:grid !important;grid-template-columns:150px auto auto auto 1fr 20px 20px !important;}.sc-root li.sc-section-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-section-item input{display:none !important;}.sc-root .sc-section-item input:enabled + label{cursor:pointer;color:var(--sc-font-color1);}.sc-root .sc-section-item input:enabled + label:hover{color:var(--sc-font-color0);}.sc-root label.sc-section-summary{grid-column:1 !important;font-weight:500;margin:0 !important;}.sc-root .sc-section-summary > span{display:inline-block !important;padding-left:0.5em !important;}.sc-root .sc-section-summary-in:disabled + label{color:var(--sc-font-color1);}.sc-root .sc-section-summary-in + label:before{display:inline-block !important;content:'►';font-size:11px;width:15px !important;text-align:center !important;}.sc-root .sc-section-summary-in:disabled + label:before{display:none !important;}.sc-root .sc-section-summary-in:checked + label:before{content:'▼';}.sc-root .sc-section-summary-in:checked + label > span{display:none !important;}.sc-root .sc-section-summary,.sc-root .sc-section-inline-details{padding-top:4px !important;padding-bottom:4px !important;}.sc-root .sc-section-inline-details{grid-column:2 / 6 !important;margin:0 !important;}.sc-root .sc-section-details{display:none !important;grid-column:1 / -1 !important;margin:0 0 5px 0 !important;}.sc-root .sc-section-summary-in:checked ~ .sc-section-details{display:contents !important;}.sc-root .sc-array-wrap{grid-column:1 / -1 !important;display:grid !important;grid-template-columns:20px auto !important;}.sc-root .sc-array-wrap > label{grid-column:1 !important;vertical-align:top !important;}.sc-root .sc-preview{color:var(--sc-font-color2);}.sc-root .sc-array-preview,.sc-root .sc-array-data{padding:0 5px !important;grid-column:2 !important;}.sc-root .sc-array-data,.sc-root .sc-array-in:checked ~ .sc-array-preview{display:none !important;}.sc-root .sc-array-in:checked ~ .sc-array-data,.sc-root .sc-array-preview{display:inline-block !important;}.sc-root ul.sc-dim-list{display:inline-block !important;list-style:none !important;padding:0 !important;margin:0 !important;}.sc-root ul.sc-dim-list > li{display:inline-block !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-dim-list:before{content:'(';}.sc-root .sc-dim-list:after{content:')';}.sc-root .sc-dim-list li:not(:last-child):after{content:',';padding-right:5px !important;}.sc-root .sc-dim-list li span,.sc-root .sc-standalone-var-name > span span,.sc-root .sc-var-name > span span{padding:0 !important;}.sc-root .sc-aligned{font-weight:bold;}.sc-root ul.sc-var-list,.sc-root li.sc-var-item{display:contents !important;padding:0 !important;margin:0 !important;list-style:none !important;}.sc-root .sc-var-item > div,.sc-root .sc-var-item label,.sc-root .sc-var-item > .sc-var-name span{background-color:var(--sc-background-color1);margin-bottom:0 !important;}.sc-root .sc-var-item > .sc-var-name:hover span{padding-right:5px !important;}.sc-root .sc-var-list > li:nth-child(odd) > div,.sc-root .sc-var-list > li:nth-child(odd) > label,.sc-root .sc-var-list > li:nth-child(odd) > .sc-var-name span{background-color:var(--sc-background-color2);}.sc-root .sc-var-name{grid-column:1 !important;}.sc-root .sc-var-dims{grid-column:2 !important;}.sc-root .sc-var-dtype{grid-column:3 !important;text-align:right !important;color:var(--sc-font-color2);}.sc-root .sc-var-unit{grid-column:4 !important;text-align:left !important;color:var(--sc-font-color1);max-width:50pt !important;text-overflow:ellipsis;}.sc-root .sc-value-preview{grid-column:5 !important;}.sc-root .sc-var-preview-variances{text-align:right !important;}.sc-root .sc-sections .sc-section-item .sc-section-summary,.sc-root .sc-sections .sc-section-item .sc-section-inline-details,.sc-root .sc-section-item .sc-var-list .sc-var-item > div,.sc-root .sc-section-item .sc-var-list .sc-var-item > label,.sc-root .sc-section-details .sc-var-list .sc-var-item > div,.sc-root .sc-section-details .sc-var-list .sc-var-item > label{margin-top:0 !important;margin-bottom:0 !important;}.sc-root .sc-var-name,.sc-root .sc-var-dims,.sc-root .sc-var-dtype,.sc-root .sc-var-unit,.sc-root .sc-preview,.sc-root .sc-attrs dt{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;padding-right:10px !important;}.sc-root .sc-var-name:hover,.sc-root .sc-var-dims:hover,.sc-root .sc-var-dtype:hover,.sc-root .sc-var-unit:hover,.sc-root .sc-attrs dt:hover{overflow:visible !important;width:auto !important;z-index:1 !important;}.sc-root .sc-var-attrs{display:block !important;}.sc-root pre.sc-var-data{display:none !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{background-color:var(--sc-background-color0) !important;padding-bottom:5px !important;}.sc-root .sc-var-attrs-in:checked ~ .sc-var-attrs{display:none !important;}.sc-root .sc-var-data-in:checked ~ pre.sc-var-data{display:block !important;}.sc-root .sc-var-data > table{float:right !important;}.sc-root .sc-var-name span,.sc-root pre.sc-var-data{padding-left:25px !important;}.sc-root .sc-var-attrs,.sc-root pre.sc-var-data{grid-column:1 / -1 !important;}.sc-root dl.sc-attrs{padding:0 !important;margin:0 !important;display:grid !important;grid-template-columns:125px auto !important;}.sc-root .sc-attrs dt,.sc-root .sc-attrs dd{padding:0 10px 0 0 !important;margin:0 !important;float:left !important;width:auto !important;}.sc-root .sc-attrs dt{font-weight:normal;grid-column:1 !important;}.sc-root .sc-attrs dt:hover span{display:inline-block !important;padding-right:10px !important;}.sc-root .sc-attrs dd{grid-column:2 !important;white-space:pre-wrap !important;word-break:break-all !important;}.sc-root .sc-icon-database,.sc-root .sc-icon-file-text2{display:inline-block !important;vertical-align:middle !important;width:1em !important;height:1.5em !important;max-width:none !important;stroke-width:0;stroke:currentColor;fill:currentColor;}.sc-root label.sc-hide-icon svg{opacity:0 !important;}.sc-root .sc-standalone-var-name{grid-column:1 / 3 !important;}.sc-root .sc-standalone-var-name span{padding-left:25px !important;padding-right:10px !important;}.sc-root .sc-title{font-weight:bold;font-size:1.5em;}.sc-root .sc-subtitle{font-weight:normal;font-style:italic;text-align:left !important;font-size:1.2em;padding:1px !important;}.sc-root .sc-label{fill:var(--sc-font-color0,#444444);text-anchor:middle;}.sc-root .sc-name{fill:var(--sc-font-color0,#111111);}.sc-root .sc-inset-line{stroke:var(--sc-font-color1);stroke-width:0.05;stroke-dasharray:0.2,0.2;}.sc-log-wrap{height:25ex;resize:vertical;overflow-y:scroll;display:flex;flex-direction:column-reverse;border:1px solid;border-color:var(--jp-border-color2);background-color:var(--sc-background-color1);}div.sc-log{line-height:2.5ex;}table.sc-log{table-layout:auto;border-collapse:collapse;}tr.sc-log:nth-child(even){background-color:var(--sc-background-color0);}tr.sc-log > td{vertical-align:top;padding-bottom:0.5ex;}.sc-log-time-stamp{min-width:22ch;font-family:var(--jp-code-font-family);color:var(--sc-font-color2);}.sc-log-level{min-width:10ch;}tr.sc-log-debug td.sc-log-level{color:var(--jp-accent-color1);}tr.sc-log-info td.sc-log-level{color:var(--jp-info-color1);}tr.sc-log-warning td.sc-log-level{color:var(--jp-warn-color1);}tr.sc-log-error td.sc-log-level{font-weight:bold;color:var(--jp-error-color2);}tr.sc-log-critical td.sc-log-level{font-weight:bold;color:var(--sc-background-color0);background-color:var(--jp-error-color1);}.sc-log-message{white-space:pre-wrap;width:100%;}.sc-log-html-payload{white-space:normal;}.sc-log-name{padding-right:0.5em;text-align:right;white-space:pre-wrap;color:var(--sc-font-color3);}</style><div class='sc-wrap sc-root'><div class='sc-header'><div class='sc-obj-type'>scipp.DataArray (220.65 KB)</div></div><ul class='sc-sections'><li class='sc-section-item'><input id='section-f5be8bf5-8212-4a4e-b7f7-0c67178f8cc1' class='sc-section-summary-in' type='checkbox' disabled ><label for='section-f5be8bf5-8212-4a4e-b7f7-0c67178f8cc1' class='sc-section-summary' >Dimensions:</label><div class='sc-section-inline-details'><ul class='sc-dim-list'><li><span class='sc-has-index'>x</span>: 39</li><li><span class='sc-has-index'>y</span>: 100</li></ul></div><div class='sc-section-details'></div></li><li class='sc-section-item'><input id='section-ffbae36f-ad6f-40a4-b0af-8a79de4ef7e6' class='sc-section-summary-in' type='checkbox'  checked><label for='section-ffbae36f-ad6f-40a4-b0af-8a79de4ef7e6' class='sc-section-summary'  title='Expand/collapse section'>Coordinates: <span>(2)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>x</span></div><div class='sc-var-dims'>(x [bin-edge])</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.0, 0.026, ..., 0.974, 1.0</div></span></div><input id='attrs-587a378d-5921-4fce-8b35-3980e164b77e' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-587a378d-5921-4fce-8b35-3980e164b77e' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b73c2701-6dfa-4264-851c-4fb4d7b317b4' class='sc-var-data-in' type='checkbox'><label for='data-b73c2701-6dfa-4264-851c-4fb4d7b317b4' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([0.        , 0.02564103, 0.05128205, 0.07692308, 0.1025641 ,
+       0.12820513, 0.15384615, 0.17948718, 0.20512821, 0.23076923,
+       0.25641026, 0.28205128, 0.30769231, 0.33333333, 0.35897436,
+       0.38461538, 0.41025641, 0.43589744, 0.46153846, 0.48717949,
+       0.51282051, 0.53846154, 0.56410256, 0.58974359, 0.61538462,
+       0.64102564, 0.66666667, 0.69230769, 0.71794872, 0.74358974,
+       0.76923077, 0.79487179, 0.82051282, 0.84615385, 0.87179487,
+       0.8974359 , 0.92307692, 0.94871795, 0.97435897, 1.        ])</pre></span></li><li class='sc-var-item'><div class='sc-var-name'><span class='sc-aligned'>y</span></div><div class='sc-var-dims'>(y [bin-edge])</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>m</div><div class='sc-value-preview sc-preview'><span><div>0.000, 0.010, ..., 0.990, 1.000</div></span></div><input id='attrs-cd761785-45a6-4bff-ae32-d5306960e873' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-cd761785-45a6-4bff-ae32-d5306960e873' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-fcf712ba-95a2-4a74-ac7e-3c2b14143719' class='sc-var-data-in' type='checkbox'><label for='data-fcf712ba-95a2-4a74-ac7e-3c2b14143719' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>Values:<br>array([1.15814814e-04, 1.01145963e-02, 2.01133778e-02, 3.01121593e-02,
+       4.01109408e-02, 5.01097223e-02, 6.01085038e-02, 7.01072853e-02,
+       8.01060668e-02, 9.01048483e-02, 1.00103630e-01, 1.10102411e-01,
+       1.20101193e-01, 1.30099974e-01, 1.40098756e-01, 1.50097537e-01,
+       1.60096319e-01, 1.70095100e-01, 1.80093882e-01, 1.90092663e-01,
+       2.00091445e-01, 2.10090226e-01, 2.20089008e-01, 2.30087789e-01,
+       2.40086571e-01, 2.50085352e-01, 2.60084134e-01, 2.70082915e-01,
+       2.80081697e-01, 2.90080478e-01, 3.00079260e-01, 3.10078041e-01,
+       3.20076823e-01, 3.30075604e-01, 3.40074386e-01, 3.50073167e-01,
+       3.60071949e-01, 3.70070730e-01, 3.80069512e-01, 3.90068293e-01,
+       4.00067075e-01, 4.10065856e-01, 4.20064638e-01, 4.30063419e-01,
+       4.40062201e-01, 4.50060982e-01, 4.60059764e-01, 4.70058545e-01,
+       4.80057327e-01, 4.90056108e-01, 5.00054890e-01, 5.10053671e-01,
+       5.20052453e-01, 5.30051234e-01, 5.40050016e-01, 5.50048797e-01,
+       5.60047579e-01, 5.70046360e-01, 5.80045142e-01, 5.90043923e-01,
+       6.00042705e-01, 6.10041486e-01, 6.20040268e-01, 6.30039049e-01,
+       6.40037831e-01, 6.50036612e-01, 6.60035394e-01, 6.70034175e-01,
+       6.80032957e-01, 6.90031738e-01, 7.00030520e-01, 7.10029301e-01,
+       7.20028083e-01, 7.30026864e-01, 7.40025646e-01, 7.50024428e-01,
+       7.60023209e-01, 7.70021991e-01, 7.80020772e-01, 7.90019554e-01,
+       8.00018335e-01, 8.10017117e-01, 8.20015898e-01, 8.30014680e-01,
+       8.40013461e-01, 8.50012243e-01, 8.60011024e-01, 8.70009806e-01,
+       8.80008587e-01, 8.90007369e-01, 9.00006150e-01, 9.10004932e-01,
+       9.20003713e-01, 9.30002495e-01, 9.40001276e-01, 9.50000058e-01,
+       9.59998839e-01, 9.69997621e-01, 9.79996402e-01, 9.89995184e-01,
+       9.99993965e-01])</pre></span></li></ul></div></li><li class='sc-section-item'><input id='section-ebbe72ac-0e7e-4de8-930d-837f237a381b' class='sc-section-summary-in' type='checkbox'  checked><label for='section-ebbe72ac-0e7e-4de8-930d-837f237a381b' class='sc-section-summary'  title='Expand/collapse section'>Data: <span>(1)</span></label><div class='sc-section-inline-details'></div><div class='sc-section-details'><ul class='sc-var-list'><li class='sc-var-item'><div class='sc-var-name'><span></span></div><div class='sc-var-dims'>(x, y)</div><div class='sc-var-dtype'>float64</div><div class='sc-var-unit'>counts</div><div class='sc-value-preview sc-preview'><span><div>binned data [len=4, len=0, ..., len=3, len=1]</div></span></div><input id='attrs-025aa5e2-8cfd-45ca-8865-8e537bc38fc5' class='sc-var-attrs-in' type='checkbox' disabled><label for='attrs-025aa5e2-8cfd-45ca-8865-8e537bc38fc5' class='sc-hide-icon' title='Show/Hide attributes'><svg class='icon sc-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-51de0c0c-91f5-4889-bf6a-bddb97a3470f' class='sc-var-data-in' type='checkbox'><label for='data-51de0c0c-91f5-4889-bf6a-bddb97a3470f' title='Show/Hide data repr'><svg class='icon sc-icon-database'><use xlink:href='#icon-database'></use></svg></label><pre class='sc-var-data'>dim=&#x27;position&#x27;,
+content=DataArray(
+          dims=(position: 5000),
+          data=float64[counts],
+          coords={&#x27;x&#x27;:float64[m], &#x27;y&#x27;:float64[m]})</pre></li></ul></div></li></ul></div></div></div>
+</div>
+<p>As in the 1-D example above, summing the bins is equivalent to histogramming binned data:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binned</span><span class="o">.</span><span class="n">bins</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_18_0.svg" src="../../_images/user-guide_binned-data_histogramming-grouping-and-binning_18_0.svg" />
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="filtering.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Rearranging and Filtering Binned Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../groupby.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">GroupBy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 Scipp contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><!-- This will display the version of the docs -->
+Current Scipp version: 26.8.0 (<a href="https://github.com/scipp/Scipp/releases">older versions</a>).</div>
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
